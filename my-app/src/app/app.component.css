@@ -1,0 +1,22 @@
+a {
+    color: black;
+    margin-right: 5px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+button {
+    margin-left: 10px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+nav {
+    text-align: right;
+}
+
+.head {
+    background-color:aquamarine;
+    margin: 5px;
+    padding: 10px;
+}
