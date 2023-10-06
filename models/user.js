@@ -13,14 +13,7 @@ var UserModel = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
-  User.associate = (models) => {
-    User.hasOne(models.UsualUser, {
-      foreignkey: "userId"
-    });
-    User.hasOne(models.EnterpriseUser, {
-      foreignkey: "userId"
-    });
-  }
+
   return User;
 }
 

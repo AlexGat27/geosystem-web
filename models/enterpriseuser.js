@@ -1,28 +1,39 @@
+const User = require("./user")
 
-module.exports = (sequelize, DataTypes) => {
-  const EnterpriseUserModel = sequelize.define("enterpriseuser",{
+var EnterpriseUserModel = (sequelize, Sequelize) => {
+  const EnterpriseUser = sequelize.define("enterpriseuser",{
     userId: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       references: {
         model: User,
         key: 'id'
       }
     },
-    company_name: DataTypes.STRING,
-    sector: DataTypes.STRING,
-    is_subscribed: DataTypes.BOOLEAN,
-    start_subscribe_time: DataTypes.DATE,
-    final_subscribe_time: DataTypes.DATE,
-    count_orders: DataTypes.INTEGER,
+    company_name: Sequelize.STRING,
+    sector: Sequelize.STRING,
+    is_subscribed: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false      
+    },
+    start_subscribe_time: {
+      type: Sequelize.DATE,
+      defaultValue: false
+    },
+    final_subscribe_time: {
+      type: Sequelize.Date,
+      defaultValue: false
+    },
+    count_orders: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+    }
   }, {
     sequelize,
     timestamps: false,
-    modelName: 'EnterpriseUserModel',
+    modelName: 'EnterpriseUser',
   })
 
-  EnterpriseUserModel.associate = (models) => {
-    EnterpriseUserModel.belongsTo(models.User);
-  }
-
-  return EnterpriseUserModel;
+  return EnterpriseUser;
 };
+
+module.exports = EnterpriseUserModel;

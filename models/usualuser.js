@@ -1,26 +1,29 @@
+const User = require("./user")
 
-module.exports = (sequelize, DataTypes) => {
-  const UsualUserModel = sequelize.define("usualuser",{
+const UsualUserModel = (sequelize, Sequelize) => {
+  const UsualUser = sequelize.define("usualuser",{
     userId: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       references: {
         model: User,
         key: 'id'
       }
     },
-    start_subscribe_time: DataTypes.DATE,
-    final_subscribe_time: DataTypes.DATE,
-    count_photos: DataTypes.INTEGER,
-    bonus_balance: DataTypes.INTEGER
+    start_subscribe_time: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+    final_subscribe_time: Sequelize.DATE,
+    count_photos: Sequelize.INTEGER,
+    bonus_balance: Sequelize.INTEGER
   },
   {
     sequelize,
     timestamps: false,
     modelName: 'UsualUser',
   });  
-  UsualUserModel.associate = (models) => {
-    UsualUserModel.belongsTo(models.User);
-  }
 
-  return UsualUserModel;
+  return UsualUser;
 };
+
+module.exports = UsualUserModel
