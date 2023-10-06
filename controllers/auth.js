@@ -1,16 +1,38 @@
-const db = require('../db')
+const db = require("../models/index")
 
-class UserController{
+class AuthController{
 
-    getUsers(req, res){
-        const results = db.query(`SELECT * FROM client`);
-        return res.json(results.rows);
+    async getUsualUsers(req, res){
+        const result = await db.UsualUser.findAll();
+        res.json(result);
     }
 
-    register(req, res){
-        const data = req.body
+    async registerUsualUser(req, res){
+        let d = req.body;
+        const result = await db.UsualUser.create({
+            email: d.email,
+            password: d.password,
+            isfiz: true
+        })
+        res.json({"message": "Succesfuly"});
+    }
 
+    async getEnterpriseUsers(req, res){
+        const result = await db.EnterpriseUser.findAll({
+            where: {isfiz: false}
+        })
+        res.json(result);
+    }
+
+    async registerEnterpriseUser(req, res){
+        let d = req.body;
+        const result = await db.EnterpriseUser.create({
+            email: d.email,
+            password: d.password,
+            isfiz: false
+        })
+        res.json({"message": "Succesfuly"});
     }
 }
 
-module.exports = new UserController()
+module.exports = new AuthController()
