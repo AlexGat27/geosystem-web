@@ -1,48 +1,65 @@
-const db = require("../models/index")
+const {UserModel, UsualUserModel, EnterpriseUserModel} = require("../models/user")
+const bcrypt = require("bcryptjs");
 
 class AuthController{
 
     async getUsers(req, res){
-        const result = await db.User.findAll();
-        res.json(result);
-    }
-    async getUsualUsers(req, res){
-        const result = await db.UsualUser.findAll();
-        res.json(result);
-    }
-    async getEnterpriseUsers(req, res){
-        const result = await db.EnterpriseUser.findAll({
-            where: {isfiz: false}
-        })
-        res.json(result);
+        try {
+            const data = UserModel.find();
+            res.status(200).json(data);
+        } catch (er) {
+            console.log(er);
+            res.status(400).json({message: "getUsers error"});
+        }
     }
 
-    async registerUser(req, res){
-        let d = req.body;
-        const result = await db.User.create({
-            login: d.login,
-            password: d.password,
-            phone_number: d.phone_number,
-            email: d.email,
-            isfiz: d.isfiz
-        })
-        if (result.isfiz){addUsualUser();}
-        else {addEnterpriseUser(d.EnterpriseProperties)}
+    async registration(req, res){
+        try {
+            const d = req.body;
+
+            const email_candidate = await UserModel.findOne({ where: { email: d.email } });
+            if (email_candidate){return res.status(400).json({message: "Пользователь с такой почтой уже есть"})};
+            const login_candidate = await UserModel.findOne({ where: { email: d.email } });
+            if (login_candidate){return res.status(400).json({message: "Пользователь с таким логином уже есть"})};
+
+            // const hashPassword = bcrypt.hashSync(d.passWord, 7);
+
+            let new_user = await UserModel.create({
+                login: d.login,
+                password: d.password,
+                email: d.email,
+                phone_number: d.phone_number,
+                isfiz: d.isfiz
+            })
+
+            if (d.isfiz){
+                await UsualUserModel.create({userId: new_user.id});
+            }
+            else{
+                await EnterpriseUserModel.create({userId: new_user.id});
+            }
+
+            res.status(200).json({message: "Пользователь успешно зарегистрирован"});
+
+        } catch (er) {
+            console.log(er);
+            res.status(400).json("Registartion error");
+        }
     }
 
-    async addUsualUser(){
-        await db.UsualUser.create({
-            count_photos: 0,
-            bonus_balance: 0
-        })
-    }
+    async login(req, res){
+        try {
+            const {login, passWord} = req.body;
+            const candidate = UserModel.findOne({login});
+            if (candidate){ return res.status(400).json({message: "Пользователь с таким логином не найден"})};
+            const validPassword = bcrypt.compareSync(passWord, user.passWord);
+            if (!validPassword) {return res.status(400).json({message: "Неверный пароль"})};
 
-    async addEnterpriseUser(d){
-        await db.EnterpriseUser.create({
-            company: d.company,
-            sector: d.sector,
-        })
-        res.json({"message": "Succesfuly"});
+            res.status(200).json({login: login, passWord: passWord});
+        } catch (er) {
+            console.log(er);
+            res.status(400).json("Login error");
+        }
     }
 }
 

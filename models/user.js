@@ -1,20 +1,72 @@
-const UsualUser = require("./usualuser")
-const EnterpriseUser = require("./enterpriseuser")
+const sequelize = require("./index")
+const {DataTypes} = require("sequelize")
 
-var UserModel = (sequelize, DataTypes) => {
-  const User = sequelize.define("user",{
-    login: DataTypes.STRING,
-    password: DataTypes.STRING,
-    phone_number: DataTypes.STRING,
-    email: DataTypes.STRING,
-    isfiz: DataTypes.BOOLEAN
+const UserModel = sequelize.define("user",{
+  login: DataTypes.STRING,
+  password: DataTypes.STRING,
+  phone_number: DataTypes.STRING,
+  email: DataTypes.STRING,
+  isfiz: DataTypes.BOOLEAN
+},
+{
+  sequelize,
+  freezeTableName: true,
+  modelName: 'User',
+});
+  
+const UsualUserModel = sequelize.define("usualuser",{
+  start_subscribe_time: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   },
-  {
-    sequelize,
-    modelName: 'User',
-  });
+  final_subscribe_time: DataTypes.DATE,
+  count_photos: DataTypes.INTEGER,
+  bonus_balance: DataTypes.INTEGER
+},
+{
+  sequelize,
+  timestamps: false,
+  freezeTableName: true,
+  modelName: 'UsualUser',
+});  
 
-  return User;
-}
+const EnterpriseUserModel = sequelize.define("enterpriseuser",{
+  company_name: DataTypes.STRING,
+  sector: DataTypes.STRING,
+  is_subscribed: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false      
+  },
+  start_subscribe_time: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  final_subscribe_time: {
+    type: DataTypes.DATE,
+  },
+  count_orders: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  }
+}, {
+  sequelize,
+  freezeTableName: true,
+  timestamps: false,
+  modelName: 'EnterpriseUser',
+})
 
-module.exports = UserModel;
+UserModel.hasOne(UsualUserModel);
+UsualUserModel.belongsTo(UserModel, {
+  foreignKey: "userId"
+});
+
+UserModel.hasOne(EnterpriseUserModel);
+EnterpriseUserModel.belongsTo(UserModel, {
+  foreignKey: "userId"
+});
+
+UserModel.sync();
+UsualUserModel.sync({alter: true});
+EnterpriseUserModel.sync({alter: true});
+
+module.exports = {UserModel, UsualUserModel, EnterpriseUserModel};

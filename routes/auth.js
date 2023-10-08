@@ -3,15 +3,12 @@ const controller = require('../controllers/auth')
 const router = express.Router()
 
 //http://localhost:5000/api/auth/getUsualUsers
-router.get('/getUsualUsers', controller.getUsualUsers)
+router.get('/getUsers', controller.getUsers)
 
-//http://localhost:5000/api/auth/getEnterpriseUsers
-router.get('/getEnterpriseUsers', controller.getEnterpriseUsers)
+// //http://localhost:5000/api/auth/register
+router.post('/register', controller.registration)
 
-//http://localhost:5000/api/auth/registerEnterpriseUser
-router.post('/registerEnterpriseUser', controller.registerEnterpriseUser)
-
-//http://localhost:5000/api/auth/registerUsualUser
-router.post('/registerUsualUser', controller.registerUsualUser)
+// //http://localhost:5000/api/auth/login
+router.post('/login', controller.login)
 
 module.exports = router
