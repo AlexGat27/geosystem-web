@@ -1,0 +1,1 @@
+exports.jwt = "geosystem-jwt";

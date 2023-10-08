@@ -1,10 +1,14 @@
-const {UserModel, UsualUserModel, EnterpriseUserModel} = require("../models/user")
+const {UserModel, UsualUserModel, EnterpriseUserModel} = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("../config/keys");
 
 class AuthController{
 
     async getUsers(req, res){
         try {
+            // const token = req.headers.authorization;
+
             const data = UserModel.find();
             res.status(200).json(data);
         } catch (er) {
@@ -22,11 +26,11 @@ class AuthController{
             const login_candidate = await UserModel.findOne({ where: { email: d.email } });
             if (login_candidate){return res.status(400).json({message: "Пользователь с таким логином уже есть"})};
 
-            // const hashPassword = bcrypt.hashSync(d.passWord, 7);
+            const hashPassword = bcrypt.hashSync(d.password, 10);
 
             let new_user = await UserModel.create({
                 login: d.login,
-                password: d.password,
+                password: hashPassword,
                 email: d.email,
                 phone_number: d.phone_number,
                 isfiz: d.isfiz
@@ -49,13 +53,17 @@ class AuthController{
 
     async login(req, res){
         try {
-            const {login, passWord} = req.body;
-            const candidate = UserModel.findOne({login});
-            if (candidate){ return res.status(400).json({message: "Пользователь с таким логином не найден"})};
-            const validPassword = bcrypt.compareSync(passWord, user.passWord);
-            if (!validPassword) {return res.status(400).json({message: "Неверный пароль"})};
+            const d = req.body;
+            const candidate = await UserModel.findOne({where: {login: d.login}});
+            if (!candidate){ return res.status(400).json({message: "Пользователь с таким логином не найден"})};
+            const validPassword = bcrypt.compareSync(d.password, candidate.password);
+            if (!validPassword) {return res.status(400).json({message: `Неверный пароль ${candidate.password}`})};
 
-            res.status(200).json({login: login, passWord: passWord});
+            const token = jwt.sign({
+                login: candidate.login,
+                isfiz: candidate.isfiz
+            }, config.jwt, {expiresIn: 60 * 60});
+            res.status(200).json({login: d.login, passWord: d.password, jwt: token});
         } catch (er) {
             console.log(er);
             res.status(400).json("Login error");
