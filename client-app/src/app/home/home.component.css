@@ -1,0 +1,116 @@
+:root{
+    --color1: #5d5c61;
+    --color2: #918F92;
+    --color3: #7395ae;
+    --color4: #557a95;
+    --color5: #4F709C;
+}
+
+header,footer,body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: medium;
+
+}
+/* header{
+    background-color: var(--color2);
+} */
+.products{
+    background-color: var(--color5);
+}
+footer{
+    padding: 100px 0;
+    font-size: large;
+    /* background-color: var(--color3);
+     */
+     background-color: white;
+}
+/* header,body, footer{
+    font-size: large;
+} */
+body{
+    background-color: #557a95;
+    padding: 5%;
+}
+
+.benefits-img{
+    max-height: 80%;
+    width: 100%;
+}
+
+
+/* header,footer, nav, .activities{
+    background: var(--color1);
+    background: -moz-linear-gradient(left,  var(--color1) 0%, var(--color2) 100%);
+    background: -webkit-linear-gradient(left,  var(--color1) 0%,var(--color2) 100%);
+    background: linear-gradient(to right,  var(--color1) 0%,var(--color2) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 );
+} */
+
+.start-cover{
+    background-image: url("./pictures/background-image1.png");
+    
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    
+    min-height: 720px;
+    display: flex;
+    align-items: center;
+}
+
+/* img{
+    min-width: auto;
+    min-height: auto;
+    max-width: auto;
+    max-height: auto;
+} */
+
+a{
+    text-decoration: none;
+    color:black;
+}
+a:hover{
+    color:var(--color1)
+}
+
+
+
+
+
+/* ul.list-group > li > h5{
+    margin-top: 20px;
+}
+ul.list-group > li{
+    max-height: 33%;
+} */
+
+@media (min-width: 581px){
+    .our-team-text{
+        padding-left: 15%;
+        padding-top: 20%;
+        margin-bottom: 50%;
+        text-align: start;
+    }
+    body > div.employees > div > div > div:nth-child(1) > ul{
+        height: 100%;
+    }
+}
+
+
+@media (max-width: 580px){
+    .our-team-text{
+        margin-bottom: auto;
+        text-align: center;
+        
+    }
+    body > div.employees > div > div > div:nth-child(1) > ul{
+        height: auto;
+    }
+    .li-text,header,p{
+        font-size: medium;
+    }
+    
+}
+
+.employee-profession{
+    font-size: medium;
+}
