@@ -1,1 +1,43 @@
+
+  <body>
+    <header class="w-100">
+      <nav class="navbar navbar-expand-sm bg-light rounded-top">
+        <div class="container">
+          <a href="#" class="navbar-brand">
+            <img
+              width="60px"
+              height="50px"
+              class="d-inline-block align-center"
+              src="../assets/pictures/logo.png"
+              alt="logo"
+            />
+            <span><strong>Geosystem</strong></span>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggler="colapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <div class="navbar-nav">
+              <a routerLink="" class="nav-item nav-link active">Главная</a>
+              <a routerLink="about" class="nav-item nav-link active">О нас</a>
+              <a routerLink="projects" class="nav-item nav-link active">Проекты</a>
+              <a routerLink="products" class="nav-item nav-link active">Продукты</a>
+              <a routerLink="user" class="nav-item nav-link active">Личный кабинет</a>
+              <a href="#footer" class="nav-item nav-link active">Контакты</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
 <router-outlet></router-outlet>
