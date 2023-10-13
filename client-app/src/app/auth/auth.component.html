@@ -1,0 +1,44 @@
+<form class="container mx-auto">
+    <div class="row">
+      <div class="col text-center">
+        <span class="fs-3" *ngIf="isReg">Регистрация</span>
+        <span class="fs-3" *ngIf="!isReg">Авторизация</span>
+      </div>  
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="password" class="form-control" id="Input1Password">Физическое лицо</button>
+        </div>
+        <div class="col">
+            <label for="Input2Password" class="form-label">Введите пароль повторно</label>
+            <input type="password" class="form-control" id="Input2Password">
+        </div>
+    </div>
+    <div class="row">
+        <label for="InputUsername" class="form-label">Никнейм</label>
+        <input type="text" class="form-control" id="InputUsername">
+    </div>
+    <div class="row">
+        <label for="InputEmail" class="form-label">Электронная почта</label>
+        <input type="text" class="form-control" id="InputEmail">
+    </div>
+    <div class="row">
+        <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
+        <input type="password" class="form-control" id="InputPhone">
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="Input1Password" class="form-label">Введите пароль</label>
+            <input type="password" class="form-control" id="Input1Password">
+        </div>
+        <div class="col">
+            <label for="Input2Password" class="form-label">Введите пароль повторно</label>
+            <input type="password" class="form-control" id="Input2Password">
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary"></button>
+  </form>

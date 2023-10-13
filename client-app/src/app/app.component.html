@@ -1,8 +1,18 @@
-
+<head>
+  <script
+      src="https://kit.fontawesome.com/d61dc76de9.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+</head>
   <body>
-    <header class="w-100">
-      <nav class="navbar navbar-expand-sm bg-light rounded-top">
-        <div class="container">
+    <header>
+      <nav class="navbar navbar-expand-sm bg-light">
+        <div class="container-fluid">
           <a href="#" class="navbar-brand">
             <img
               width="60px"
@@ -25,7 +35,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
               <li class="nav-item">
                 <a routerLink="" class="nav-link active">Главная</a>
               </li>
@@ -42,10 +52,15 @@
                 <a routerLink="#footer" class="nav-link active">Контакты</a>
               </li>
             </ul>
-            <div class="d-flex align-items-end">
-              <button id="auth" class="col">Вход</button>
-              <button id="reg" class="col">Регистрация</button>
-            </div>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <button (click)="goAuth()" class="btn btn-outline-success mx-2">Вход</button>
+              </li>
+              <li class="nav-item">
+                <button (click)="goAuth()" class="btn btn-outline-success mx-2">Регистрация</button>
+              </li>
+            </ul>
+
           </div>
         </div>
       </nav>
