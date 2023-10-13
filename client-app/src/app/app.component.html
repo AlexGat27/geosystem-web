@@ -24,17 +24,27 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div
-            class="collapse navbar-collapse justify-content-end"
-            id="navbarNav"
-          >
-            <div class="navbar-nav">
-              <a routerLink="" class="nav-item nav-link active">Главная</a>
-              <a routerLink="about" class="nav-item nav-link active">О нас</a>
-              <a routerLink="projects" class="nav-item nav-link active">Проекты</a>
-              <a routerLink="products" class="nav-item nav-link active">Продукты</a>
-              <a routerLink="user" class="nav-item nav-link active">Личный кабинет</a>
-              <a href="#footer" class="nav-item nav-link active">Контакты</a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a routerLink="" class="nav-link active">Главная</a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="about" class="nav-item nav-link active">О нас</a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="projects" class="nav-link active">Проекты</a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="products" class="nav-link active">Продукты</a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="#footer" class="nav-link active">Контакты</a>
+              </li>
+            </ul>
+            <div class="d-flex align-items-end">
+              <button id="auth" class="col">Вход</button>
+              <button id="reg" class="col">Регистрация</button>
             </div>
           </div>
         </div>
