@@ -1,0 +1,55 @@
+<header>
+    <nav class="navbar navbar-expand-sm bg-light">
+      <div class="container-fluid">
+        <a href="#" class="navbar-brand">
+          <img
+            width="60px"
+            height="50px"
+            class="d-inline-block align-center"
+            src="../assets/pictures/logo.png"
+            alt="logo"
+          />
+          <span><strong>Geosystem</strong></span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggler="colapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
+            <li class="nav-item">
+              <a routerLink="" class="nav-link active">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="about" class="nav-item nav-link active">О нас</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="projects" class="nav-link active">Проекты</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="products" class="nav-link active">Продукты</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="#footer" class="nav-link active">Контакты</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <button (click)="goAuth()" class="btn btn-outline-success mx-2">Вход</button>
+            </li>
+            <li class="nav-item">
+              <button (click)="goAuth()" class="btn btn-outline-success mx-2">Регистрация</button>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+  </header>
