@@ -1,1 +1,47 @@
-<p>register-page works!</p>
+<form class="container mx-auto">
+    <div class="row my-4 text-center">
+        <span class="fs-3">Регистрация</span> 
+    </div>
+    <!-- Здесь идет разметка для регистрации -->
+    <div class="row justify-content-between mb-4">
+        <div class="col-4 me-auto">
+            <button class="btn btn-info" (click)="isFiz=true">Физическое лицо</button>
+        </div>
+        <div class="col-4 ms-auto">
+            <button class="btn btn-info" (click)="isFiz=false">Юридическое лицо</button>
+        </div>
+        {{isFiz}}
+    </div>
+        <div [ngClass]="{invisible: isFiz}" class="row">
+            <label for="InputUsername" class="form-label">Никнейм</label>
+            <input type="text" class="form-control" id="InputUsername">
+        </div>
+        <div [ngClass]="{invisible: !isFiz}" class="row">
+            <label for="Company" class="form-label">Название компании</label>
+            <input type="text" class="form-control" id="Company">
+        </div>
+        <div class="row my-3">
+            <label for="InputEmail" class="form-label">Электронная почта</label>
+            <input type="text" class="form-control" id="InputEmail">
+        </div>
+        <div class="row my-3">
+            <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
+            <input type="text" class="form-control" id="InputPhone">
+        </div>
+        <div class="row my-3">
+            <div class="col">
+                <label for="Input1Password" class="form-label">Введите пароль</label>
+                <input type="password" class="form-control" id="Input1Password">
+            </div>
+            <div class="col">
+                <label for="Input2Password" class="form-label">Введите пароль повторно</label>
+                <input type="password" class="form-control" id="Input2Password">
+            </div>
+        </div>
+        <div class="my-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Согласен с политикой конфиденциальности</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+    
+  </form>

@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth-page.component.css']
 })
 export class AuthPageComponent {
+  isFiz: boolean
 
+  constructor(){
+    this.isFiz = true;
+  }
+
+  setEnterprise(){this.isFiz=false};
+  setFiz(){this.isFiz=true};
 }

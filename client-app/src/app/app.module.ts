@@ -30,11 +30,13 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AuthLayoutComponent,
     HomePageComponent,
     AboutPageComponent,
     ProductsPageComponent,
     ProjectsPageComponent,
-    AuthPageComponent
+    AuthPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
