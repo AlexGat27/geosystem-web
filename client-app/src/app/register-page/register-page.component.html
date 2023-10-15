@@ -5,43 +5,50 @@
     <!-- Здесь идет разметка для регистрации -->
     <div class="row justify-content-between mb-4">
         <div class="col-4 me-auto">
-            <button class="btn btn-info" (click)="isFiz=true">Физическое лицо</button>
+            <label for="isFiz">Физическое лицо</label>
+            <input 
+             type="radio" name="isFiz" id="isFiz" 
+             [(ngModel)]="isFiz" [value]="true"
+             >
         </div>
-        <div class="col-4 ms-auto">
-            <button class="btn btn-info" (click)="isFiz=false">Юридическое лицо</button>
+        <div class="col-4 me-auto">
+            <label for="isFiz">Юридическое лицо</label>
+            <input
+            type="radio" name="isFiz" id="isEnterprise"
+            [(ngModel)]="isFiz" [value]="false"
+            >
         </div>
-        {{isFiz}}
     </div>
-        <div [ngClass]="{invisible: isFiz}" class="row">
-            <label for="InputUsername" class="form-label">Никнейм</label>
-            <input type="text" class="form-control" id="InputUsername">
-        </div>
-        <div [ngClass]="{invisible: !isFiz}" class="row">
-            <label for="Company" class="form-label">Название компании</label>
-            <input type="text" class="form-control" id="Company">
+        <div class="row">
+            <div *ngIf="isFiz; then a else b" class="form-label"></div>
+            <ng-template #a>Никнейм</ng-template>
+            <ng-template #b>Название компании</ng-template>
+            <input formControlName="name" type="text" class="form-control" id="NickOrCompany">
         </div>
         <div class="row my-3">
             <label for="InputEmail" class="form-label">Электронная почта</label>
-            <input type="text" class="form-control" id="InputEmail">
+            <input formControlName="email" type="text" class="form-control" id="InputEmail">
         </div>
         <div class="row my-3">
             <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
-            <input type="text" class="form-control" id="InputPhone">
+            <input formControlName="phoneNum" type="text" class="form-control" id="InputPhone">
         </div>
         <div class="row my-3">
             <div class="col">
                 <label for="Input1Password" class="form-label">Введите пароль</label>
-                <input type="password" class="form-control" id="Input1Password">
+                <input formControlName="password1" type="password" class="form-control" id="Input1Password">
             </div>
             <div class="col">
                 <label for="Input2Password" class="form-label">Введите пароль повторно</label>
-                <input type="password" class="form-control" id="Input2Password">
+                <input formControlName="password2" type="password" class="form-control" id="Input2Password">
             </div>
         </div>
         <div class="my-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Согласен с политикой конфиденциальности</label>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
-    
+        <button 
+        type="submit" class="btn btn-primary w-100",
+        [disabled]="form.invalid"
+        >Зарегистрироваться</button>
   </form>
