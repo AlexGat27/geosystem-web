@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth-page',
@@ -6,12 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth-page.component.css']
 })
 export class AuthPageComponent {
-  isFiz: boolean
+  authform: FormGroup;
 
-  constructor(){
-    this.isFiz = true;
+  ngOnInit(): void {
+    this.authform = new FormGroup({
+      login: new FormControl(null),
+      INN: new FormControl(null, [Validators.minLength(12), Validators.maxLength(12)]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+      isFiz: new FormControl(true, [Validators.required]),
+    })
+  };
+
+  OnSubmit(){
+    
   }
-
-  setEnterprise(){this.isFiz=false};
-  setFiz(){this.isFiz=true};
 }

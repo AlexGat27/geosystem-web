@@ -1,46 +1,84 @@
-<form class="container mx-auto">
-    <div class="row">
-      <div class="col text-center">
-        <span class="fs-3">Регистрация</span>
-      </div>  
-    </div>
-    <!-- Здесь идет разметка для регистрации -->
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-info" (click)="setFiz()">Физическое лицо</button>
-        </div>
-        <div class="col">
-            <button class="btn btn-info" (click)="setEnterprise()">Юридическое лицо</button>
-        </div>
-    </div>
-    <div [ngClass]="{invisible: isFiz}">
-        <div class="row">
-            <label for="InputUsername" class="form-label">Никнейм</label>
-            <input type="text" class="form-control" id="InputUsername">
-        </div>
-        <div class="row">
-            <label for="InputEmail" class="form-label">Электронная почта</label>
-            <input type="text" class="form-control" id="InputEmail">
-        </div>
-        <div class="row">
-            <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
-            <input type="text" class="form-control" id="InputPhone">
-        </div>
-        <div class="row">
-            <div class="col">
-                <label for="Input1Password" class="form-label">Введите пароль</label>
-                <input type="password" class="form-control" id="Input1Password">
-            </div>
-            <div class="col">
-                <label for="Input2Password" class="form-label">Введите пароль повторно</label>
-                <input type="password" class="form-control" id="Input2Password">
-            </div>
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" class="btn btn-primary"></button>
+<form class="container px-0 mx-auto" [formGroup]="form" (ngSubmit)="OnSubmit()">
+    <div class="row my-4 text-center">
+        <span class="fs-3">Вход</span> 
     </div>
     
-  </form>
+    <div class="row mb-4">
+        <div class="col-4 me-auto">
+            <input 
+            class="form-check-input me-2"
+            name="isFiz" 
+            type="radio" 
+            id="isFiz"
+            [value]="true"
+            formControlName="isFiz">
+            <label class="form-check-label" for="isFiz">Физическое лицо</label>
+        </div>
+        <div class="col-4 ms-auto">
+            <input
+            class="form-check-input me-2"
+            type="radio" 
+            name="isFiz" 
+            id="isEnterprise"
+            [value]="false"
+            formControlName="isFiz">
+            <label for="isFiz" class="form-check-label">Юридическое лицо</label>
+        </div>
+    </div>
+    <div *ngIf="form.value.isFiz; then a else b" class="form-label"></div>
+    <ng-template #a>
+        <div class="row my-3">
+            <label for="InputLogin" class="form-label">Логин</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="InputLogin" 
+            formControlName="login"
+            [ngClass]="{'invalid': form.get('login').invalid && form.get('login').touched}">
+            <span 
+            class="error-text"
+            *ngIf="form.get('login').invalid && form.get('login').touched">
+                <span *ngIf="form.get('login').errors['required']">Поле не может быть пустым</span>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template #b>
+        <div class="row my-3">
+            <label for="InputINN" class="form-label">ИНН организации</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="InputINN" 
+            formControlName="INN"
+            [ngClass]="{'invalid': form.get('INN').invalid && form.get('INN').touched}">
+            <span 
+            class="error-text"
+            *ngIf="form.get('INN').invalid && form.get('INN').touched">
+                <span *ngIf="form.get('INN').errors['minLength']
+                && form.get('INN').errors['maxLength']">Неправильно введен ИНН</span>
+                <span *ngIf="form.get('INN').errors['required']">Поле не может быть пустым</span>
+            </span>
+        </div>
+    </ng-template>
+    <div class="row my-3">
+        <label for="InputPassword" class="form-label">Введите пароль повторно</label>
+        <input  
+        type="password" 
+        class="form-control" 
+        id="InputPassword" 
+        formControlName="password"
+        [ngClass]="{'invalid': form.get('password2').invalid && form.get('password2').touched}">
+        <span 
+        class="error-text"
+        *ngIf="form.get('password').invalid && form.get('password').touched">
+            <span *ngIf="form.get('password').errors['minLength']">Пароль должен быть больше 8 символов</span>
+            <span *ngIf="form.get('password').errors['required']">Поле не может быть пустым</span>
+        </span>
+    </div>
+    </div>
+    <button 
+    type="submit" 
+    class="btn btn-primary w-100" 
+    [ngClass]="{'disabledBtn': form.invalid}">
+    Войти</button>
+</form>
