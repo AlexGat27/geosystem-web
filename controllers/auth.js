@@ -23,7 +23,7 @@ class AuthController{
 
             const email_candidate = await UserModel.findOne({ where: { email: d.email } });
             if (email_candidate){return res.status(400).json({message: "Пользователь с такой почтой уже есть"})};
-            const login_candidate = await UserModel.findOne({ where: { email: d.email } });
+            const login_candidate = await UserModel.findOne({ where: { login: d.login } });
             if (login_candidate){return res.status(400).json({message: "Пользователь с таким логином уже есть"})};
 
             const hashPassword = bcrypt.hashSync(d.password, 10);
@@ -32,15 +32,20 @@ class AuthController{
                 login: d.login,
                 password: hashPassword,
                 email: d.email,
-                phone_number: d.phone_number,
-                isfiz: d.isfiz
+                phone_number: d.phone,
+                isfiz: (d.isFiz === true)
             })
 
-            if (d.isfiz){
-                await UsualUserModel.create({userId: new_user.id});
+            if (d.isFiz === true){
+                await UsualUserModel.create({
+                    userId: new_user.id,
+                });
             }
             else{
-                await EnterpriseUserModel.create({userId: new_user.id});
+                await EnterpriseUserModel.create({
+                    userId: new_user.id,
+                    company: d.company
+                });
             }
 
             res.status(200).json({message: "Пользователь успешно зарегистрирован"});

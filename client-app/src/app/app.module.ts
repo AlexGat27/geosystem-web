@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import{ HttpClientModule } from '@angular/common/http'
 
 import { Routes, RouterModule } from '@angular/router';
 
@@ -20,7 +21,7 @@ const appRoutes: Routes = [
     {path: 'about', component: AboutPageComponent},
     {path: 'products', component: ProductsPageComponent},
     {path: 'projects', component: ProjectsPageComponent},
-    {path: 'auth', component: AuthPageComponent},
+    {path: 'login', component: AuthPageComponent},
     {path: 'register', component: RegisterPageComponent},
   ]},
   {path: '', component: WebappLayoutComponent, children:[
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

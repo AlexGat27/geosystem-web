@@ -11,3 +11,17 @@ body{
 .invisible{
     display: none;
 }
+
+.invalid{
+    border-color: red;
+}
+
+.error-text{
+    color: red;
+    font-size: small;
+}
+
+.disabledBtn{
+    background-color: grey;
+    border-color: grey;
+}

@@ -2,7 +2,6 @@
     <div class="row my-4 text-center">
         <span class="fs-3">Вход</span> 
     </div>
-    
     <div class="row mb-4">
         <div class="col-4 me-auto">
             <input 
@@ -35,11 +34,7 @@
             id="InputLogin" 
             formControlName="login"
             [ngClass]="{'invalid': form.get('login').invalid && form.get('login').touched}">
-            <span 
-            class="error-text"
-            *ngIf="form.get('login').invalid && form.get('login').touched">
-                <span *ngIf="form.get('login').errors['required']">Поле не может быть пустым</span>
-            </span>
+            <span></span>
         </div>
     </ng-template>
     <ng-template #b>
@@ -55,30 +50,28 @@
             class="error-text"
             *ngIf="form.get('INN').invalid && form.get('INN').touched">
                 <span *ngIf="form.get('INN').errors['minLength']
-                && form.get('INN').errors['maxLength']">Неправильно введен ИНН</span>
-                <span *ngIf="form.get('INN').errors['required']">Поле не может быть пустым</span>
+                || form.get('INN').errors['maxLength']">Неправильно введен ИНН</span>
             </span>
         </div>
     </ng-template>
     <div class="row my-3">
-        <label for="InputPassword" class="form-label">Введите пароль повторно</label>
+        <label for="InputPassword" class="form-label">Введите пароль</label>
         <input  
         type="password" 
         class="form-control" 
         id="InputPassword" 
         formControlName="password"
-        [ngClass]="{'invalid': form.get('password2').invalid && form.get('password2').touched}">
+        [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched}">
         <span 
         class="error-text"
         *ngIf="form.get('password').invalid && form.get('password').touched">
-            <span *ngIf="form.get('password').errors['minLength']">Пароль должен быть больше 8 символов</span>
+            <span *ngIf="form.get('password').errors['minlength']">Пароль должен быть больше 8 символов</span>
             <span *ngIf="form.get('password').errors['required']">Поле не может быть пустым</span>
         </span>
-    </div>
     </div>
     <button 
     type="submit" 
     class="btn btn-primary w-100" 
-    [ngClass]="{'disabledBtn': form.invalid}">
+    [ngClass]="{'disabledBtn': form.invalid || form.disabled}">
     Войти</button>
 </form>

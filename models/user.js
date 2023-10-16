@@ -31,12 +31,7 @@ const UsualUserModel = sequelize.define("usualuser",{
 });  
 
 const EnterpriseUserModel = sequelize.define("enterpriseuser",{
-  company_name: DataTypes.STRING,
-  sector: DataTypes.STRING,
-  is_subscribed: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false      
-  },
+  company: DataTypes.STRING,
   start_subscribe_time: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
