@@ -36,9 +36,15 @@
             [ngClass]="{'invalid': fizform.get('login').invalid && fizform.get('login').touched}">
             <span 
             class="error-text"
-            *ngIf="fizform.get('login').invalid && fizform.get('login').touched">
+            *ngIf="fizform.get('login').invalid && fizform.get('login').touched; else isCorrect">
                 <span *ngIf="fizform.get('login').errors['required']">Поле не может быть пустым</span>
             </span>
+            <ng-template #isCorrect>
+                <span 
+                class="error-text"
+                *ngIf="!isInnCorrect(enterpriseform.get('login').value) && enterpriseform.get('login').touched"> 
+                Некорректный ИНН </span>
+            </ng-template>
         </div>
         <div class="row my-3">
             <label for="InputEmail" class="form-label">Электронная почта</label>
@@ -57,7 +63,18 @@
         </div>
         <div class="row my-3">
             <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
-            <input  type="text" class="form-control" id="InputPhone" formControlName="phone">
+            <input  
+            type="text" 
+            class="form-control" 
+            id="InputPhone" 
+            formControlName="phone"
+            pattern="[0-9]+" title="Введите корректный номер">
+            <span 
+            class="error-text"
+            *ngIf="fizform.get('phone').invalid && fizform.get('phone').touched">
+                <span *ngIf="fizform.get('phone').errors['minLength'] || fizform.get('phone').errors['maxLength']">
+                    Неправильно введена элетронная почта</span>
+            </span>
         </div>
         <div class="row my-3">
             <label for="Input1Password" class="form-label">Введите пароль</label>
@@ -77,6 +94,11 @@
         <div class="my-3 form-check w-100">
           <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
           <label class="form-check-label" for="privacyPolicy">Согласен с политикой конфиденциальности</label>
+          <span 
+            class="error-text"
+            *ngIf="fizform.get('privacyPolicy').invalid && fizform.get('privacyPolicy').touched">
+                <span *ngIf="fizform.get('privacyPolicy').errors['requiredTrue']">Обязательно надо отметить</span>
+            </span>
         </div>
         <button 
         type="submit" 
@@ -97,11 +119,17 @@
             [ngClass]="{'invalid': enterpriseform.get('login').invalid && enterpriseform.get('login').touched}">
             <span 
             class="error-text"
-            *ngIf="enterpriseform.get('login').invalid && enterpriseform.get('login').touched">
+            *ngIf="enterpriseform.get('login').invalid && enterpriseform.get('login').touched; else isCorrect">
                 <span *ngIf="enterpriseform.get('login').errors['minLength']
                 || enterpriseform.get('login').errors['maxLength']">Неправильно введен ИНН</span>
                 <span *ngIf="enterpriseform.get('login').errors['required']">Поле не может быть пустым</span>
             </span>
+            <ng-template #isCorrect>
+                <span 
+                class="error-text"
+                *ngIf="!isInnCorrect(enterpriseform.get('login').value) && enterpriseform.get('login').touched"> 
+                Некорректный ИНН </span>
+            </ng-template>
         </div>
         <div class="row my-3">
             <label for="InputOrg" class="form-label">Название организации</label>
@@ -134,7 +162,12 @@
         </div>
         <div class="row my-3">
             <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
-            <input  type="text" class="form-control" id="InputPhone" formControlName="phone">
+            <input  
+            type="text"
+            class="form-control" 
+            id="InputPhone" 
+            formControlName="phone"
+            pattern="[0-9]+" title="Введите корректный номер">
         </div>
         <div class="row my-3">
             <label for="Input1Password" class="form-label">Введите пароль</label>
@@ -147,18 +180,27 @@
             <span 
             class="error-text"
             *ngIf="enterpriseform.get('password').invalid && enterpriseform.get('password').touched">
-                <span *ngIf="enterpriseform.get('password').errors['minlength']">Пароль должен быть больше 8 символов</span>
+                <span *ngIf="enterpriseform.get('password').errors['minlength']">Пароль должен быть от 8 символов</span>
                 <span *ngIf="enterpriseform.get('password').errors['required']">Поле не может быть пустым</span>
             </span>
         </div>
         <div class="my-3 form-check w-100">
           <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
           <label class="form-check-label" for="privacyPolicy">Согласен с политикой конфиденциальности</label>
+          <span 
+            class="error-text"
+            *ngIf="enterpriseform.get('privacyPolicy').invalid && enterpriseform.get('privacyPolicy').touched">
+                <span *ngIf="enterpriseform.get('privacyPolicy').errors['requiredTrue']">Обязательно надо отметить</span>
+            </span>
         </div>
         <button 
         type="submit" 
         class="btn btn-primary w-100" 
         [ngClass]="{'disabledBtn': enterpriseform.invalid}">
         Зарегистрироваться</button>
+        <span 
+        class="error-text"
+        *ngIf="errorMsg !== null">
+        {{errorMsg}}</span>
     </form>
 </ng-template>

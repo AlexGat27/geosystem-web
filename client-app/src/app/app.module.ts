@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import{ HttpClientModule } from '@angular/common/http'
+import{ HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { Routes, RouterModule } from '@angular/router';
 
@@ -14,6 +14,8 @@ import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { WebappLayoutComponent } from './shared/layouts/webapp-layout/webapp-layout.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { AuthGuard } from './shared/classes/authGuard';
+import { TokenInterceptor } from './shared/classes/token.interceptor';
 
 const appRoutes: Routes = [
   {path: '', component: AuthLayoutComponent, children:[
@@ -24,7 +26,7 @@ const appRoutes: Routes = [
     {path: 'login', component: AuthPageComponent},
     {path: 'register', component: RegisterPageComponent},
   ]},
-  {path: '', component: WebappLayoutComponent, children:[
+  {path: '', component: WebappLayoutComponent, canActivate: [AuthGuard], children:[
 
   ]}
 ]
@@ -47,7 +49,13 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: TokenInterceptor
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

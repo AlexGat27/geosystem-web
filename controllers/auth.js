@@ -68,7 +68,9 @@ class AuthController{
                 login: candidate.login,
                 isfiz: candidate.isfiz
             }, config.jwt, {expiresIn: 60 * 60});
-            res.status(200).json({login: d.login, passWord: d.password, jwt: token});
+            return res.status(200).json({
+                token: `Bearer ${token}`
+            });
         } catch (er) {
             console.log(er);
             res.status(400).json("Login error");

@@ -52,6 +52,10 @@
                 <span *ngIf="form.get('INN').errors['minLength']
                 || form.get('INN').errors['maxLength']">Неправильно введен ИНН</span>
             </span>
+            <span 
+            class="error-text"
+            *ngIf="!isInnCorrect(form.get('login').value) && form.get('login').touched"> 
+            Некорректный ИНН </span>
         </div>
     </ng-template>
     <div class="row my-3">
@@ -74,4 +78,5 @@
     class="btn btn-primary w-100" 
     [ngClass]="{'disabledBtn': form.invalid || form.disabled}">
     Войти</button>
+    <span class="error-text" *ngIf="authError">Неправильно введен логин или пароль</span>
 </form>

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class RegisterPageComponent implements OnInit, OnDestroy{
 
   isFiz: boolean = true;
+  errorMsg: string;
   aSub: Subscription;
   fizform: FormGroup;
   enterpriseform: FormGroup;
@@ -25,7 +26,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
       email: new FormControl(null, [Validators.required, Validators.email]),
       phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-      privacyPolicy: new FormControl(false, [Validators.required]),
+      privacyPolicy: new FormControl(false, [Validators.requiredTrue]),
       isFiz: new FormControl(true)
     })
     this.enterpriseform = new FormGroup({
@@ -34,7 +35,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
       email: new FormControl(null, [Validators.required, Validators.email]),
       phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-      privacyPolicy: new FormControl(false, [Validators.required]),
+      privacyPolicy: new FormControl(null, [Validators.requiredTrue]),
       isFiz: new FormControl(false)
     })
   };
@@ -51,11 +52,12 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
     if(this.isFiz){
       this.aSub = this.auth.register(this.fizform.value).subscribe(
         () => this.router.navigate(["/login"], {
-          queryParams: {
-            registered: true
-          }
-        }),
+            queryParams: {
+              registered: true
+            }
+          }),
         error => {
+          this.errorMsg = error;
           console.warn(error);
           this.fizform.enable();
         }
@@ -64,10 +66,16 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
       this.aSub = this.auth.register(this.enterpriseform.value).subscribe(
         () => this.router.navigate(["/login"]),
         error => {
+          this.errorMsg = error;
           console.warn(error);
           this.enterpriseform.enable();
         }
       );
     }
   }
+
+  isInnCorrect = (inn: string) => {
+    return this.auth.isInnCorrect(inn);
+  }
+
 }

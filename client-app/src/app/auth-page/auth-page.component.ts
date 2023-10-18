@@ -12,6 +12,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class AuthPageComponent implements OnInit, OnDestroy{
   form: FormGroup;
   aSub: Subscription;
+  authError: boolean = false;
 
   constructor(private auth: AuthService,
     private router: Router,
@@ -26,13 +27,13 @@ export class AuthPageComponent implements OnInit, OnDestroy{
       isFiz: new FormControl(true, [Validators.required]),
     })
 
-    // this.route.queryParams.subscribe((params: Params) => {
-    //   if (params['registered']){
+    this.route.queryParams.subscribe((params: Params) => {
+      if (params['registered']){
 
-    //   } else if (params['accessDenied']){
+      } else if (params['accessDenied']){
 
-    //   }
-    // })
+      }
+    })
   };
 
   ngOnDestroy(): void {
@@ -44,11 +45,18 @@ export class AuthPageComponent implements OnInit, OnDestroy{
   OnSubmit(){
     this.form.disable();
     this.aSub = this.auth.login(this.form.value).subscribe(
-      () => this.router.navigate([""]),
+      () => {
+        this.router.navigate([""]),
+        this.authError = false;
+      },
       error => {
-        console.warn(error);
+        this.authError = true;
         this.form.enable();
       }
     );
+  }
+
+  isInnCorrect = (inn: string) => {
+    return this.auth.isInnCorrect(inn);
   }
 }
