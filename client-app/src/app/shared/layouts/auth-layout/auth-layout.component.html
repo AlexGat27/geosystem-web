@@ -14,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-sm bg-light">
           <div class="container-fluid">
-            <a href="#" class="navbar-brand">
+            <a href="#" class="navbar-brand mb-lg-0">
               <img
                 width="60px"
                 height="50px"
@@ -53,14 +53,27 @@
                   <a routerLink="#footer" class="nav-link active">Контакты</a>
                 </li>
               </ul>
-              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a routerLink="/login" type="button" class="btn btn-outline-success mx-2">Вход</a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="/register" type="button" class="btn btn-outline-success mx-2">Регистрация</a>
-                </li>
-              </ul>
+              <div *ngIf="authenticated; else notAuth">
+                <a routerLink="#" class="nav-item nav-link active mb-lg-0">
+                  <span><strong>Личный кабинет</strong></span>
+                  <img
+                  class="nav-item ms-2"
+                  width="45px"
+                  height="45px"
+                  src="../assets/pictures/icon_auth.png"
+                  />
+                </a>
+              </div>
+              <ng-template #notAuth>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a routerLink="/login" type="button" class="btn btn-outline-success mx-2">Вход</a>
+                  </li>
+                  <li class="nav-item">
+                    <a routerLink="/register" type="button" class="btn btn-outline-success mx-2">Регистрация</a>
+                  </li>
+                </ul>
+              </ng-template>
             </div>
           </div>
         </nav>
