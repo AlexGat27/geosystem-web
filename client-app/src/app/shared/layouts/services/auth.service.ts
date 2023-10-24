@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, signal } from "@angular/core";
 import { Observable, tap } from "rxjs";
 
@@ -27,6 +27,12 @@ export class AuthService {
                 }
             )
         );
+    }
+
+    getUser(){
+        let params = new HttpParams();
+        params = params.append("token", this.token);
+        return this.http.get("/api/auth/getUser", {params: params});
     }
 
     setToken(token: string){

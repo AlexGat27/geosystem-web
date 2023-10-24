@@ -49,9 +49,12 @@
                 <li class="nav-item">
                   <a href="#footer" class="nav-link active">Контакты</a>
                 </li>
+                <li class="nav-item">
+                  <a type="button" (click)="logout()" class="nav-link active">Контакты</a>
+                </li>
               </ul>
               <div *ngIf="authenticated(); else notAuth">
-                <a (click)="logout()" href="#" class="nav-item nav-link active mb-lg-0">
+                <a routerLink="profile" class="nav-item nav-link active mb-lg-0">
                   <span><strong>Личный кабинет</strong></span>
                   <img
                   class="nav-item ms-2"

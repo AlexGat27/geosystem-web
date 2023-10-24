@@ -3,7 +3,7 @@ const controller = require('../controllers/auth')
 const router = express.Router()
 
 //http://localhost:5000/api/auth/getUsualUsers
-router.get('/getUsers', controller.getUsers)
+router.get('/getUser', controller.getUser)
 
 // //http://localhost:5000/api/auth/register
 router.post('/register', controller.registration)
