@@ -11,7 +11,7 @@
   </head>
 
 <body>
-    <header>
+    <header [ngClass]="{body: false}">
         <nav class="navbar navbar-expand-sm bg-light">
           <div class="container-fluid">
             <a href="#" class="navbar-brand mb-lg-0">
@@ -47,14 +47,11 @@
                   <a routerLink="/projects" class="nav-link active">Проекты</a>
                 </li>
                 <li class="nav-item">
-                  <a routerLink="/products" class="nav-link active">Продукты</a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="#footer" class="nav-link active">Контакты</a>
+                  <a href="#footer" class="nav-link active">Контакты</a>
                 </li>
               </ul>
-              <div *ngIf="authenticated; else notAuth">
-                <a routerLink="#" class="nav-item nav-link active mb-lg-0">
+              <div *ngIf="authenticated(); else notAuth">
+                <a (click)="logout()" href="#" class="nav-item nav-link active mb-lg-0">
                   <span><strong>Личный кабинет</strong></span>
                   <img
                   class="nav-item ms-2"

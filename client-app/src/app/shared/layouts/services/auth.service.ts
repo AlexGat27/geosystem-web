@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { Observable, tap } from "rxjs";
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Observable, tap } from "rxjs";
 export class AuthService {
 
     private token = null;
+    public authenticated = signal(this.getToken() !== null);
 
     constructor(private http: HttpClient){
     }
@@ -30,6 +31,7 @@ export class AuthService {
 
     setToken(token: string){
         this.token = token;
+        this.authenticated.set(this.getToken() !== null);
     }
 
     getToken(): string {
