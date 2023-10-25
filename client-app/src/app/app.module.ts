@@ -17,6 +17,8 @@ import { AuthGuard } from './shared/classes/authGuard';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
 import { MapPageComponent } from './webapp/map-page/map-page.component';
 import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
+import { ComplexPageComponent } from './projects-page/complex-page/complex-page.component';
+import { WebappDescriptionPageComponent } from './projects-page/webapp-description-page/webapp-description-page.component';
 
 const appRoutes: Routes = [
   {path: '', component: AuthLayoutComponent, children:[
@@ -42,7 +44,9 @@ const appRoutes: Routes = [
     AuthPageComponent,
     RegisterPageComponent,
     MapPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    ComplexPageComponent,
+    WebappDescriptionPageComponent
   ],
   imports: [
     BrowserModule,
