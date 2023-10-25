@@ -1,5 +1,6 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable, signal } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable, tap } from "rxjs";
 
 @Injectable({
@@ -10,7 +11,8 @@ export class AuthService {
     private token = null;
     public authenticated = signal(this.getToken() !== null);
 
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient,
+                private router: Router){
     }
 
     register(userValue): Observable<{token: string}> {
@@ -20,19 +22,16 @@ export class AuthService {
     login(userValue): Observable<{token: string}> {
         return this.http.post<{token: string}>("/api/auth/login", userValue)
         .pipe(
-            tap(
-                ({token}) => {
-                    localStorage.setItem('auth-token', token);
-                    this.setToken(token);
-                }
-            )
+            tap(({token}) => {
+                localStorage.setItem('auth-token', token);
+                this.setToken(token);
+                this.router.navigate([""]);
+            })
         );
     }
 
-    getUser(){
-        let params = new HttpParams();
-        params = params.append("token", this.token);
-        return this.http.get("/api/auth/getUser", {params: params});
+    getUser(): Observable<any>{
+        return this.http.get<any>("/api/auth/getUser");
     }
 
     setToken(token: string){
@@ -51,6 +50,7 @@ export class AuthService {
     logout() {
         this.setToken(null);
         localStorage.clear();
+        this.router.navigate([""]);
     }
 
     isInnCorrect = (inn: string) => {

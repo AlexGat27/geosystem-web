@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/shared/layouts/services/auth.service';
 export class ProfilePageComponent implements OnInit{
   
   @Input()
-  public userdata = {};
+  public userdata;
 
   constructor(private auth: AuthService){
   }
@@ -20,8 +20,12 @@ export class ProfilePageComponent implements OnInit{
     this.auth.getUser()
       .subscribe(data => {
         this.userdata = data;
-        // console.log(this.userdata);
+        console.log(this.userdata);
       });
+  }
+
+  logout(){
+    this.auth.logout();
   }
 
 }

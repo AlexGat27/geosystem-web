@@ -11,8 +11,4 @@ export class AuthLayoutComponent{
 
   @Input()
   public authenticated = computed(() => {return this.auth.authenticated()});
-
-  logout(){
-    this.auth.logout();
-  }
 };
