@@ -24,7 +24,8 @@ const appRoutes: Routes = [
   {path: '', component: AuthLayoutComponent, children:[
     {path: '', component: HomePageComponent},
     {path: 'about', component: AboutPageComponent},
-    {path: 'projects', component: ProjectsPageComponent},
+    {path: 'projects/complex', component: ComplexPageComponent},
+    {path: 'projects/webapp', component: WebappDescriptionPageComponent},
     {path: 'login', component: AuthPageComponent},
     {path: 'register', component: RegisterPageComponent},
     {path: 'profile', canActivate: [AuthGuard], component: ProfilePageComponent},
