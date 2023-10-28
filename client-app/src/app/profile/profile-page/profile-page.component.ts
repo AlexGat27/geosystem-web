@@ -28,4 +28,6 @@ export class ProfilePageComponent implements OnInit{
     this.auth.logout();
   }
 
+  
+
 }

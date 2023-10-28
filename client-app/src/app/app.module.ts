@@ -30,7 +30,7 @@ const appRoutes: Routes = [
     {path: 'register', component: RegisterPageComponent},
     {path: 'profile', canActivate: [AuthGuard], component: ProfilePageComponent},
   ]},
-  {path: '', component: WebappLayoutComponent, canActivate: [AuthGuard], children:[
+  {path: 'webapp', component: WebappLayoutComponent, canActivate: [AuthGuard], children:[
     
   ]}
 ]

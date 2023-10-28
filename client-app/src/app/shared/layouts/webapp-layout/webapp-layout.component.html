@@ -1,1 +1,61 @@
-<p>webapp-layout works!</p>
+<head>
+    <script
+        src="https://kit.fontawesome.com/d61dc76de9.js"
+        crossorigin="anonymous"
+      ></script>
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+</head>
+
+<body>
+    <div class="offcanvas offcanvas-start w-10" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
+        <div class="offcanvas-header">
+            <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Меню</h6>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body px-0">
+            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-truncate">
+                        <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Профиль</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
+                        <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Инвентарь</span> </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-truncate">
+                        <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Карта</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link text-truncate">
+                        <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Подписка</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-truncate">
+                        <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Район</span></a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-truncate">
+                        <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Поддержка</span> </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col min-vh-100 py-3">
+                <!-- toggler -->
+                <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">Меню
+                </button>
+                Content..
+            </div>
+        </div>
+    </div>
+</body>
+
