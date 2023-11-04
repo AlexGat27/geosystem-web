@@ -56,7 +56,7 @@
                   <a class="dropdown-item" routerLink="/projects/complex"
                     >Программно-аппаратный комплекс</a>
                 </li>
-                <li><a class="dropdown-item" href="#">Веб-приложение</a></li>
+                <li><a class="dropdown-item" routerLink="projects/webapp">Веб-приложение</a></li>
               </ul>
             <li class="nav-item">
               <a href="#footer" class="nav-link active">Контакты</a>
@@ -76,10 +76,18 @@
           <ng-template #notAuth>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a routerLink="/login" type="button" class="btn btn-outline-success mx-2">Вход</a>
+                <button 
+                disabled
+                routerLink="/login" 
+                type="button" 
+                class="btn btn-outline-success mx-2">Вход</button>
               </li>
               <li class="nav-item">
-                <a routerLink="/register" type="button" class="btn btn-outline-success mx-2">Регистрация</a>
+                <button 
+                disabled
+                routerLink="/register" 
+                type="button" 
+                class="btn btn-outline-success mx-2">Регистрация</button>
               </li>
             </ul>
           </ng-template>
