@@ -1,13 +1,23 @@
 body{
-    background-color: #557a95;
-    padding: 3%;
-    padding-top: 0%;
+    background-color: #497492;
+    padding: 2%;
+    margin: 0%;
+}
+
+span{
+    text-align: center;
+}
+
+.row{
+    margin: 3px;
+    margin-bottom: 3%;
 }
 
 .container{
-    max-width: 40%;
+    max-width: 60%;
+    border-radius: 3%;
+    background-color: aliceblue;
 }
-
 .invisible{
     display: none;
 }

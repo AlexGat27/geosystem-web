@@ -61,7 +61,7 @@ EnterpriseUserModel.belongsTo(UserModel, {
 });
 
 UserModel.sync();
-UsualUserModel.sync({alter: true});
-EnterpriseUserModel.sync({alter: true});
+UsualUserModel.sync();
+EnterpriseUserModel.sync();
 
 module.exports = {UserModel, UsualUserModel, EnterpriseUserModel};

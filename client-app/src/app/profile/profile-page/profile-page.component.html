@@ -1,0 +1,26 @@
+<body>
+    <div class="container p-4">
+        <ul class="list-group list-group-flush my-2">
+            <li class="list-group-item text-center">
+                <img src="../../../assets/pictures/icon_auth.png"
+                width="25%"
+                height="25%">
+            </li>
+            <li class="list-group-item">Логин: <strong>{{userdata.login}}</strong></li>
+            <li class="list-group-item">Электронная почта: <strong>{{userdata.email}}</strong></li>
+            <li class="list-group-item">Номер телефона: <strong>{{userdata.phone_number}}</strong></li>
+        </ul>
+        <button
+        disabled
+        class="btn btn-outline-primary w-100 my-2">
+        Редактировать профиль</button>
+        <button
+        disabled
+        class="btn btn-outline-disabled w-100 my-2">
+        Перейти в приложение</button>
+        <button
+        (click)="logout()"
+        class="btn btn-outline-danger w-100 my-2">
+        Выйти из аккаунта</button>
+    </div>        
+</body>

@@ -39,20 +39,19 @@ body{
     padding-right: 3%;
 }
 
-.benefits-img{
-    max-height: 80%;
-    width: 100%;
-}
-
-.start-cover{
-    background-image: url("../../assets/pictures/background-image1.png");
-    
+.icon-text-1{
+    background-image: url('../../assets/icons/актуальность.png');
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    
-    min-height: 720px;
-    display: flex;
-    align-items: center;
+    background-position: left center;
+    background-size: 10%;
+    padding-left: 13%;
+}
+.icon-text-2{
+    background-image: url('../../assets/icons/технологичность.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 10%;
+    padding-left: 13%;
 }
 
 .start-cover-about{
@@ -73,3 +72,5 @@ footer a{
 footer a:hover{
     color:#5d5c61;
 }
+
+

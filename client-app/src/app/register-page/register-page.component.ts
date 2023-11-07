@@ -64,7 +64,11 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
       );
     } else{
       this.aSub = this.auth.register(this.enterpriseform.value).subscribe(
-        () => this.router.navigate(["/login"]),
+        () => this.router.navigate(["/login"], {
+          queryParams: {
+            registered: true
+          }
+        }),
         error => {
           this.errorMsg = error;
           console.warn(error);

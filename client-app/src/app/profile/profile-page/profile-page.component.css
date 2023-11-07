@@ -1,0 +1,11 @@
+body{
+    height: 100%;
+    background-color: #557a95;
+    padding: 3%;
+}
+
+.container{
+    max-width: 60%;
+    border-radius: 3%;
+    background-color: aliceblue;
+}

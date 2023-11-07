@@ -5,15 +5,20 @@ const config = require("../config/keys");
 
 class AuthController{
 
-    async getUsers(req, res){
+    async getUser(req, res){
         try {
-            // const token = req.headers.authorization;
+            const jwtHeader = req.headers["authorisation"];
+            const token = jwtHeader && jwtHeader.split(' ')[1];
 
-            const data = UserModel.find();
-            res.status(200).json(data);
+            if (token == null || token === undefined) return res.sendStatus(401);
+  
+            let d = jwt.verify(token, config.jwt);
+            const data = await UserModel.findOne({ where: { login: d.login } });
+            return res.status(200).json(data);
         } catch (er) {
-            console.log(er);
-            res.status(400).json({message: "getUsers error"});
+            res.status(400).json({
+                message: er,
+            });
         }
     }
 
@@ -69,7 +74,7 @@ class AuthController{
                 isfiz: candidate.isfiz
             }, config.jwt, {expiresIn: 60 * 60});
             return res.status(200).json({
-                token: `Bearer ${token}`
+                token: `Bearier ${token}`
             });
         } catch (er) {
             console.log(er);
