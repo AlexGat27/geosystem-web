@@ -1,0 +1,30 @@
+{
+  "name": "geosystemwebserver",
+  "version": "1.0.0",
+  "description": "GeosystemApp with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "server": "nodemon index"
+  },
+  "keywords": [
+    "Express",
+    "Node"
+  ],
+  "author": "AlexGat",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "sequelize": "^6.33.0",
+    "sequelize-cli": "^6.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
