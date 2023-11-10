@@ -1,35 +1,13 @@
 {
-  "name": "geosystemwebapp",
-  "version": "1.0.0",
-  "description": "GeosystemApp with Node.js and Angular",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index",
-    "server": "nodemon index",
-    "client-app-install": "npm install --prefix client-app",
-    "client-app": "npm run start --prefix client-app",
-    "dev": "concurrently \"npm run server\" \"npm run client-app\""
-  },
-  "keywords": [
-    "Angular",
-    "Express",
-    "Node"
-  ],
-  "author": "AlexGat",
-  "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.2",
-    "concurrently": "^8.2.1",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0",
-    "pg": "^8.11.3",
-    "sequelize": "^6.33.0",
-    "sequelize-cli": "^6.6.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  }
+    "name": "GeosystemApp",
+    "version": "1.0.0",
+    "description": "My Geosystem Application",
+    "scripts": {
+        "start": "concurrently \"npm run start --prefix client-app\" \"npm run server --prefix web-server\"",
+        "install-all": "npm install --prefix client-app && npm install --prefix web-server"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "concurrently": "^6.1.0"
+    }
 }
