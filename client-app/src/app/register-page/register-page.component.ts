@@ -30,7 +30,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
       isFiz: new FormControl(true)
     })
     this.enterpriseform = new FormGroup({
-      login: new FormControl(null, [Validators.required, Validators.minLength(12), Validators.maxLength(12)]),
+      login: new FormControl(null, [Validators.required]),
       company: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
@@ -51,13 +51,15 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
     this.enterpriseform.disable();
     if(this.isFiz){
       this.aSub = this.auth.register(this.fizform.value).subscribe(
-        () => this.router.navigate(["/login"], {
+        () => {
+          this.router.navigate(["/login"], {
             queryParams: {
               registered: true
             }
-          }),
-        error => {
-          this.errorMsg = error;
+          })
+        },
+        ({error}) => {
+          this.errorMsg = error.message;
           console.warn(error);
           this.fizform.enable();
         }
@@ -69,8 +71,8 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
             registered: true
           }
         }),
-        error => {
-          this.errorMsg = error;
+        ({error}) => {
+          this.errorMsg = error.message;
           console.warn(error);
           this.enterpriseform.enable();
         }

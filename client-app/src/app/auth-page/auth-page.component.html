@@ -31,9 +31,7 @@
                 type="text" 
                 class="form-control" 
                 id="InputLogin" 
-                formControlName="login"
-                [ngClass]="{'invalid': form.get('login').invalid && form.get('login').touched}">
-                <span></span>
+                formControlName="login">
             </div>
         </ng-template>
         <ng-template #b>
@@ -44,13 +42,7 @@
                 class="form-control" 
                 id="InputINN" 
                 formControlName="INN"
-                [ngClass]="{'invalid': form.get('INN').invalid && form.get('INN').touched}">
-                <span 
-                class="error-text"
-                *ngIf="form.get('INN').invalid && form.get('INN').touched">
-                    <span *ngIf="form.get('INN').errors['minLength']
-                    || form.get('INN').errors['maxLength']">Неправильно введен ИНН</span>
-                </span>
+                [ngClass]="{'invalid': !isInnCorrect(form.get('login').value) && form.get('login').touched}">
                 <span 
                 class="error-text"
                 *ngIf="!isInnCorrect(form.get('login').value) && form.get('login').touched"> 
