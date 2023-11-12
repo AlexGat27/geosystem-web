@@ -19,6 +19,7 @@ import { MapPageComponent } from './webapp/map-page/map-page.component';
 import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
 import { ComplexPageComponent } from './projects-page/complex-page/complex-page.component';
 import { WebappDescriptionPageComponent } from './projects-page/webapp-description-page/webapp-description-page.component';
+import { HomeappComponent } from './webapp/homeapp/homeapp.component';
 
 const appRoutes: Routes = [
   {path: '', component: AuthLayoutComponent, children:[
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
     {path: 'profile', canActivate: [AuthGuard], component: ProfilePageComponent},
   ]},
   {path: 'webapp', component: WebappLayoutComponent, canActivate: [AuthGuard], children:[
-    
+    {path: 'home-app', component: HomeappComponent},
+    {path: 'map-page', component: MapPageComponent},
   ]}
 ]
 
@@ -39,6 +41,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     AuthLayoutComponent,
+    WebappLayoutComponent,
     HomePageComponent,
     AboutPageComponent,
     ProjectsPageComponent,

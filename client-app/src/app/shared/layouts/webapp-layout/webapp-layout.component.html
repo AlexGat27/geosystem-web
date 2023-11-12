@@ -11,51 +11,20 @@
 </head>
 
 <body>
-    <div class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title ms-2" id="offcanvasLabel" >Меню</h5>
-        </div>
-        <div class="offcanvas-body p-0">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col px-0 bg-dark">
-                        <ul class="nav flex-column mb-sm-auto" id="menu">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link px-0 mb-2">
-                                    <span class="ms-2">Профиль</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nav-link px-0 mb-2">
-                                    <span class="ms-2">Карта</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0 mb-2">
-                                    <span class="m-2">Подписки</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nav-link px-0  mb-2">
-                                    <span class="ms-2">Bootstrap</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nav-link px-0 mb-2">
-                                    <span class="ms-2">Products</span> 
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0 mb-2">
-                                    <span class="ms-2">Customers</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <hr>
-                    </div>
+    <div class="card p-0 m-0">
+        <div class="row h-100 p-0 m-0">
+            <div class="col-3 p-0">
+                <div class="list-group">
+                    <div class="list-group-item"><a routerLink="/webapp/home-app">Профиль</a></div>
+                    <div class="list-group-item"><a routerLink="/webapp/map-page">Карта</a></div>
+                    <div class="list-group-item disabled"><a >Фото</a></div>
+                    <div class="list-group-item disabled"><a >Обучение</a></div>
+                    <div class="list-group-item disabled"><a >Магазин</a></div>
+                    <div class="list-group-item mt-auto"><a routerLink="">Выйти</a></div>
                 </div>
             </div>
+            <div class="col-9 p-0"><router-outlet></router-outlet></div>
         </div>
-      </div>
+    </div>
 </body>
 
