@@ -1,54 +1,14 @@
 <body>
     <form class="container p-5" [formGroup]="form" (ngSubmit)="OnSubmit()">
         <div class="row text-center"><span class="fs-3">Вход</span></div> 
-        <div class="row text-center">
-            <div class="col-4 me-auto">
-                <input 
-                class="form-check-input me-2"
-                name="isFiz" 
-                type="radio" 
-                id="isFiz"
-                [value]="true"
-                formControlName="isFiz">
-                <label class="form-check-label" for="isFiz">Физическое лицо</label>
-            </div>
-            <div class="col-4 ms-auto">
-                <input
-                class="form-check-input me-2"
-                type="radio" 
-                name="isFiz" 
-                id="isEnterprise"
-                [value]="false"
-                formControlName="isFiz">
-                <label for="isFiz" class="form-check-label">Юридическое лицо</label>
-            </div>
+        <div class="row">
+            <label for="InputLogin" class="form-label">Логин или ИНН организации</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="InputLogin" 
+            formControlName="login">
         </div>
-        <div *ngIf="form.value.isFiz; then a else b" class="form-label"></div>
-        <ng-template #a>
-            <div class="row">
-                <label for="InputLogin" class="form-label">Логин</label>
-                <input 
-                type="text" 
-                class="form-control" 
-                id="InputLogin" 
-                formControlName="login">
-            </div>
-        </ng-template>
-        <ng-template #b>
-            <div class="row  ">
-                <label for="InputINN" class="form-label">ИНН организации</label>
-                <input 
-                type="text" 
-                class="form-control" 
-                id="InputINN" 
-                formControlName="INN"
-                [ngClass]="{'invalid': !isInnCorrect(form.get('login').value) && form.get('login').touched}">
-                <span 
-                class="error-text"
-                *ngIf="!isInnCorrect(form.get('login').value) && form.get('login').touched"> 
-                Некорректный ИНН </span>
-            </div>
-        </ng-template>
         <div class="row  ">
             <label for="InputPassword" class="form-label">Введите пароль</label>
             <input  
