@@ -1,7 +1,7 @@
-const sequelize = require("./index")
+const {userSequelize} = require("./index")
 const {DataTypes} = require("sequelize")
 
-const UserModel = sequelize.define("user",{
+const UserModel = userSequelize.define("user",{
   login: DataTypes.STRING,
   password: DataTypes.STRING,
   phone_number: DataTypes.STRING,
@@ -9,12 +9,12 @@ const UserModel = sequelize.define("user",{
   isfiz: DataTypes.BOOLEAN
 },
 {
-  sequelize,
+  userSequelize,
   freezeTableName: true,
   modelName: 'User',
 });
   
-const UsualUserModel = sequelize.define("usualuser",{
+const UsualUserModel = userSequelize.define("usualuser",{
   start_subscribe_time: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
@@ -24,13 +24,13 @@ const UsualUserModel = sequelize.define("usualuser",{
   bonus_balance: DataTypes.INTEGER
 },
 {
-  sequelize,
+  userSequelize,
   timestamps: false,
   freezeTableName: true,
   modelName: 'UsualUser',
 });  
 
-const EnterpriseUserModel = sequelize.define("enterpriseuser",{
+const EnterpriseUserModel = userSequelize.define("enterpriseuser",{
   company: DataTypes.STRING,
   start_subscribe_time: {
     type: DataTypes.DATE,
@@ -44,18 +44,22 @@ const EnterpriseUserModel = sequelize.define("enterpriseuser",{
     defaultValue: 0
   }
 }, {
-  sequelize,
+  userSequelize,
   freezeTableName: true,
   timestamps: false,
   modelName: 'EnterpriseUser',
 })
 
-UserModel.hasOne(UsualUserModel);
+UserModel.hasOne(UsualUserModel, {
+  onDelete: 'CASCADE'
+});
 UsualUserModel.belongsTo(UserModel, {
   foreignKey: "userId"
 });
 
-UserModel.hasOne(EnterpriseUserModel);
+UserModel.hasOne(EnterpriseUserModel, {
+  onDelete: 'CASCADE'
+});
 EnterpriseUserModel.belongsTo(UserModel, {
   foreignKey: "userId"
 });
