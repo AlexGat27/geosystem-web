@@ -10,10 +10,9 @@ class AuthController{
             const jwtHeader = req.headers["authorisation"];
             const token = jwtHeader && jwtHeader.split(' ')[1];
 
-            if (token == null || token === undefined) return res.sendStatus(401);
-  
             let d = jwt.verify(token, config.jwt);
             const data = await UserModel.findOne({ where: { login: d.login } });
+
             return res.status(200).json(data);
         } catch (er) {
             res.status(400).json({
@@ -21,6 +20,32 @@ class AuthController{
             });
         }
     }
+
+    // async clearTableUser(req, res){
+    //     try {
+    //         function promise(){
+    //             return new Promise((model) => {
+    //             model.truncate();
+    //         })}
+    //         result = promise(UsualUserModel)
+    //         .then(() => {
+    //             return promise(EnterpriseUserModel)
+    //         })
+    //         .then(() => {
+    //             promise(UserModel)
+    //         })
+    //         .catch((error) => {
+    //             return res.status(400).json({message: "Ошибка удаления"})
+    //         })
+    //         .finally(() => {
+    //             return res.status(200).json({message: "Вся БД очищена"})
+    //         });
+    //     } catch (er) {
+    //         res.status(400).json({
+    //             message: er,
+    //         });
+    //     }
+    // }
 
     async registration(req, res){
         try {
@@ -57,7 +82,7 @@ class AuthController{
 
         } catch (er) {
             console.log(er);
-            res.status(400).json("Registartion error");
+            res.status(400).json("Ошибка регистрации");
         }
     }
 
@@ -74,11 +99,11 @@ class AuthController{
                 isfiz: candidate.isfiz
             }, config.jwt, {expiresIn: 60 * 60});
             return res.status(200).json({
-                token: `Bearier ${token}`
+                token: `Bearer ${token}`
             });
         } catch (er) {
             console.log(er);
-            res.status(400).json("Login error");
+            res.status(400).json("Ошибка авторизации");
         }
     }
 }
