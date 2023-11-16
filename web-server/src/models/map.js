@@ -1,13 +1,17 @@
-const sequelize = require("./index")
-const {DataTypes} = require("sequelize")
+// const { getRounds } = require("bcryptjs");
+// const sequelize = require("./index")
+// const {DataTypes} = require("sequelize")
 
-const GraphicalMapModel = sequelize.define("graphical_map",{
-  district_ids: DataTypes.ARRAY,
-  geometry: DataTypes.GEOMETRY,
-},
-{
-  sequelize,
-  freezeTableName: true,
-  modelName: 'GraphicalMap',
-});
+// const GraphicalMapModel = sequelize.define("graphical_map",{
+//   district_ids: DataTypes.ARRAY,
+//   geometry: DataTypes.GEOMETRY,
+// },
+// {
+//   sequelize,
+//   freezeTableName: true,
+//   modelName: 'GraphicalMap',
+// });
 
+// GraphicalMapModel.sync();
+
+// module.exports = {GraphicalMapModel};
