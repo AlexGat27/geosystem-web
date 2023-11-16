@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import { MapService } from 'src/app/shared/layouts/services/map.service';
 
 // var LeafIcon = L.Icon.extend({
 //   options: {
@@ -16,20 +17,25 @@ import * as L from 'leaflet';
 })
 export class MapPageComponent implements OnInit {
 
-  // constructor(icon1class: L.Icon){
-  //   icon1class = new LeafIcon(icon);
-  // }
+  constructor(private mapservice: MapService){
+  }
 
   ngOnInit(): void {
     this.initializeMap();
+
   }
 
   private initializeMap(): void {
     const map = L.map('leafletMap').setView([59.940224, 30.316028], 12);
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
       attribution: 'OpenStreetMap'
     }).addTo(map);
+
+    L.marker([59.940224, 30.316028]).addTo(map);
+
   }
+
 
 
 }
