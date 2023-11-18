@@ -12,7 +12,7 @@ const PotholeModel = potholeSequelize.define("pothole",{
   freezeTableName: true,
   timestamps: false,
   modelName: 'Pothole',
-});
+});//
 
 // const DistrictModel = potholeSequelize.define("district",{
 //     district_name: DataTypes.STRING,
@@ -48,6 +48,8 @@ const PotholeModel = potholeSequelize.define("pothole",{
 // });
 // ClassPotholeModel.belongsTo(PotholeModel);
 
-potholeSequelize.sync();
+potholeSequelize.sync()
+.then(console.log("successful connection"))
+.catch(er => console.log(er));
 
 module.exports = {PotholeModel}

@@ -62,6 +62,8 @@ EnterpriseUserModel.belongsTo(UserModel, {
   onDelete: 'CASCADE'
 });
 
-userSequelize.sync();
+userSequelize.sync()
+.then(console.log("successful connection"))
+.catch(er => console.log(er));
 
 module.exports = {UserModel, UsualUserModel, EnterpriseUserModel};
