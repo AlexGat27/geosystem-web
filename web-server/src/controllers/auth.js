@@ -21,31 +21,13 @@ class AuthController{
         }
     }
 
-    // async clearTableUser(req, res){
-    //     try {
-    //         function promise(){
-    //             return new Promise((model) => {
-    //             model.truncate();
-    //         })}
-    //         result = promise(UsualUserModel)
-    //         .then(() => {
-    //             return promise(EnterpriseUserModel)
-    //         })
-    //         .then(() => {
-    //             promise(UserModel)
-    //         })
-    //         .catch((error) => {
-    //             return res.status(400).json({message: "Ошибка удаления"})
-    //         })
-    //         .finally(() => {
-    //             return res.status(200).json({message: "Вся БД очищена"})
-    //         });
-    //     } catch (er) {
-    //         res.status(400).json({
-    //             message: er,
-    //         });
-    //     }
-    // }
+    clearTableUser(req, res){
+        UserModel.destroy({where: {}}).then(() => {
+            return res.status(200).json({message: "Успешная очистка базы данных пользователей"})
+        }).catch(er => {
+            return res.status(400).json(er)
+        });
+    }
 
     async registration(req, res){
         try {

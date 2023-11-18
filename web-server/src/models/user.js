@@ -50,22 +50,18 @@ const EnterpriseUserModel = userSequelize.define("enterpriseuser",{
   modelName: 'EnterpriseUser',
 })
 
-UserModel.hasOne(UsualUserModel, {
-  onDelete: 'CASCADE'
-});
+UserModel.hasOne(UsualUserModel);
 UsualUserModel.belongsTo(UserModel, {
-  foreignKey: "userId"
-});
-
-UserModel.hasOne(EnterpriseUserModel, {
+  foreignKey: "userId",
   onDelete: 'CASCADE'
 });
+
+UserModel.hasOne(EnterpriseUserModel);
 EnterpriseUserModel.belongsTo(UserModel, {
-  foreignKey: "userId"
+  foreignKey: "userId",
+  onDelete: 'CASCADE'
 });
 
-UserModel.sync();
-UsualUserModel.sync();
-EnterpriseUserModel.sync();
+userSequelize.sync();
 
 module.exports = {UserModel, UsualUserModel, EnterpriseUserModel};

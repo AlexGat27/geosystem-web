@@ -48,6 +48,6 @@ const PotholeModel = potholeSequelize.define("pothole",{
 // });
 // ClassPotholeModel.belongsTo(PotholeModel);
 
-PotholeModel.sync();
+potholeSequelize.sync();
 
 module.exports = {PotholeModel}
