@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import {LatLngExpression, Marker, Map, tileLayer, Layer, LayerGroup, marker } from 'leaflet';
-import { catchError, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 // import { count, map, tap } from 'rxjs/operators'
 // import { markerClusterGroupProvider } from 'leaflet.markercluster';
 
@@ -14,20 +14,15 @@ import { MapService } from 'src/app/shared/layouts/services/map.service';
 })
 export class MapPageComponent implements OnInit {
 
-  map: Map | undefined;
-  potholeData: Observable<any>;
-  layerGroup: LayerGroup | undefined;
+  private map: Map | undefined;
+  private potholeSubscription: Subscription;
+  private markers: Marker[];
+  private layerGroup: LayerGroup | undefined;
 
   constructor(private mapservice: MapService){
   }
 
   ngOnInit(): void {
-    this.initializeMap();
-    this.addPotholes();
-    console.log("erferferf")
-  }
-
-  private initializeMap(): void {
     let center: LatLngExpression = [59.940224, 30.316028]; //Санкт-Петербург
     let zoom = 12;
     let minzoom = 10;
@@ -43,17 +38,32 @@ export class MapPageComponent implements OnInit {
       minZoom: 10,
       bounds: bounds
     }).addTo(this.map);
+
     this.layerGroup = new LayerGroup().addTo(this.map);
+
+    this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
+      this.addPothole2Map(potholeData);
+    });
+
+    this.mapservice.getPotholes();
   }
 
-  private addPotholes(): void {
-    this.mapservice.getPotholes().subscribe(result =>{
-      for (var i = 0; i < result.length; i++){
-        var coords = result[i].geometry.coordinates;
-        coords = this.mapservice.convert3857to4326(coords);
-        var mark = marker(coords);
-        mark.addTo(this.layerGroup);
-      }
+  private addPothole2Map(potholeData: any): void {
+    
+    const customIcon = new L.Icon({
+      iconUrl: "../../../assets/icons/pothole_1_1.png", // Путь к вашей иконке
+      iconSize: [16, 16], // Размер иконки в пикселях
     });
+
+    marker([potholeData.geometry.coordinates[0], potholeData.geometry.coordinates[1]], {
+      icon: customIcon
+    })
+    .bindPopup(`ID: ${potholeData.id}<br>Данные: ${JSON.stringify(potholeData)}`)
+    .addTo(this.map);
+  }
+
+  ngOnDestroy(): void {
+    // Отписываемся от подписки при уничтожении компонента
+    this.potholeSubscription.unsubscribe();
   }
 }
