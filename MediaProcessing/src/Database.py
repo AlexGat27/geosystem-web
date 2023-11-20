@@ -14,16 +14,16 @@ import psycopg2
 from psycopg2 import Error
 import os
 import numpy as np
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 class Database():
     __paramBD = {
-        'host':os.getenv('DB_HOST'),
-        'user':os.getenv('DB_USER'),
-        'password':os.getenv('DB_PASSWORD'),
-        'database':os.getenv('DB_NAME'),
-        'port':os.getenv('DB_PORT')
+        'host':'localhost',
+        'user':'postgres', #os.getenv('DB_USER'),
+        'password':'Shurikgat2704',#os.getenv('DB_PASSWORD'),
+        'database':'PostgresGPS',#os.getenv('DB_NAME'),
+        'port':'5432'#os.getenv('DB_PORT')
     }
     #Класс базы данных, откуда осуществялется все взаимодействие с ней
     instance = None
