@@ -1,7 +1,14 @@
 const {Sequelize} = require('sequelize');
-const config = require('../config/dbEnv');
+const {UserDB, PotholeDB} = require('../config/dbEnv');
 
-module.exports = new Sequelize(config.database, config.username, config.password, {
-  host: config.host,
-  dialect: config.dialect
+const userSequelize = new Sequelize(UserDB.database, UserDB.username, UserDB.password, {
+  host: UserDB.host,
+  dialect: UserDB.dialect
 });
+
+const potholeSequelize = new Sequelize(PotholeDB.database, PotholeDB.username, PotholeDB.password, {
+  host: PotholeDB.host,
+  dialect: PotholeDB.dialect
+});
+
+module.exports = {userSequelize, potholeSequelize}

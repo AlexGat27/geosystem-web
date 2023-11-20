@@ -1,32 +1,34 @@
 body{
-    padding: 5%;
+    padding: 3%;
     padding-left: 20%;
     padding-right: 20%;
-    background-image: 
-        linear-gradient( rgba(0,0,0,.7), rgba(0,0,0,.7)),
-        url('../../../../assets/pictures/googleMapBack.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+        url(../../../../assets/pictures/map-back.jpg) no-repeat;
     background-size: cover;
 }
 
-.sidenav {
+.card{
     height: 100%;
-    width: 20%;
-    background-color: #111;
-    padding-top: 20px;
 }
 
-.sidenav a {
-    padding: 15px 8px 15px 15px;
+.list-group .list-group-item{
+    background-color: #111;
+}
+
+.list-group {
+    height: 100%;
+    width:100%;
+    background-color: #111;
+}
+
+.list-group a {
+    padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #b8b1cc;
+    color: #818181;
     display: block;
 }
 
-.sidenav a:hover {
+.list-group a:hover {
     color: #f1f1f1;
-}
-
-.main { /* Same as the width of the sidenav */
-    padding: 10px;
 }
