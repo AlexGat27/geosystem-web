@@ -46,6 +46,7 @@ Media/*.jpg
 !Media/Pictures/
 !Media/Video/
 
-
+#Environment python
+.venv/
 *.pyc
 .env
