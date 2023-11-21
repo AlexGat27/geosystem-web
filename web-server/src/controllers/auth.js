@@ -64,7 +64,7 @@ class AuthController{
 
         } catch (er) {
             console.log(er);
-            res.status(400).json("Ошибка регистрации");
+            res.status(400).json({message: "Ошибка регистрации"});
         }
     }
 

@@ -13,6 +13,6 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/map', mapRouter)
 app.use('/api/v1/mediaProcessing', mediaRouter)
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 
 app.listen(port, () => {console.log('Server has been started')})

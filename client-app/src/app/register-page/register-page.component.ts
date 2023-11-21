@@ -58,7 +58,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
             }
           })
         },
-        ({error}) => {
+        (error) => {
           this.errorMsg = error.message;
           console.warn(error);
           this.fizform.enable();
@@ -73,7 +73,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
         }),
         ({error}) => {
           this.errorMsg = error.message;
-          console.warn(error);
+          console.warn(this.errorMsg);
           this.enterpriseform.enable();
         }
       );

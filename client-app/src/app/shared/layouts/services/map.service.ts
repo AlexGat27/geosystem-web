@@ -13,7 +13,7 @@ export class MapService {
     }
 
     getPotholes() {
-        this.http.get<any>("/api/map/getPotholes").subscribe(result => {
+        this.http.get<any>("/api/v1/map/getPotholes").subscribe(result => {
             for(var i = 0; i < result.length; i++){
                 var data = result[i];
                 data.geometry.coordinates = this.convert3857to4326(result[i].geometry.coordinates)

@@ -16,11 +16,11 @@ export class AuthService {
     }
 
     register(userValue): Observable<{token: string}> {
-        return this.http.post<any>("/api/auth/register", userValue);
+        return this.http.post<any>("/api/v1/auth/register", userValue);
     }
 
     login(userValue): Observable<{token: string}> {
-        return this.http.post<{token: string}>("/api/auth/login", userValue)
+        return this.http.post<{token: string}>("/api/v1/auth/login", userValue)
         .pipe(
             tap(({token}) => {
                 localStorage.setItem('auth-token', token);
@@ -31,7 +31,7 @@ export class AuthService {
     }
 
     getUser(): Observable<any>{
-        return this.http.get<any>("/api/auth/getUser");
+        return this.http.get<any>("/api/v1/auth/getUser");
     }
 
     setToken(token: string){
