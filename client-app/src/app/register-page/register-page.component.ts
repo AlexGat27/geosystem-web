@@ -44,6 +44,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
     if(this.aSub){
       this.aSub.unsubscribe();
     }
+    this.errorMsg = undefined;
   }
 
   OnSubmit(){
@@ -58,7 +59,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
             }
           })
         },
-        (error) => {
+        ({error}) => {
           this.errorMsg = error.message;
           console.warn(error);
           this.fizform.enable();

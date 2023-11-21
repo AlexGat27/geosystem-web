@@ -4,6 +4,8 @@ import random
 from datetime import datetime
 import numpy as np
 import os
+from io import BytesIO
+from torchvision.transforms import ToTensor
 from .Database import Database
 
 __support_img_ext = ['bmp', 'dng', 'jpeg', 'jpg', 'mpo', 'png', 'tif', 'tiff', 'webp', 'pfm', 'JPG'] 
@@ -51,21 +53,18 @@ nametable = "pothole"
 #         return len(ids)
 
 #Основной процесс обработки фото, записи фотографии в папку Media/{nametable} и координат в таблицу
-def imageProcessing(image_path):
-    if image_path.split('.')[-1] in __support_img_ext:
-        result = model(image_path)[0]
-        for i in range(len(result.boxes)):
-            time_detect = datetime.today()
-            database.insert_to_table(nametable, time_detect, random.choice(__street),
-                                      random.uniform(3360000, 3400000), random.uniform(8370000, 8400000), random.randint(1,4))
-            print(i)
-        annotated_frame = result.plot()
-        name_folder = os.path.join(os.path.abspath(os.getcwd()), "Media", nametable)
-        name_file = "annotate_" + image_path.split('/')[-1].split('.')[0] + ".jpg"
-        save_path = os.path.join(name_folder, name_file).replace(os.sep, '/')
-        if not(os.path.exists(name_folder)):
-            os.makedirs(name_folder)
-        cv2.imwrite(save_path, annotated_frame)
-        return "Успешное добавление фотографии в БД"
-    else:
-        return "Произошла ошибка записи"
+def imageProcessing(file):
+    image_np = np.frombuffer(file.read(), np.uint8)
+    image = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
+    tensor_image = ToTensor()(image).unsqueeze(0)
+    result = model(tensor_image)[0]
+    for i in range(len(result.boxes)):
+        time_detect = datetime.today()
+        database.insert_to_table(nametable, time_detect, random.choice(__street),
+                                  random.uniform(3360000, 3400000), random.uniform(8370000, 8400000), random.randint(1,4))
+    annotated_frame = result.plot()
+
+    retval, buffer = cv2.imencode('.jpg', annotated_frame)
+    output_buffer = BytesIO(buffer)
+    output_buffer.seek(0)
+    return output_buffer

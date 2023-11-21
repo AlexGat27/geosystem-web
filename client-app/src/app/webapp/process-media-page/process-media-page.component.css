@@ -1,3 +1,20 @@
 .dn{
     display: none;
 }
+
+.imagePut{
+    max-height: 1000px;
+}
+
+.imagePut .d-inline-block{
+    height: 100%;
+    width: 49%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgb(207, 207, 207);
+}
+
+.imagePut img{
+    width: 100%;
+    height: auto;
+}

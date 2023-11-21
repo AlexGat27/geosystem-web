@@ -10,7 +10,8 @@ export class ProcessMediaPageComponent {
 
   @ViewChild('inputFile') inputRef: ElementRef;
   image: File;
-  imagePreview: '';
+  imageBefore = '';
+  imageAfter = '';
 
   constructor(private potholeServide: PotholeService){
   }
@@ -21,10 +22,22 @@ export class ProcessMediaPageComponent {
 
   onFileUpload(event: any){
     const file = event.target.files[0];
-    this.image = file;
-    const reader = new FileReader();
-    reader.onload = () => {
-      // this.imagePreview = reader.result;
+    if (file){
+      this.readAndDisplayimage(file);
     }
+    this.potholeServide.imageProcessing(file).subscribe((blob: Blob) => {
+      console.log("я дошел до сюда")
+      this.imageAfter = URL.createObjectURL(blob);
+    }, er => {
+      console.log(er);
+    });
+  }
+
+  readAndDisplayimage(file: File){
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imageBefore = e.target.result;
+    }
+    reader.readAsDataURL(file);
   }
 }

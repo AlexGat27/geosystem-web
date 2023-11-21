@@ -10,13 +10,10 @@ export class PotholeService {
     constructor(private http: HttpClient){
     }
 
-    // imageProcessing(imagePath) {
-    //     this.http.post<any>("/api/v1/mediaProcessing/imageProcessing", image).subscribe(result => {
-    //         for(var i = 0; i < result.length; i++){
-    //             var data = result[i];
-    //             data.geometry.coordinates = this.convert3857to4326(result[i].geometry.coordinates)
-    //             this.markersSubject.next(data);
-    //         }
-    //     });
-    // }
+    imageProcessing(image: File): Observable<any> {
+        const formData: FormData = new FormData();
+        formData.append('image', image);
+        console.log(formData.getAll('image'))
+        return this.http.post<Blob>("/api/v1/mediaProcessing/imageProcessing", formData);
+    }
 }
