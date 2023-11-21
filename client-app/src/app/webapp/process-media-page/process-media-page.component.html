@@ -1,0 +1,19 @@
+<div>
+    <input 
+        type="file"
+        class="dn" 
+        #inputFile
+        (change)="onFileUpload()"
+    >
+    <button 
+        (click)="processingMedia()"
+        type="button"
+        class="btn-primary">
+    </button>
+</div>
+<div>
+    <img 
+        [src]="imagePreview"
+        *ngIf="imagePreview"
+    >
+</div>

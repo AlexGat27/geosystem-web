@@ -20,6 +20,7 @@ import { ProfilePageComponent } from './profile/profile-page/profile-page.compon
 import { ComplexPageComponent } from './projects-page/complex-page/complex-page.component';
 import { WebappDescriptionPageComponent } from './projects-page/webapp-description-page/webapp-description-page.component';
 import { HomeappComponent } from './webapp/homeapp/homeapp.component';
+import { ProcessMediaPageComponent } from './webapp/process-media-page/process-media-page.component';
 
 const appRoutes: Routes = [
   {path: '', component: AuthLayoutComponent, children:[
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
   {path: 'webapp', component: WebappLayoutComponent, canActivate: [AuthGuard], children:[
     {path: 'home-app', component: HomeappComponent},
     {path: 'map-page', component: MapPageComponent},
+    {path: 'process-media-page', component: ProcessMediaPageComponent},
   ]}
 ]
 
@@ -51,7 +53,8 @@ const appRoutes: Routes = [
     ProfilePageComponent,
     ComplexPageComponent,
     WebappDescriptionPageComponent,
-    HomeappComponent
+    HomeappComponent,
+    ProcessMediaPageComponent
   ],
   imports: [
     BrowserModule,
