@@ -25,9 +25,10 @@ export class ProcessMediaPageComponent {
     if (file){
       this.readAndDisplayimage(file);
     }
-    this.potholeServide.imageProcessing(file).subscribe((blob: Blob) => {
-      console.log("я дошел до сюда")
+    this.potholeServide.imageProcessing(file).subscribe((response) => {
+      const blob = new Blob([response.data], {type: 'image/jpeg'});
       this.imageAfter = URL.createObjectURL(blob);
+      console.log(this.imageAfter)
     }, er => {
       console.log(er);
     });
@@ -39,5 +40,11 @@ export class ProcessMediaPageComponent {
       this.imageBefore = e.target.result;
     }
     reader.readAsDataURL(file);
+  }
+
+  private arrayBufferToBase64(buffer: Uint8Array): string {
+    let binary = '';
+    buffer.forEach(byte => binary += String.fromCharCode(byte));
+    return btoa(binary);
   }
 }

@@ -1,17 +1,29 @@
-const axios = require("axios")
+const request = require('request');
 
 class MediaProcessingController{
 
     async imageProcessing(req, res){
-        try {
-            console.log(req.body);
-            const result = await axios.post('http://127.0.0.1:8000/', req.body);
-            return res.status(200).json(result.data);
-        }catch(er){
-            res.status(400).json({
-                message: er,
-            })
-        }
+        const options = {
+            url: 'http://127.0.0.1:8000/', // Замените на фактический URL Python API
+            method: 'POST',
+            formData: {
+                image: {
+                    value: req.file.buffer, // Используйте буфер файла
+                    options: {
+                        filename: req.file.originalname,
+                        contentType: req.file.mimetype,
+                    },
+                },
+            },
+        };
+
+        request(options, (error, response, body) => {
+            if (error) {
+                return res.status(500).json({ message: 'Internal Server Error' });
+            } else {
+                return res.status(200).json({data: body});
+            }
+        });
     }
 }
 

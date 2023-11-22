@@ -13,7 +13,12 @@ export class PotholeService {
     imageProcessing(image: File): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('image', image);
-        console.log(formData.getAll('image'))
-        return this.http.post<Blob>("/api/v1/mediaProcessing/imageProcessing", formData);
+
+        const headers = new HttpHeaders();
+        headers.set('Content-Type', 'multipart/form-data');
+
+        return this.http.post<any>("/api/v1/mediaProcessing/imageProcessing", formData, {
+            headers: headers
+        });
     }
 }
