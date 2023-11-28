@@ -12,7 +12,10 @@ def process_media():
         return jsonify({'error': 'No file Part'})
     file = request.files['image']
     result = imageProcessing(file)
-    return result, 200, {'Content-Type': 'image/jpeg'}
+    savefile = open('save.jpg', 'wb')
+    savefile.write(result)
+    savefile.close()
+    return send_file(BytesIO(result), mimetype='image/jpeg')
 
 if __name__ == '__main__':
     app.run(debug=True, port=port)

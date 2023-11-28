@@ -2,12 +2,13 @@
 <div class="d-flex flex-column h-100 p-3">
     <div class="imagePut h-100">
         <div class="h-100 d-inline-block" style="margin-right: 1%;">
-            <img [src]="imageBefore" *ngIf="imageBefore" #image>
+            <img [src]="imageBefore" *ngIf="imageBefore">
         </div>
         <div class="h-100 d-inline-block" style="margin-left: 1%;">
-            <img [src]="imageAfter" *ngIf="imageAfter" #image>
+            <img [src]="imageAfter" *ngIf="imageAfter">
         </div>
     </div>
+    <a href={{imageAfter}}>ссылка для скачивания изображения</a>
     <div class="p-2 text-center">
         <input 
         type="file"

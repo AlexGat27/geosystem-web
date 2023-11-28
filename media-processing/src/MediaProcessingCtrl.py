@@ -64,7 +64,7 @@ def imageProcessing(file):
         database.insert_to_table(nametable, time_detect, random.choice(__street),
                                   random.uniform(3360000, 3400000), random.uniform(8370000, 8400000), random.randint(1,4))
     annotated_frame = result.plot()
-
+    cv2.imwrite('D:\MyProgramms\Programs\JavaScript\GeosystemWebApp\media-processing\Media\pothole/1.jpg', annotated_frame)
     # image_pillow = Image.fromarray(annotated_frame)
     # image_byte_array = BytesIO()
     # image_pillow.save(image_byte_array, format='JPEG')

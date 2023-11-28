@@ -1,5 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { PotholeService } from 'src/app/shared/layouts/services/pothole.service';
+import { saveAs } from 'file-saver'
 
 @Component({
   selector: 'app-process-media-page',
@@ -11,7 +12,8 @@ export class ProcessMediaPageComponent {
   @ViewChild('inputFile') inputRef: ElementRef;
   image: File;
   imageBefore = '';
-  imageAfter = '';
+  @Input()
+  imageAfter;
 
   constructor(private potholeServide: PotholeService){
   }
@@ -23,28 +25,24 @@ export class ProcessMediaPageComponent {
   onFileUpload(event: any){
     const file = event.target.files[0];
     if (file){
-      this.readAndDisplayimage(file);
+      this.imageBefore = URL.createObjectURL(file);
+      console.log(this.imageBefore);
     }
     this.potholeServide.imageProcessing(file).subscribe((response) => {
-      const blob = new Blob([response.data], {type: 'image/jpeg'});
+      const uint8array = new Uint8Array(response.length)
+      for (let i = 0; i < response.length; i++) {
+        uint8array[i] = response.charCodeAt(i);
+      }
+      const blob = new Blob([uint8array], {type: "image/jpeg"});
       this.imageAfter = URL.createObjectURL(blob);
-      console.log(this.imageAfter)
+      console.log(this.imageAfter);
+      // const readerAfter = new FileReader();
+      // readerAfter.onload = () => {
+      //   this.imageAfter = readerAfter.result;
+      // }
+      // readerAfter.readAsDataURL(blob);
     }, er => {
       console.log(er);
     });
-  }
-
-  readAndDisplayimage(file: File){
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.imageBefore = e.target.result;
-    }
-    reader.readAsDataURL(file);
-  }
-
-  private arrayBufferToBase64(buffer: Uint8Array): string {
-    let binary = '';
-    buffer.forEach(byte => binary += String.fromCharCode(byte));
-    return btoa(binary);
   }
 }
