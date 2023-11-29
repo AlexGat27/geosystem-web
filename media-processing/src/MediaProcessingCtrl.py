@@ -56,6 +56,9 @@ nametable = "pothole"
 def imageProcessing(file):
     image_np = np.frombuffer(file.read(), np.uint8)
     image = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
+
+    h, w, _ = image.shape
+
     image = cv2.resize(image, (640, 640))
     tensor_image = ToTensor()(image).unsqueeze(0)
     result = model(tensor_image)[0]
@@ -64,13 +67,8 @@ def imageProcessing(file):
         database.insert_to_table(nametable, time_detect, random.choice(__street),
                                   random.uniform(3360000, 3400000), random.uniform(8370000, 8400000), random.randint(1,4))
     annotated_frame = result.plot()
-    cv2.imwrite('D:\MyProgramms\Programs\JavaScript\GeosystemWebApp\media-processing\Media\pothole/1.jpg', annotated_frame)
-    # image_pillow = Image.fromarray(annotated_frame)
-    # image_byte_array = BytesIO()
-    # image_pillow.save(image_byte_array, format='JPEG')
-    # image_byte_array = image_byte_array.getvalue()
-    # return image_byte_array
+    annotated_frame = cv2.resize(annotated_frame, (w, h))
+
     retval, buffer = cv2.imencode('.jpg', annotated_frame)
     output_buffer = buffer.tobytes()
-    # output_buffer.seek(0)
     return output_buffer

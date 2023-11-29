@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PotholeService } from 'src/app/shared/layouts/services/pothole.service';
 import { saveAs } from 'file-saver'
 
@@ -7,15 +7,20 @@ import { saveAs } from 'file-saver'
   templateUrl: './process-media-page.component.html',
   styleUrls: ['./process-media-page.component.css']
 })
-export class ProcessMediaPageComponent {
+export class ProcessMediaPageComponent implements OnInit{
 
   @ViewChild('inputFile') inputRef: ElementRef;
-  image: File;
-  imageBefore = '';
-  @Input()
-  imageAfter;
+  isFilesComplete: boolean;
+  imageBefore: string | ArrayBuffer;
+  imageAfter: string | ArrayBuffer;
 
   constructor(private potholeServide: PotholeService){
+  }
+
+  ngOnInit(): void {
+    this.imageAfter = '';
+    this.imageBefore = '';
+    this.isFilesComplete = false;
   }
 
   processingMedia(){
@@ -25,24 +30,22 @@ export class ProcessMediaPageComponent {
   onFileUpload(event: any){
     const file = event.target.files[0];
     if (file){
-      this.imageBefore = URL.createObjectURL(file);
-      console.log(this.imageBefore);
+      this.potholeServide.imageProcessing(file).subscribe((response) => {
+        let data = JSON.parse(response)
+        this.imageAfter = 'data:image/jpeg;base64,' + data.imageUrl;
+        this.readAndDisplayImg(file);
+        this.isFilesComplete = true;
+      }, er => {
+        console.log(er);
+      });
     }
-    this.potholeServide.imageProcessing(file).subscribe((response) => {
-      const uint8array = new Uint8Array(response.length)
-      for (let i = 0; i < response.length; i++) {
-        uint8array[i] = response.charCodeAt(i);
-      }
-      const blob = new Blob([uint8array], {type: "image/jpeg"});
-      this.imageAfter = URL.createObjectURL(blob);
-      console.log(this.imageAfter);
-      // const readerAfter = new FileReader();
-      // readerAfter.onload = () => {
-      //   this.imageAfter = readerAfter.result;
-      // }
-      // readerAfter.readAsDataURL(blob);
-    }, er => {
-      console.log(er);
-    });
+  }
+
+  private readAndDisplayImg(img: File){
+    const reader = new FileReader();
+    reader.readAsDataURL(img);
+    reader.onload = () => {
+      this.imageBefore = reader.result;
+    };
   }
 }

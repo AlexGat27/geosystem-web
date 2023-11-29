@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_file
 from src.MediaProcessingCtrl import imageProcessing
-import os
+import base64
 from io import BytesIO
 
 app = Flask(__name__)
@@ -12,10 +12,9 @@ def process_media():
         return jsonify({'error': 'No file Part'})
     file = request.files['image']
     result = imageProcessing(file)
-    savefile = open('save.jpg', 'wb')
-    savefile.write(result)
-    savefile.close()
-    return send_file(BytesIO(result), mimetype='image/jpeg')
+
+    res_send = base64.b64encode(result).decode('utf-8')
+    return jsonify({'imageUrl': res_send})
 
 if __name__ == '__main__':
     app.run(debug=True, port=port)

@@ -1,14 +1,21 @@
 
 <div class="d-flex flex-column h-100 p-3">
     <div class="imagePut h-100">
-        <div class="h-100 d-inline-block" style="margin-right: 1%;">
-            <img [src]="imageBefore" *ngIf="imageBefore">
+        <div 
+        [ngClass]="{noImageBlock: !isFilesComplete}" 
+        class="h-100 d-inline-block text-center" 
+        style="margin-right: 1%;">
+            <img [src]="imageBefore" *ngIf="isFilesComplete">
+            <div class="h4 mt-2 text-secondary mt-2">Изображение до обработки</div>
         </div>
-        <div class="h-100 d-inline-block" style="margin-left: 1%;">
-            <img [src]="imageAfter" *ngIf="imageAfter">
+        <div 
+        [ngClass]="{noImageBlock: !isFilesComplete}" 
+        class="h-100 d-inline-block text-center" 
+        style="margin-left: 1%;">
+            <img [src]="imageAfter" *ngIf="isFilesComplete">
+            <div class="h4 text-secondary mt-2">Изображение после обработки</div>
         </div>
     </div>
-    <a href={{imageAfter}}>ссылка для скачивания изображения</a>
     <div class="p-2 text-center">
         <input 
         type="file"
