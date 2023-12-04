@@ -4,3 +4,10 @@
     margin-right: 3%;
     margin-bottom: 0%;
 }
+
+@media (max-width: 768px) {
+    .container-fluid{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+}
