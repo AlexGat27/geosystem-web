@@ -1,34 +1,94 @@
 body{
     padding: 3%;
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 10%;
+    padding-right: 10%;
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
         url(../../../../assets/pictures/map-back.jpg) no-repeat;
     background-size: cover;
 }
-
 .card{
+    display: flex;
+    flex-direction: row;
     height: 100%;
 }
-
-.list-group .list-group-item{
-    background-color: #111;
+.navigation-app{
+    width: 25%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.content{
+    flex-grow: 1;
+    box-sizing: border-box;
 }
 
-.list-group {
+.navigation-app img{
+    display: none;
+}
+.list {
+    padding: 0;
+    padding-top: 5%;
     height: 100%;
     width:100%;
     background-color: #111;
+    list-style: none;
 }
-
-.list-group a {
+.list li{
+    padding: 15px;
+    border-bottom: 1px, solid, #f1f1f1;
+}
+.list a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
 }
-
-.list-group a:hover {
+.list a:hover {
     color: #f1f1f1;
+}
+.list .icon_li{
+    width: 40px;
+    height: 40px;
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    body{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .card{
+        flex-direction: column;
+    }
+    .navigation-app{
+        width: 100%;
+        height: 10%;
+        order:2;
+    }
+    .navigation-app ul{
+        padding-top: 0%;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .navigation-app li{
+        padding: 0;
+        margin: 0%;
+    }
+    .list .icon_li{
+        display: none;
+    }
+}
+
+@media (max-width: 800px) {
+    body{
+        padding: 0%;
+    }
+    .navigation-app a{
+        display: none;
+    }
+    .list .icon_li{
+        display: inline-block;
+    }
 }

@@ -1,24 +1,4 @@
-/* :root{
-    --color1: #5d5c61;
-    --color2: #918F92;
-    --color3: #7395ae;
-    --color4: #557a95;
-    --color5: #4F709C;
-} */
-a{
-    text-decoration: none;
-}
-footer{
-    padding: 100px 0;
-    font-size: large;
-    background-color: white;
-}
-footer a{
-    color: black;
-}
-footer a:hover{
-    color:#5d5c61;
-}
+
 body{
     background-color: #557a95;
     padding: 3%;
@@ -28,8 +8,13 @@ body{
     background-color: aliceblue;
     padding: 3%;
 }
-.feature-text{
-    /* display: inline-block; */
+.pin-img{
+    width: 50px;
+    height: 50px;
+}
+.feature-img{
+    width: 80px;
+    height: 80px;
 }
 
 i.check {
@@ -40,4 +25,13 @@ i.check {
     border: solid black;
     border-width: 0 3px 3px 0;
     transform: rotate( 45deg);
+}
+
+@media (max-width: 1000px) {
+    body{
+        padding: 0%;
+    }
+    .col-6, .col-4{
+        width: 100%;
+    }
 }

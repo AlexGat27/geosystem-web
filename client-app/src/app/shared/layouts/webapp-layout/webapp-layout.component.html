@@ -12,19 +12,35 @@
 
 <body>
     <div class="card p-0 m-0">
-        <div class="row h-100 p-0 m-0">
-            <div class="col-3 p-0">
-                <div class="list-group">
-                    <div class="list-group-item"><a routerLink="/webapp/home-app">Профиль</a></div>
-                    <div class="list-group-item"><a routerLink="/webapp/map-page">Карта</a></div>
-                    <div class="list-group-item"><a routerLink="/webapp/process-media-page">Фото</a></div>
-                    <div class="list-group-item disabled"><a >Обучение</a></div>
-                    <div class="list-group-item disabled"><a >Магазин</a></div>
-                    <div class="list-group-item mt-auto"><a routerLink="">Выйти</a></div>
-                </div>
-            </div>
-            <div class="col-9 p-0"><router-outlet></router-outlet></div>
+        <div class="navigation-app p-0">
+            <ul class="list">
+                <li>
+                    <img src="../../../../assets/icons/profile-app.png" class="icon_li">
+                    <a routerLink="/webapp/home-app">Профиль</a>
+                </li>
+                <li>
+                    <a routerLink="/webapp/map-page">Карта</a>
+                    <img src="../../../../assets/icons/maplabel-app.png" class="icon_li">
+                </li>
+                <li>
+                    <a routerLink="/webapp/process-media-page">Фото</a>
+                    <img src="../../../../assets/icons/camera-app.png" class="icon_li">
+                </li>
+                <li class="disabled">
+                    <a>Обучение</a>
+                    <img src="../../../../assets/icons/learn-app.png" class="icon_li">
+                </li>
+                <li class="disabled">
+                    <a >Магазин</a>
+                    <img src="../../../../assets/icons/shop-app.png" class="icon_li">
+                </li>
+                <li>
+                    <a routerLink="">Выйти</a>
+                    <img src="../../../../assets/icons/exit-app.png" class="icon_li">
+                </li>
+            </ul>
         </div>
+        <div class="content"><router-outlet></router-outlet></div>
     </div>
 </body>
 
