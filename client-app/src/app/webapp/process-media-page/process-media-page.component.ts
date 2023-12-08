@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PotholeService } from 'src/app/shared/layouts/services/pothole.service';
-import { saveAs } from 'file-saver'
 
 @Component({
   selector: 'app-process-media-page',
