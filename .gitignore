@@ -43,9 +43,7 @@ testem.log
 Thumbs.db
 
 #Media files of python
-Media/*.jpg
-!Media/Pictures/
-!Media/Video/
+Media/
 
 #Environment python
 .venv/
