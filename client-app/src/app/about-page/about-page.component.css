@@ -5,11 +5,6 @@
     --color4: #557a95;
     --color5: #4F709C;
 }
-body{
-    background-color: #557a95;
-    padding-left: 3%;
-    padding-right: 3%;
-}
 .benefits{
     background-color: white;
 }
@@ -39,8 +34,5 @@ body{
     }
 }
 @media (max-width: 768px) {
-    body{
-        padding-left: 0%;
-        padding-right: 0%;
-    }
+
 }

@@ -5,11 +5,6 @@
     --color4: #557a95;
     --color5: #4F709C;
 }
-body{
-    background-color: #557a95;
-    padding-left: 3%;
-    padding-right: 3%;
-}
 a{
     text-decoration: none;
 }
@@ -60,9 +55,15 @@ a{
     }
 }
 
-@media (max-width: 768px) {
-    body{
-        padding-left: 0%;
-        padding-right: 0%;
+@media (max-width: 800px) {
+    .key-activities h5{
+        text-align: center;
+        text-indent: 0px;
     }
+}
+@media (max-width: 500px) {
+    .key-activities img{
+        width:100%;
+    }
+
 }

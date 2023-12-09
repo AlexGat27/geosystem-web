@@ -7,11 +7,26 @@
 a{
     text-decoration: none;
 }
+.navbar ul{
+    margin-left: 2%;
+}
 
 @media (max-width: 768px) {
     .container-fluid{
         margin-left: 0%;
         margin-right: 0%;
+    }
+    .nav-item{
+        margin-top: 2%;
+    }
+    .sidebar{
+        width: 50%;
+        background-color: rgba(255,255,255,0.7);
+        backdrop-filter: blur(10px);
+    }
+    .navbar-nav button{
+        width: 100%;
+        margin-bottom: 2%;
     }
 }
 
