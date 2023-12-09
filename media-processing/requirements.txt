@@ -1,4 +1,0 @@
-opencv-python==4.7.0.68
-psycopg2
-ultralytics
-flask
