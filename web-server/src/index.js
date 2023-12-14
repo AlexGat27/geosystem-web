@@ -8,12 +8,13 @@ const app = express()
 
 // app.use(bodyParser.urlencoded({extended: true}))
 // app.use(bodyParser.json())
-app.use(express.static('client-static'));
+// app.use(express.static('client-static'));
 // app.use('/api/v1/auth', authRouter)
 // app.use('/api/v1/map', mapRouter)
 // app.use('/api/v1/mediaProcessing', mediaRouter)
 
 const port = 80;
+// const port = 3000;
 const hostname = "0.0.0.0";
 
 app.listen(port,hostname, () => {console.log('Server has been started')})

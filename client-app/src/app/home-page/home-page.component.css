@@ -30,8 +30,9 @@ a{
     width: 100%;
     padding: 20px;
 }
-.card{
-    min-height: 250px;
+.key-activities h5{
+    margin-right: 10%;
+    margin-left: 10%;
 }
 
 @media (max-width: 1000px) {
@@ -59,6 +60,7 @@ a{
     .key-activities h5{
         text-align: center;
         text-indent: 0px;
+        margin: 2%;
     }
 }
 @media (max-width: 500px) {
