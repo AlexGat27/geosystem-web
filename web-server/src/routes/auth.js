@@ -6,11 +6,11 @@ const router = express.Router()
 //http://localhost:5000/api/auth/getUsualUsers
 router.get('/getUser', authMiddleware, controller.getUser)
 
-//http://localhost:5000/api/auth/clearTableUser
-router.get('/clearTableUser', controller.clearTableUser)
+//http://localhost:5000/api/auth/deleteUser
+router.get('/deleteUser', authMiddleware, controller.deleteUser)
 
 // //http://localhost:5000/api/auth/register
-router.post('/register', controller.registration)
+router.post('/register', controller.registerUser)
 
 // //http://localhost:5000/api/auth/login
 router.post('/login', controller.login)
