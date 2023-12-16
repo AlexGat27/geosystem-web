@@ -1,8 +1,3 @@
-body{
-    background-color: #557a95;
-    padding: 3%;
-}
-
 .feature{
     background-color: aliceblue;
     padding: 3%;
@@ -13,9 +8,6 @@ body{
 }
 
 @media (max-width: 1000px) {
-    body{
-        padding: 0%;
-    }
     .col-6, .col-4{
         width: 100%;
         margin-bottom: 3%;
