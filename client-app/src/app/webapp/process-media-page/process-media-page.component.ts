@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { PotholeService } from 'src/app/shared/layouts/services/pothole.service';
+import { PotholeService } from 'src/app/shared/services/pothole.service';
 
 @Component({
   selector: 'app-process-media-page',
@@ -13,7 +13,7 @@ export class ProcessMediaPageComponent implements OnInit{
   imageBefore: string | ArrayBuffer;
   imageAfter: string | ArrayBuffer;
 
-  constructor(private potholeServide: PotholeService){
+  constructor(private potholeServise: PotholeService){
   }
 
   ngOnInit(): void {
@@ -29,9 +29,8 @@ export class ProcessMediaPageComponent implements OnInit{
   onFileUpload(event: any){
     const file = event.target.files[0];
     if (file){
-      this.potholeServide.imageProcessing(file).subscribe((response) => {
-        let data = JSON.parse(response)
-        this.imageAfter = 'data:image/jpeg;base64,' + data.imageUrl;
+      this.potholeServise.imageProcessing(file).subscribe((response) => {
+        this.imageAfter = 'data:image/jpeg;base64,' + response;
         this.readAndDisplayImg(file);
         this.isFilesComplete = true;
       }, er => {
