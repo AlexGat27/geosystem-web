@@ -23,9 +23,8 @@ class MediaProcessingController{
                 return res.status(500).json({ message: 'Internal Server Error' });
             } else {
                 const fetchData = JSON.parse(body);
-                console.log(fetchData.potholesData)
                 potholeService.addPotholes(fetchData.potholesData);
-                // return res.status(200).json(fetchData.imageUrl);
+                return res.status(200).json(fetchData.imageUrl);
             }
         });
     }

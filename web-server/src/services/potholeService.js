@@ -1,4 +1,5 @@
 const {PotholeModel} = require("../models/pothole")
+const {potholeSequelize} = require('../models/index')
 
 class PotholeService{
 
@@ -11,7 +12,7 @@ class PotholeService{
     async addPotholes(data){
         for(let i = 0; i < data.length; i++){
             await PotholeModel.create({
-                geometry: `Point(${data[i].lat} ${data[i].lon})`,
+                geometry: potholeSequelize.literal(`ST_GeomFromText('POINT(${data[i].lat} ${data[i].lon})')`),
                 adress: data[i].street,
                 pothole_class: data[i].class
             });

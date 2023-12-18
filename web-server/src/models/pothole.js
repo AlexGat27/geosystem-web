@@ -3,7 +3,7 @@ const {DataTypes} = require("sequelize")
 
 const PotholeModel = potholeSequelize.define("pothole",{
   // picture_address: DataTypes.STRING,
-  geometry: DataTypes.GEOMETRY,
+  geometry: DataTypes.GEOMETRY('POINT'),
   adress: DataTypes.STRING,
   pothole_class: DataTypes.INTEGER
 },
