@@ -54,6 +54,8 @@ nametable = "pothole"
 
 #Основной процесс обработки фото, записи фотографии в папку Media/{nametable} и координат в таблицу
 def imageProcessing(file):
+    potholesData = []
+
     image_np = np.frombuffer(file.read(), np.uint8)
     image = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
 
@@ -64,11 +66,18 @@ def imageProcessing(file):
     result = model(tensor_image)[0]
     for i in range(len(result.boxes)):
         time_detect = datetime.today()
-        database.insert_to_table(nametable, time_detect, random.choice(__street),
-                                  random.uniform(3360000, 3400000), random.uniform(8370000, 8400000), random.randint(1,4))
+        potholesData.append({
+            "nametable": nametable,
+            "street": random.choice(__street),
+            "lat": random.uniform(3360000, 3400000),
+            "lon": random.uniform(8370000, 8400000),
+            "class": random.randint(1,4)
+        })
+        # database.insert_to_table(nametable, time_detect, random.choice(__street),
+        #                           random.uniform(3360000, 3400000), random.uniform(8370000, 8400000), random.randint(1,4))
     annotated_frame = result.plot()
     annotated_frame = cv2.resize(annotated_frame, (w, h))
 
     retval, buffer = cv2.imencode('.jpg', annotated_frame)
     output_buffer = buffer.tobytes()
-    return output_buffer
+    return output_buffer, potholesData

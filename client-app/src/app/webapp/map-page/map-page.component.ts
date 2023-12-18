@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 // import { count, map, tap } from 'rxjs/operators'
 // import { markerClusterGroupProvider } from 'leaflet.markercluster';
 
-import { MapService } from 'src/app/shared/layouts/services/map.service';
+import { MapService } from 'src/app/shared/services/map.service';
 
 @Component({
   selector: 'app-map',

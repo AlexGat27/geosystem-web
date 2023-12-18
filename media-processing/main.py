@@ -11,10 +11,13 @@ def process_media():
     if 'image' not in request.files:
         return jsonify({'error': 'No file Part'})
     file = request.files['image']
-    result = imageProcessing(file)
-
-    res_send = base64.b64encode(result).decode('utf-8')
-    return jsonify({'imageUrl': res_send})
+    output_buffer, potholesData = imageProcessing(file)
+    res_send = base64.b64encode(output_buffer).decode('utf-8')
+    data2send = {
+        'potholesData': potholesData,
+        'imageUrl': res_send
+    }
+    return jsonify(data2send)
 
 if __name__ == '__main__':
     app.run(debug=True, port=port)

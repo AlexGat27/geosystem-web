@@ -9,5 +9,6 @@ const {
 
 //http://localhost:5000/api/auth/getPotholes
 router.get('/getPotholes', authMiddleware, fizMiddleware, controller.getPotholes)
+router.delete('/deleteAllPotholes', authMiddleware, fizMiddleware, controller.deleteAllPotholes)
 
 module.exports = router

@@ -1,4 +1,5 @@
 const request = require('request');
+const potholeService = require('../services/potholeService');
 
 class MediaProcessingController{
 
@@ -21,7 +22,9 @@ class MediaProcessingController{
             if (error) {
                 return res.status(500).json({ message: 'Internal Server Error' });
             } else {
-                return res.status(200).json(body);
+                const fetchData = JSON.parse(body);
+                potholeService.addPotholes(fetchData.potholesData);
+                return res.status(200).json(fetchData.imageUrl);
             }
         });
     }
