@@ -44,6 +44,7 @@ Thumbs.db
 
 #Media files of python
 Media/
+*.jpg
 
 #Environment python
 .venv/
