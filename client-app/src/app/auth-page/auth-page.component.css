@@ -14,8 +14,9 @@ span{
 }
 
 .container{
-    max-width: 60%;
+    max-width: 80%;
     border-radius: 3%;
+    padding:5%;
     background-color: aliceblue;
 }
 .invisible{
@@ -34,4 +35,28 @@ span{
 .disabledBtn{
     background-color: grey;
     border-color: grey;
+}
+
+@media (max-width: 768px) {
+    .container{
+        max-width: 100%;
+        border-radius: 0%;
+    }
+    body{
+        padding: 0%;
+    }
+}
+@media (max-width: 400px) {
+    .col{
+        width:100%;
+        margin-bottom: 3%;
+    }
+    .row{
+        margin: 0%;
+        margin-bottom: 3%;
+    }
+    .container{
+        padding-left: 3%;
+        padding-right: 3%;
+    }
 }
