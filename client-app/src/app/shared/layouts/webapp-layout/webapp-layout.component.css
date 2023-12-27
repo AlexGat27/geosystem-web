@@ -85,7 +85,7 @@ body{
     body{
         padding: 0%;
     }
-    .navigation-app a{
+    .navigation-app span{
         display: none;
     }
     .list .icon_li{
