@@ -14,7 +14,7 @@ app.use('/api/v1/map', mapRouter)
 app.use('/api/v1/mediaProcessing', mediaRouter)
 
 // const port = 80;
-const port = 3000;
+const port = 5000;
 const hostname = "0.0.0.0";
 
 app.listen(port,hostname, () => {console.log('Server has been started')})

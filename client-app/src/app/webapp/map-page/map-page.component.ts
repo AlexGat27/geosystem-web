@@ -33,12 +33,12 @@ export class MapPageComponent implements OnInit {
     this.map = new Map('leafletMap',{
       crs: L.CRS.EPSG3857
     }).setView(center, zoom);
-    tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
       minZoom: 10,
       bounds: bounds
     }).addTo(this.map);
-
+  
     this.layerGroup = new LayerGroup().addTo(this.map);
 
     this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
