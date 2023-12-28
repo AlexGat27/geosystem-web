@@ -55,15 +55,15 @@ export class MapPageComponent implements OnInit {
         iconCreateFunction: function (cluster) {
           var markers = cluster.getAllChildMarkers();
 
-          var style = `width: 32px;height: 32px;
+          var style = `width: 40px;height: 40px;
           background-image: url('../../../assets/icons/pothole_1_${classValue}.png');
           background-repeat: no-repeat;
-          background-size: cover;
+          background-size: 100% 100%;
           background-position: center;
           text-align: center;
-          align-items: center`
+          vertical-align: middle;` 
 
-          var html = `<div style="${style}">` + markers.length + '</div>';
+          var html = `<div style="${style}">`+classValue+'</div>';
           return L.divIcon({ html: html, className: 'clusterMarker', iconSize: L.point(32, 32) });
         },
         spiderfyOnMaxZoom: false, showCoverageOnHover: true, zoomToBoundsOnClick: false
