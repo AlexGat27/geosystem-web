@@ -17,16 +17,16 @@ export class MapPageComponent implements OnInit {
   private map: Map | undefined;
   private potholeSubscription: Subscription;
   private markers: Marker[];
-  private layerGroup: LayerGroup | undefined;
+  private layerGroups: LayerGroup[] | undefined;
 
   constructor(private mapservice: MapService){
   }
 
   ngOnInit(): void {
     let center: LatLngExpression = [59.940224, 30.316028]; //Санкт-Петербург
-    let zoom = 12;
-    let minzoom = 10;
-    var southWest = L.latLng(55, 30),
+    const zoom = 12;
+    const minzoom = 10;
+    const southWest = L.latLng(55, 30),
     northEast = L.latLng(64, 31),
     bounds = L.latLngBounds(southWest, northEast);
 
@@ -35,11 +35,11 @@ export class MapPageComponent implements OnInit {
     }).setView(center, zoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
-      minZoom: 10,
+      minZoom: minzoom,
       bounds: bounds
     }).addTo(this.map);
   
-    this.layerGroup = new LayerGroup().addTo(this.map);
+    // this.layerGroup = new LayerGroup().addTo(this.map);
 
     this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
       this.addPothole2Map(potholeData);
@@ -49,7 +49,6 @@ export class MapPageComponent implements OnInit {
   }
 
   private addPothole2Map(potholeData: any): void {
-    
     const customIcon = new L.Icon({
       iconUrl: "../../../assets/icons/pothole_1_1.png", // Путь к вашей иконке
       iconSize: [16, 16], // Размер иконки в пикселях
