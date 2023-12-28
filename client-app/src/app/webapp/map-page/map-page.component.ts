@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import {LatLngExpression, Marker, Map, tileLayer, Layer, LayerGroup, marker } from 'leaflet';
+import 'leaflet.markercluster';
 import { Subscription } from 'rxjs';
-// import { count, map, tap } from 'rxjs/operators'
-// import { markerClusterGroupProvider } from 'leaflet.markercluster';
 
 import { MapService } from 'src/app/shared/services/map.service';
 
@@ -14,32 +12,32 @@ import { MapService } from 'src/app/shared/services/map.service';
 })
 export class MapPageComponent implements OnInit {
 
-  private map: Map | undefined;
+  private map: L.Map | undefined;
   private potholeSubscription: Subscription;
-  private markers: Marker[];
-  private layerGroups: LayerGroup[] | undefined;
+  private markers: L.Marker[];
+  private layerGroup: L.LayerGroup | undefined;
+  private markerClusterGroups: { [classValue: string]: L.MarkerClusterGroup } = {}; // Объект для хранения групп кластеризации по классам
 
   constructor(private mapservice: MapService){
   }
 
   ngOnInit(): void {
-    let center: LatLngExpression = [59.940224, 30.316028]; //Санкт-Петербург
-    const zoom = 12;
-    const minzoom = 10;
-    const southWest = L.latLng(55, 30),
+    let center: L.LatLngExpression = [59.940224, 30.316028]; //Санкт-Петербург
+    let zoom = 12;
+    let minzoom = 10;
+    var southWest = L.latLng(55, 30),
     northEast = L.latLng(64, 31),
     bounds = L.latLngBounds(southWest, northEast);
 
-    this.map = new Map('leafletMap',{
+    this.map = new L.Map('leafletMap',{
       crs: L.CRS.EPSG3857
     }).setView(center, zoom);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      minZoom: minzoom,
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      minZoom: 10,
       bounds: bounds
     }).addTo(this.map);
-  
-    // this.layerGroup = new LayerGroup().addTo(this.map);
+
+    this.layerGroup = new L.LayerGroup().addTo(this.map);
 
     this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
       this.addPothole2Map(potholeData);
@@ -49,16 +47,41 @@ export class MapPageComponent implements OnInit {
   }
 
   private addPothole2Map(potholeData: any): void {
-    const customIcon = new L.Icon({
-      iconUrl: "../../../assets/icons/pothole_1_1.png", // Путь к вашей иконке
-      iconSize: [16, 16], // Размер иконки в пикселях
-    });
+    const classValue = potholeData.pothole_class;
 
-    marker([potholeData.geometry.coordinates[0], potholeData.geometry.coordinates[1]], {
+    if (!this.markerClusterGroups[classValue]) {
+      // Если группы кластеризации для данного класса ещё нет, создаем новую
+      this.markerClusterGroups[classValue] = L.markerClusterGroup({
+        iconCreateFunction: function (cluster) {
+          var markers = cluster.getAllChildMarkers();
+
+          var style = `width: 40px;height: 40px;
+          background-image: url('../../../assets/icons/pothole_1_${classValue}.png');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          background-position: center;
+          text-align: center;
+          vertical-align: middle;` 
+
+          var html = `<div style="${style}">`+classValue+'</div>';
+          return L.divIcon({ html: html, className: 'clusterMarker', iconSize: L.point(32, 32) });
+        },
+        spiderfyOnMaxZoom: false, showCoverageOnHover: true, zoomToBoundsOnClick: false
+      });
+      this.map.addLayer(this.markerClusterGroups[classValue]);
+    }
+    const customIcon = new L.Icon({
+      iconUrl: `../../assets/icons/pothole_1_${potholeData.pothole_class}.png`,
+      iconSize: [16, 16],
+    });
+  
+    L.marker([potholeData.geometry.coordinates[0], potholeData.geometry.coordinates[1]], {
       icon: customIcon
     })
-    .bindPopup(`ID: ${potholeData.id}<br>Данные: ${JSON.stringify(potholeData)}`)
-    .addTo(this.map);
+    .bindPopup(`ID: ${potholeData.id}<br>
+                  Адрес: ${potholeData.adress}<br>
+                  Класс: ${potholeData.pothole_class}`)
+    .addTo(this.markerClusterGroups[classValue]);
   }
 
   ngOnDestroy(): void {
