@@ -1,33 +1,31 @@
 
-<div class="d-flex flex-column h-100 p-3">
-    <div class="imagePut h-100">
-        <div 
-        [ngClass]="{noImageBlock: !isFilesComplete}" 
-        class="h-100 d-inline-block text-center" 
-        style="margin-right: 1%;">
-            <img [src]="imageBefore" *ngIf="isFilesComplete">
-            <div class="h4 mt-2 text-secondary mt-2">Изображение до обработки</div>
-        </div>
-        <div 
-        [ngClass]="{noImageBlock: !isFilesComplete}" 
-        class="h-100 d-inline-block text-center" 
-        style="margin-left: 1%;">
-            <img [src]="imageAfter" *ngIf="isFilesComplete">
-            <div class="h4 text-secondary mt-2">Изображение после обработки</div>
-        </div>
+<div class="contentMediaProcess">
+    <div class="myContainer canvas">
+        <div class="canvasElem"><canvas #canvBefore
+        [ngClass]="{noImageBlock: !isFilesComplete}"></canvas></div>
+        <div class="canvasElem"><canvas #canvAfter
+        [ngClass]="{noImageBlock: !isFilesComplete}"></canvas></div>
     </div>
-    <div class="p-2 text-center">
-        <input 
-        type="file"
-        class="dn" 
-        #inputFile
-        (change)="onFileUpload($event)"
-        >
-    <button 
-        (click)="processingMedia()"
-        type="button"
-        class="btn btn-primary"
-    >Загрузить изображение
-    </button>
+
+    <div class="myContainer buttons">
+        <div class="m-3 mt-auto">
+            <input 
+            type="file"
+            class="dn" 
+            #inputFile
+            (change)="onFileUpload($event)">
+            <button 
+                (click)="processingMedia()"
+                type="button"
+                class="btn btn-primary p-3">Загрузить изображение
+            </button>
+        </div>
+        <div class="m-3 mt-auto">
+            <button 
+                (click)="resetCanvas()"
+                type="button"
+                class="btn btn-secondary p-3">Сбросить изображения
+            </button>
+        </div>
     </div>
 </div>    

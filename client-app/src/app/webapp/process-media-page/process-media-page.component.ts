@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PotholeService } from 'src/app/shared/services/pothole.service';
 
 @Component({
@@ -6,20 +6,19 @@ import { PotholeService } from 'src/app/shared/services/pothole.service';
   templateUrl: './process-media-page.component.html',
   styleUrls: ['./process-media-page.component.css']
 })
-export class ProcessMediaPageComponent implements OnInit{
+export class ProcessMediaPageComponent implements AfterViewInit{
 
   @ViewChild('inputFile') inputRef: ElementRef;
+  @ViewChild('canvBefore') canvasBefore: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvAfter') canvasAfter: ElementRef<HTMLCanvasElement>;
   isFilesComplete: boolean;
-  imageBefore: string | ArrayBuffer;
-  imageAfter: string | ArrayBuffer;
 
   constructor(private potholeServise: PotholeService){
   }
 
-  ngOnInit(): void {
-    this.imageAfter = '';
-    this.imageBefore = '';
+  ngAfterViewInit(){
     this.isFilesComplete = false;
+    this.resetCanvas()
   }
 
   processingMedia(){
@@ -29,21 +28,49 @@ export class ProcessMediaPageComponent implements OnInit{
   onFileUpload(event: any){
     const file = event.target.files[0];
     if (file){
+      this.readAndDisplayImgFile(file);
       this.potholeServise.imageProcessing(file).subscribe((response) => {
-        this.imageAfter = 'data:image/jpeg;base64,' + response;
-        this.readAndDisplayImg(file);
+        const imageAfter = 'data:image/jpeg;base64,' + response;
+        this.displayImgBase64(this.canvasAfter, imageAfter);
         this.isFilesComplete = true;
       }, er => {
         console.log(er);
       });
+      
     }
+    event.target.value = '';
   }
 
-  private readAndDisplayImg(img: File){
+  resetCanvas(){
+    const canvasBefore = this.canvasBefore.nativeElement;
+    const canvasAfter = this.canvasAfter.nativeElement;
+    const ctxBefore = canvasBefore.getContext('2d');
+    const ctxAfter = canvasAfter.getContext('2d');
+    canvasBefore.height = canvasBefore.width / 4 * 3;
+    canvasAfter.height = canvasAfter.width / 4 * 3;
+    ctxBefore.clearRect(0, 0, canvasBefore.width, canvasBefore.height);
+    ctxAfter.clearRect(0, 0, canvasAfter.width, canvasAfter.height);
+    this.isFilesComplete = false;
+  }
+
+  private readAndDisplayImgFile(img: File){
     const reader = new FileReader();
     reader.readAsDataURL(img);
     reader.onload = () => {
-      this.imageBefore = reader.result;
+      this.displayImgBase64(this.canvasBefore, reader.result as string)
     };
+  }
+  private displayImgBase64(canv: ElementRef<HTMLCanvasElement>, imgBase64: string){
+    const canvas = canv.nativeElement;
+    const ctx = canvas.getContext('2d');
+    const image = new Image();
+    image.src = imgBase64;
+    image.onload= () => {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    }
+  }
+  private checkSimilarImages(){
+    
+
   }
 }

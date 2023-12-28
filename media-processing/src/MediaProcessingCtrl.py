@@ -1,23 +1,11 @@
 import cv2
-from ultralytics import YOLO
 import random
-from datetime import datetime
 import numpy as np
-from PIL import Image
-from io import BytesIO
+from ultralytics import YOLO
 from torchvision.transforms import ToTensor, Compose
-from .Database import Database
 
-__support_img_ext = ['bmp', 'dng', 'jpeg', 'jpg', 'mpo', 'png', 'tif', 'tiff', 'webp', 'pfm', 'JPG'] 
-__support_vid_ext = ['asf', 'avi', 'gif', 'm4v', 'mkv', 'mov', 'mp4', 'mpeg', 'mpg', 'ts', 'wmv', 'webm']
-__support_model_ext = ['torchscript', 'pt', 'onnx', 'engine', 'mlmodel', 'pb', 'tflite']
-#Рандомные улицы
-__street = ['Ushakova', 'Kirovogradskaia', 'Naximova', 'Zakamskaia', 'Ribalko', 'Astraxanskaia']
-
-model = YOLO('../Yolo_model/HolesChecker_1class.pt')
-database = Database()
-nametable = "pothole"
-
+street = ['Ushakova', 'Kirovogradskaia', 'Naximova', 'Zakamskaia', 'Ribalko', 'Astraxanskaia']
+model = YOLO('src/best.pt')
     #Основной процесс обработки видео, записи стопкадров в папку Media/{nametable} и координат в таблицу
 # def videoProcessing(video_path):
 #     if video_path.split('.')[-1] in __support_vid_ext:
@@ -65,10 +53,9 @@ def imageProcessing(file):
     tensor_image = ToTensor()(image).unsqueeze(0)
     result = model(tensor_image)[0]
     for i in range(len(result.boxes)):
-        time_detect = datetime.today()
         potholesData.append({
-            "nametable": nametable,
-            "street": random.choice(__street),
+            "nametable": "pothole",
+            "street": random.choice(street),
             "lat": random.uniform(3360000, 3400000),
             "lon": random.uniform(8370000, 8400000),
             "class": random.randint(1,4)

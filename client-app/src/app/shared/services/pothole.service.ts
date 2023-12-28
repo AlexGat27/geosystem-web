@@ -20,8 +20,5 @@ export class PotholeService {
         return this.http.post<any>("/api/v1/mediaProcessing/imageProcessing", formData, {
             headers: headers,
         });
-        // return this.http.post<any>("http://127.0.0.1:8000/", formData, {
-        //     headers: headers,
-        // });
     }
 }

@@ -50,3 +50,5 @@ Media/
 .venv/
 *.pyc
 .env
+
+*.pt
