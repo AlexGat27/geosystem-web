@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize, tap } from 'rxjs';
 
 import { MapService } from 'src/app/shared/services/map.service';
 
@@ -14,8 +14,8 @@ export class MapPageComponent implements OnInit {
 
   private map: L.Map | undefined;
   private potholeSubscription: Subscription;
-  private markers: L.Marker[];
-  private districtGroups: { [classValue: string]: L.LayerGroup } = {};
+  private controlLayers: L.Control.Layers | undefined;
+  private districtGroups: { [districtValue: string]: L.LayerGroup } = {};//Объект для хранения групп по районам
   private markerClusterGroups: { [classValue: string]: L.MarkerClusterGroup } = {}; // Объект для хранения групп кластеризации по классам
 
   constructor(private mapservice: MapService){
@@ -33,15 +33,19 @@ export class MapPageComponent implements OnInit {
       crs: L.CRS.EPSG3857
     }).setView(center, zoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      minZoom: 7,
+      minZoom: minzoom,
       bounds: bounds
     }).addTo(this.map);
 
     this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
       this.addPothole2Layers(potholeData);
-    });
+    })
 
     this.mapservice.getPotholes();
+  }
+
+  unSelect(): void {
+    this.controlLayers.collapse();
   }
 
   private addPothole2Layers(potholeData: any): void {
@@ -55,7 +59,6 @@ export class MapPageComponent implements OnInit {
       iconUrl: `../../assets/icons/pothole_1_${potholeData.pothole_class}.png`,
       iconSize: [16, 16],
     });
-  
     const marker = L.marker([potholeData.geometry.coordinates[0], potholeData.geometry.coordinates[1]], {
       icon: customIcon
     })
@@ -69,9 +72,10 @@ export class MapPageComponent implements OnInit {
 
   private getPotholeDistrict(districtValue): L.LayerGroup {
     if (!this.districtGroups[districtValue]) {
-      // Если группы кластеризации для данного класса ещё нет, создаем новую
-      this.districtGroups[districtValue] = new L.LayerGroup();
-      // this.map.addLayer(this.districtGroups[classValue]);
+      if (this.controlLayers !== undefined){this.map.removeControl(this.controlLayers);}  // Удаляем существующий контроль слоев
+      this.districtGroups[districtValue] = new L.LayerGroup(); // Если группы для данного класса ещё нет, создаем новую
+      this.map.addLayer(this.districtGroups[districtValue]);
+      this.controlLayers = L.control.layers(this.districtGroups).addTo(this.map);  // Создаем новый контроль слоев
     }
     return this.districtGroups[districtValue];
   }
