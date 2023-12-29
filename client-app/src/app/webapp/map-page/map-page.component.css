@@ -3,10 +3,6 @@
     height: 100%;
   }
 
-.clusterMarker{
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  background-image: url('../../../assets/icons/pothole_1_0.png');
-  text-align: center;
+.leaflet-control-layers-expanded::after{
+  background-color: black;
 }
