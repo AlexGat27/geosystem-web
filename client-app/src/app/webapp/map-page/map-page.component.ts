@@ -13,6 +13,7 @@ import { MapService } from 'src/app/shared/services/map.service';
 export class MapPageComponent implements OnInit {
 
   private map: L.Map | undefined;
+  private tileMaps: { [tileMapValue: string]: L.TileLayer } = {};
   private potholeSubscription: Subscription;
   private controlLayers: L.Control.Layers | undefined;
   private districtGroups: { [districtValue: string]: L.LayerGroup } = {};//Объект для хранения групп по районам
@@ -50,7 +51,7 @@ export class MapPageComponent implements OnInit {
     this.map = new L.Map('leafletMap',{
       crs: L.CRS.EPSG3857
     }).setView(center, zoom);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    this.tileMaps["OSM"] = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
       minZoom: minzoom,
       bounds: bounds
     }).addTo(this.map);
@@ -60,11 +61,6 @@ export class MapPageComponent implements OnInit {
     })
 
     this.mapservice.getPotholes();
-    this.addButtonClearLayers();
-  }
-
-  resetLayers(){
-    this.controlLayers.collapse();
   }
 
   private addPothole2Layers(potholeData: any): void {
@@ -87,7 +83,7 @@ export class MapPageComponent implements OnInit {
                   Класс: Пока не включен в эту версию`);
 
     this.markerClusterGroup.addLayer(marker);
-    districtGroup.addLayer(this.markerClusterGroup);
+    districtGroup.addLayer(marker);
   }
 
   private getPotholeDistrict(districtValue): L.LayerGroup {
@@ -96,6 +92,7 @@ export class MapPageComponent implements OnInit {
       this.map.addLayer(this.districtGroups[districtValue]);
       this.addControlLayers();
     }
+    console.log(this.districtGroups[districtValue].getLayers());
     return this.districtGroups[districtValue];
   }
 
@@ -126,17 +123,7 @@ export class MapPageComponent implements OnInit {
 
   private addControlLayers(){
     if (this.controlLayers !== undefined){this.map.removeControl(this.controlLayers);}
-    this.controlLayers = L.control.layers(this.districtGroups).addTo(this.map);
-  }
-
-  private addButtonClearLayers(){
-    var customControl = new L.Control({ position: 'topright' });
-    customControl.onAdd = function (map) {
-      var button = L.DomUtil.create('button', 'control-button');
-      button.innerHTML = 'Сбросить выделение';
-      return button;
-    };
-    customControl.addTo(this.map);
+    this.controlLayers = L.control.layers(this.tileMaps,this.districtGroups).addTo(this.map);
   }
 
   ngOnDestroy(): void {

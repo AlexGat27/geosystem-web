@@ -29,6 +29,7 @@ export class ProcessMediaPageComponent implements AfterViewInit{
     const file = event.target.files[0];
     if (file){
       this.readAndDisplayImgFile(file);
+      this.printLoadText();
       this.potholeServise.imageProcessing(file).subscribe((response) => {
         const imageAfter = 'data:image/jpeg;base64,' + response;
         this.displayImgBase64(this.canvasAfter, imageAfter);
@@ -50,7 +51,21 @@ export class ProcessMediaPageComponent implements AfterViewInit{
     canvasAfter.height = canvasAfter.width / 4 * 3;
     ctxBefore.clearRect(0, 0, canvasBefore.width, canvasBefore.height);
     ctxAfter.clearRect(0, 0, canvasAfter.width, canvasAfter.height);
+    ctxBefore.textAlign = "center"; ctxBefore.font = 'bold 17px sans-serif';
+    ctxAfter.textAlign = "center"; ctxAfter.font = 'bold 17px sans-serif';
+    ctxBefore.fillText("Необработанное изображение", canvasBefore.width/2, canvasBefore.height/2);
+    ctxAfter.fillText("Обработанное изображение", canvasAfter.width/2, canvasAfter.height/2);
     this.isFilesComplete = false;
+  }
+  private printLoadText(){
+    const canvasBefore = this.canvasBefore.nativeElement;
+    const canvasAfter = this.canvasAfter.nativeElement;
+    const ctxBefore = canvasBefore.getContext('2d');
+    const ctxAfter = canvasAfter.getContext('2d');
+    ctxAfter.clearRect(0, 0, canvasAfter.width, canvasAfter.height);
+    ctxBefore.clearRect(0, 0, canvasBefore.width, canvasBefore.height);
+    ctxBefore.fillText("Загрузка изображения...", canvasBefore.width/2, canvasBefore.height/2);
+    ctxAfter.fillText("Идет процесс обработки...", canvasAfter.width/2, canvasAfter.height/2);
   }
 
   private readAndDisplayImgFile(img: File){

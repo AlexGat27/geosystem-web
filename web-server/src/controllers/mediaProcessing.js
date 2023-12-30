@@ -5,7 +5,9 @@ const imageService = require('../services/imageService');
 class MediaProcessingController{
 
     async imageProcessing(req, res){
-        imageService.checkSimilarImages(req.file);
+        const isSimilar = imageService.checkSimilarImages(req.file);
+        if (isSimilar){return res.status(400).json({ message: 'Изображение уже присутствует в базе данных' }); }
+
         const options = {
             url: 'http://127.0.0.1:8000/', // Замените на фактический URL Python API
             method: 'POST',
@@ -25,7 +27,8 @@ class MediaProcessingController{
                 return res.status(500).json({ message: 'Internal Server Error' });
             } else {
                 const fetchData = JSON.parse(body);
-                potholeService.addPotholes(fetchData.potholesData);
+                const imgPath = imageService.saveImage(req.file);
+                potholeService.addPotholes(fetchData.potholesData, imgPath);
                 return res.status(200).json(fetchData.imageUrl);
             }
         });

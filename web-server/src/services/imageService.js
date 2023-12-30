@@ -3,7 +3,8 @@ const fs = require("fs");
 
 class ImageService{
     checkSimilarImages(fileOptions){
-        this.saveImage(fileOptions);
+
+        return false;
     }
     saveImage(fileOptions){
         const countImages = fs.readdirSync(imagePotholesPath).length;
@@ -14,6 +15,7 @@ class ImageService{
             if(er) {console.log(er);}
             else {console.log("Файл сохранился успешно!")};
         })
+        return imageSavePath;
     }
 }
 
