@@ -1,9 +1,11 @@
 const request = require('request');
 const potholeService = require('../services/potholeService');
+const imageService = require('../services/imageService');
 
 class MediaProcessingController{
 
     async imageProcessing(req, res){
+        imageService.checkSimilarImages(req.file);
         const options = {
             url: 'http://127.0.0.1:8000/', // Замените на фактический URL Python API
             method: 'POST',
