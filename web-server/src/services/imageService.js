@@ -1,10 +1,16 @@
 const {imagePotholesPath} = require("../config/dbEnv");
+const {PotholeModel} = require("../models/pothole");
 const fs = require("fs");
 
 class ImageService{
-    checkSimilarImages(fileOptions){
-
-        return false;
+    async getImagesByCoords(){
+        const image_paths = await PotholeModel.findAll({
+            attributes: ["picture_path"],
+        }).then(res => {
+            res = [...new Set(res.map(obj => obj.dataValues.picture_path))];
+            return res
+        });
+        return image_paths
     }
     saveImage(fileOptions){
         const countImages = fs.readdirSync(imagePotholesPath).length;
