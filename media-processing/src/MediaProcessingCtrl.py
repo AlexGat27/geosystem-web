@@ -10,8 +10,8 @@ model = YOLO('src/best.pt')
 def imageProcessing(file):
     potholesData = []
 
-    image_np = np.frombuffer(file.read(), np.uint8)
-    image = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
+    # image_np = np.frombuffer(file.read(), np.uint8)
+    image = cv2.imdecode(file, cv2.IMREAD_COLOR)
 
     h, w, _ = image.shape
 
@@ -33,4 +33,5 @@ def imageProcessing(file):
 
     retval, buffer = cv2.imencode('.jpg', annotated_frame)
     output_buffer = buffer.tobytes()
+
     return output_buffer, potholesData
