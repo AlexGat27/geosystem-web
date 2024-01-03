@@ -38,7 +38,10 @@ export class ProcessMediaPageComponent implements AfterViewInit{
         this.potholePageservice.displayImgBase64(this.canvasAfter, imageAfter);
         this.isFilesComplete = true;
       }, er => {
-        this.potholePageservice.errorHandleCanvas("Изображение уже есть в базе данных");
+        console.log(er.status)
+        if (er.status == 410){this.potholePageservice.errorHandleCanvas("Изображение в базе данных уже есть");}
+        else if (er.status == 411){this.potholePageservice.errorHandleCanvas("Яма на изображении не найдена");}
+        this.isFilesComplete = true;
       });
       
     }
@@ -52,7 +55,6 @@ export class ProcessMediaPageComponent implements AfterViewInit{
   private printLoadText(){
     this.potholePageservice.updateCanvas("Загрузка изображения...", "Идет обработка изображения...");
   }
-
   private readAndDisplayImgFile(img: File){
     const reader = new FileReader();
     reader.readAsDataURL(img);

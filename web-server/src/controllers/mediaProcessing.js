@@ -24,14 +24,22 @@ class MediaProcessingController{
         };
 
         request(options, (error, response, body) => {
-            try{
-                const fetchData = JSON.parse(body);
-                const imgPath = imageService.saveImage(req.file);
-                potholeService.addPotholes(fetchData.potholesData, imgPath);
-                return res.status(200).json(fetchData.imageUrl);
-            }
-            catch (error){
-                return res.status(410).json({ message: "Изображение в базе данных уже есть!" });
+            const fetchData = JSON.parse(body);
+            console.log(fetchData)
+            switch(fetchData.status){
+                case 200:
+                    const imgPath = imageService.saveImage(req.file);
+                    potholeService.addPotholes(fetchData.potholesData, imgPath);
+                    return res.status(200).json(fetchData.imageUrl);
+                    break;
+                case 410:
+                    return res.status(410).json({ message: "Изображение в базе данных уже есть" });
+                    break;
+                case 411:
+                    return res.status(411).json({ message: "Ямы не найдены" });
+                    break;
+                default:
+                    return res.status(400).json({ message: "Неопознанная ошибка" });
             }
         });
     }

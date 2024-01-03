@@ -16,17 +16,30 @@ def process_media():
 
     new_image_np = np.frombuffer(file.read(), np.uint8)
     old_image_paths = request.form.getlist('old_image_paths')
-    checkSimilarityResult = checkSimilarity(new_image_np, old_image_paths)
-    print(checkSimilarityResult)
-    if not(checkSimilarityResult):
-        return abort(410, 'Ошибка, такое изображение уже есть в базе данных')
+
+    data2send = {
+        'status': 0,
+        'message': None,
+        'potholesData': None,
+        'imageUrl': None
+    }
     
     output_buffer, potholesData = imageProcessing(new_image_np)
+    if not(potholesData):
+        data2send['status'] = 411
+        data2send['message'] = 'Ошибка, ям не найдено'
+        return jsonify(data2send)
     res_send = base64.b64encode(output_buffer).decode('utf-8')
-    data2send = {
-        'potholesData': potholesData,
-        'imageUrl': res_send
-    }
+
+    checkSimilarityResult = checkSimilarity(new_image_np, old_image_paths)
+    if checkSimilarityResult:
+        data2send['status'] = 410
+        data2send['message'] = 'Ошибка, такое изображение уже есть в базе данных'
+        return jsonify(data2send)
+    
+    data2send['status'] = 200
+    data2send['imageUrl'] = res_send
+    data2send['potholesData'] = potholesData
     return jsonify(data2send)
     
     

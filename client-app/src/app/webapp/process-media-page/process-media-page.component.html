@@ -15,7 +15,8 @@
             #inputFile
             (change)="onFileUpload($event)">
             <button 
-                (click)="processingMedia()"
+                [disabled]="isFilesComplete"
+                (click)="isFilesComplete ? null : processingMedia()"
                 type="button"
                 class="btn btn-primary p-3">Загрузить изображение
             </button>
