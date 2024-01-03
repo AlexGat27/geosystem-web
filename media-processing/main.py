@@ -11,7 +11,7 @@ port = 8000
 @app.post('/imageProcessing')
 def process_media():
     if 'image' not in request.files:
-        return jsonify({'error': 'No file Part'})
+        return jsonify({'error': 'Изображения нет в параметрах запроса'})
     file = request.files['image']
 
     new_image_np = np.frombuffer(file.read(), np.uint8)
