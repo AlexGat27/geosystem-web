@@ -39,8 +39,8 @@ export class ProcessMediaPageComponent implements AfterViewInit{
         this.isFilesComplete = true;
       }, er => {
         console.log(er.status)
-        if (er.status == 410){this.potholePageservice.errorHandleCanvas("Изображение в базе данных уже есть");}
-        else if (er.status == 411){this.potholePageservice.errorHandleCanvas("Яма на изображении не найдена");}
+        if (er.status == 452){this.potholePageservice.errorHandleCanvas("Изображение в базе данных уже есть");}
+        else if (er.status == 404){this.potholePageservice.errorHandleCanvas("Яма на изображении не найдена");}
         this.isFilesComplete = true;
       });
       

@@ -71,7 +71,6 @@ export class MapPageComponent implements OnInit {
     // const clusterGroup = this.getClusterGroup(classValue);
 
     const customIcon = new L.Icon({
-      // iconUrl: `../../assets/icons/pothole_1_${potholeData.pothole_class}.png`,
       iconUrl: `../../assets/icons/pothole_1_1.png`,
       iconSize: [16, 16],
     });
