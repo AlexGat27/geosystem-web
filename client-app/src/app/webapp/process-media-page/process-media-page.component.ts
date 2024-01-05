@@ -33,15 +33,14 @@ export class ProcessMediaPageComponent implements AfterViewInit{
     if (file){
       this.readAndDisplayImgFile(file);
       this.printLoadText();
+      this.isFilesComplete = true;
       this.potholeService.imageProcessing(file).subscribe((response) => {
         const imageAfter = 'data:image/jpeg;base64,' + response;
         this.potholePageservice.displayImgBase64(this.canvasAfter, imageAfter);
-        this.isFilesComplete = true;
       }, er => {
         console.log(er.status)
         if (er.status == 452){this.potholePageservice.errorHandleCanvas("Изображение в базе данных уже есть");}
         else if (er.status == 404){this.potholePageservice.errorHandleCanvas("Яма на изображении не найдена");}
-        this.isFilesComplete = true;
       });
       
     }

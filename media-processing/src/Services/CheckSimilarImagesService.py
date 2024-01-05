@@ -18,13 +18,11 @@ class CheckSimilarImagesService:
 
             keypoints2, descriptors2 = self.sift.detectAndCompute(gray_image2, None)
             t = time()
-            matches = np.array(self.bfMatcher.match(descriptors1, descriptors2))
+            matches = np.array(self.bfMatcher.knnMatch(descriptors1, descriptors2, k=2))
             print(time()-t)
-            vectorize_params = np.vectorize(lambda obj: obj.distance < 100)
-            good_matches = vectorize_params(matches)
-            print(np.count_nonzero(good_matches))
-            print(np.count_nonzero(good_matches==True))
-            if np.count_nonzero(good_matches==True) > 10: 
+            vectorize_params = np.vectorize(lambda obj1, obj2: obj1.distance < obj2.distance * 0.75)
+            good_matches = vectorize_params(matches[:,0], matches[:,1])
+            if np.count_nonzero(good_matches==True)/len(good_matches) > 0.01: 
                 return True
         return False
   
