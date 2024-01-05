@@ -39,7 +39,7 @@ class AuthController{
             const token = jwt.sign({
                 login: candidate.login,
                 isfiz: candidate.isfiz
-            }, keys.jwt, {expiresIn: 60 * 60});
+            }, keys.jwt, {expiresIn: 60 * 60 * 24});
             return res.status(200).json({
                 token: `Bearer ${token}`
             });
