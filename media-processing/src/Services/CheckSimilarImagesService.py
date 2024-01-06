@@ -5,7 +5,7 @@ from time import time
 class CheckSimilarImagesService:
     def __init__(self):
         self.sift = cv2.SIFT_create()
-        self.bfMatcher = cv2.BFMatcher()
+        self.flanMatcher = cv2.FlannBasedMatcher()
 
     def __compare_images_with_perspective(self, image, imagePathsToCompare):
 
@@ -18,7 +18,7 @@ class CheckSimilarImagesService:
 
             keypoints2, descriptors2 = self.sift.detectAndCompute(gray_image2, None)
             t = time()
-            matches = np.array(self.bfMatcher.knnMatch(descriptors1, descriptors2, k=2))
+            matches = np.array(self.flanMatcher.knnMatch(descriptors1, descriptors2, k=2))
             print(time()-t)
             vectorize_params = np.vectorize(lambda obj1, obj2: obj1.distance < obj2.distance * 0.75)
             good_matches = vectorize_params(matches[:,0], matches[:,1])
