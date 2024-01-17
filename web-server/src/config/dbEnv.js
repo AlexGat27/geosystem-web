@@ -13,6 +13,7 @@ PotholeDB = {
   "dialect": "postgres"
 }
 
-imagePotholesPath = "C:/Users/sanya/Develop/image-thresh"
+OriginalImagesPath = "D:/MyProgramms/Programs/JavaScript/image-thresh/OriginalImages"
+ProcessedImagesPath = "D:/MyProgramms/Programs/JavaScript/image-thresh/ProcessedImages"
 
-module.exports = {UserDB, PotholeDB, imagePotholesPath};
+module.exports = {UserDB, PotholeDB, OriginalImagesPath, ProcessedImagesPath};

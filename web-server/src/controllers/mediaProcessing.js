@@ -9,7 +9,7 @@ class MediaProcessingController{
         // if (isHaveSimImages){ return res.status(400).json({message: "Изображения в базе уже имеются..."}); }
 
         const options = {
-            url: 'http://127.0.0.1:8000/imageProcessing', // Замените на фактический URL Python API
+            url: 'http://127.0.0.1:6000/imageProcessing?platform=GeosystemApp', // Замените на фактический URL Python API
             method: 'POST',
             formData: {
                 image: {
@@ -28,7 +28,10 @@ class MediaProcessingController{
             const fetchData = JSON.parse(body);
             switch(fetchData.status){
                 case 200:
-                    const imgPath = imageService.saveImage(req.file);
+                    const imgPath = imageService.saveImage(req.file.buffer, false);
+                    imageService.saveImage(
+                        Buffer.from(fetchData.imageUrl, 'base64'),
+                        true);
                     potholeService.addPotholes(fetchData.potholesData, imgPath);
                     return res.status(200).json(fetchData.imageUrl);
                     break;
