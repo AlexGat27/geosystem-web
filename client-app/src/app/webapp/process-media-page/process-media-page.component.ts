@@ -37,12 +37,7 @@ export class ProcessMediaPageComponent implements AfterViewInit{
       this.potholeService.imageProcessing(file).subscribe((response) => {
         const imageAfter = 'data:image/jpeg;base64,' + response;
         this.potholePageservice.displayImgBase64(this.canvasAfter, imageAfter);
-      }, er => {
-        console.log(er.status)
-        if (er.status == 452){this.potholePageservice.errorHandleCanvas("Изображение в базе данных уже есть");}
-        else if (er.status == 404){this.potholePageservice.errorHandleCanvas("Яма на изображении не найдена");}
-      });
-      
+      }, er => {this.potholePageservice.errorHandleCanvas(er.error);});
     }
     event.target.value = '';
   }
