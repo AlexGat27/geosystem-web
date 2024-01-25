@@ -10,9 +10,9 @@ export class PotholeService {
     constructor(private http: HttpClient){
     }
 
-    imageProcessing(image: File): Observable<any> {
+    imageProcessing(image: Blob): Observable<any> {
         const formData: FormData = new FormData();
-        formData.append('image', image);
+        formData.append('image', image, 'image.jpg');
 
         const headers = new HttpHeaders();
         headers.set('Content-Type', 'multipart/form-data');

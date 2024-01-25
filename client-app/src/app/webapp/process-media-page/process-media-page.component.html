@@ -1,24 +1,22 @@
-
-<div class="contentMediaProcess">
+<div class="canvasMediaProcess" [ngClass]="{dn: isCameraActive}">
     <div class="myContainer canvas">
         <div class="canvasElem"><canvas #canvBefore
-        [ngClass]="{noImageBlock: !isFilesComplete}"></canvas></div>
+        [ngClass]="{canvasGrey: isDefaultState, canvasError: isFilesError}"></canvas></div>
         <div class="canvasElem"><canvas #canvAfter
-        [ngClass]="{noImageBlock: !isFilesComplete}"></canvas></div>
+        [ngClass]="{canvasGrey: isDefaultState, canvasError: isFilesError}"></canvas></div>
     </div>
-
     <div class="myContainer buttons">
         <div class="m-3 mt-auto">
-            <input 
+            <!-- <input 
             type="file"
             class="dn" 
             #inputFile
-            (change)="onFileUpload($event)">
+            (change)="onFileUpload($event)"> -->
             <button 
-                [disabled]="isFilesComplete"
-                (click)="isFilesComplete ? null : processingMedia()"
+                [disabled]="!isDefaultState"
+                (click)="!isDefaultState ? null : toggleCamera()"
                 type="button"
-                class="btn btn-primary p-3">Загрузить изображение
+                class="btn btn-primary p-3">Сделать снимок
             </button>
         </div>
         <div class="m-3 mt-auto">
@@ -29,4 +27,11 @@
             </button>
         </div>
     </div>
-</div>    
+</div>
+<div class="video-container" [ngClass]="{dn: !isCameraActive}">
+    <video #videoElement [hidden]="!isCameraActive" autoplay></video>
+    <div class="overlay" *ngIf="isCameraActive">
+        <button class="btn btn-toggle p-2" #btnToggle (click)="toggleCamera()">Выйти</button>
+        <button class="btn btn-frame p-5" #btnFrame (click)="takeFrame()"></button>
+    </div>
+</div>

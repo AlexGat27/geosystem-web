@@ -1,60 +1,63 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { PotholePageService } from 'src/app/shared/services/localServices/pothole-page.service';
+import { CameraService } from 'src/app/shared/services/localServices/camera.service';
 import { PotholeService } from 'src/app/shared/services/pothole.service';
 
 @Component({
   selector: 'app-process-media-page',
   templateUrl: './process-media-page.component.html',
   styleUrls: ['./process-media-page.component.css'],
-  viewProviders: [PotholePageService]
+  viewProviders: [PotholePageService, CameraService]
 })
 export class ProcessMediaPageComponent implements AfterViewInit{
-
-  @ViewChild('inputFile') inputRef: ElementRef;
+  @ViewChild('videoElement') videoElementRef!: ElementRef;
   @ViewChild('canvBefore') canvasBefore: ElementRef<HTMLCanvasElement>;
   @ViewChild('canvAfter') canvasAfter: ElementRef<HTMLCanvasElement>;
-  isFilesComplete: boolean;
+  isDefaultState = true;
+  isFilesError = false;
+  isCameraActive = false;
 
-  constructor(private potholeService: PotholeService,
-    private potholePageservice: PotholePageService){}
+  constructor(private _cameraService: CameraService,
+    private _potholePageService: PotholePageService,
+    private _potholeService: PotholeService){}
 
-  ngAfterViewInit(){
-    this.isFilesComplete = false;
-    this.potholePageservice.initializeCanvas(this.canvasBefore, this.canvasAfter);
-    this.resetCanvas()
+  ngAfterViewInit() {
+    this._potholePageService.initializeCanvas(this.canvasBefore, this.canvasAfter);
+    this.resetCanvas();
   }
 
-  processingMedia(){
-    this.inputRef.nativeElement.click();
-  }
-
-  onFileUpload(event: any){
-    const file = event.target.files[0];
-    if (file){
-      this.readAndDisplayImgFile(file);
-      this.printLoadText();
-      this.isFilesComplete = true;
-      this.potholeService.imageProcessing(file).subscribe((response) => {
-        const imageAfter = 'data:image/jpeg;base64,' + response;
-        this.potholePageservice.displayImgBase64(this.canvasAfter, imageAfter);
-      }, er => {this.potholePageservice.errorHandleCanvas(er.error);});
+  toggleCamera(){
+    if (this.isCameraActive){
+      this.isCameraActive = false;
+      this._cameraService.HideCamera();
+      this.resetCanvas();
+    }else{
+      const videoElement: HTMLVideoElement = this.videoElementRef.nativeElement;
+      this.isCameraActive = true;
+      this._cameraService.ShowCamera(videoElement);
     }
-    event.target.value = '';
   }
-
+  takeFrame(){
+    const videoFrame: HTMLVideoElement = this.videoElementRef.nativeElement;
+    this.isCameraActive = false;
+    this.isDefaultState = false;
+    this._potholePageService.displayImgVideo(this.canvasBefore, videoFrame);
+    this._cameraService.captureAndSendScreenshot(videoFrame)
+    .then(imageFile => {
+      this._cameraService.HideCamera();
+      this._potholeService.imageProcessing(imageFile).subscribe((response) => {
+        const imageAfter = 'data:image/jpeg;base64,' + response;
+        this._potholePageService.displayImgBase64(this.canvasAfter, imageAfter);
+      }, er => {
+        this.isFilesError = true;
+        console.log(er.error)
+        this._potholePageService.updateCanvas(null, er.error, true);
+      });
+    }).catch(er => {console.log(er);});
+  }
   resetCanvas(){
-    this.potholePageservice.updateCanvas("Необработанное изображение", "Обработанное изображение");
-    this.isFilesComplete = false;
+    this._potholePageService.updateCanvas("Необработанное изображение", "Обработанное изображение", false);
+    this.isFilesError = false;
+    this.isDefaultState = true;
   }
-  private printLoadText(){
-    this.potholePageservice.updateCanvas("Загрузка изображения...", "Идет обработка изображения...");
-  }
-  private readAndDisplayImgFile(img: File){
-    const reader = new FileReader();
-    reader.readAsDataURL(img);
-    reader.onload = () => {
-      this.potholePageservice.displayImgBase64(this.canvasBefore, reader.result as string)
-    };
-  }
-
 }
