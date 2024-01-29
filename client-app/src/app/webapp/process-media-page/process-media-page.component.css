@@ -9,10 +9,12 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 .canvas{
     height: 60%;
     width: 100%;
+    margin-top: 2%;
 }
 .canvasElem{
     display: flex;
@@ -79,22 +81,6 @@ video{
 .dn{
     display: none;
 }
-@media (max-width: 1000px) {
-    .canvas{
-        flex-direction: column;
-        align-items: center;
-        height: 85%;
-        width: 50%;
-    }
-    .canvasElem{
-        width: 100%;
-        height: 100%;
-        margin: 0%;
-        margin-bottom: 1%;
-        margin-top: 1%;
-        text-align: center;
-    }
-}
 @media (max-width: 800px) {
     .canvasMediaProcess{
         padding: 1%;
@@ -104,7 +90,10 @@ video{
         align-items: center;
     }
     .canvas{
-        height: 75%;
+        flex-direction: column;
+        align-items: center;
+        height: 80%;
+        width: 60%;
     }
     .canvas .canvasElem{
         width: 100%;
@@ -117,10 +106,10 @@ video{
 @media (max-width: 600px) {
     .canvas{
         height: 90%;
-        width: 60%;
+        width: 55%;
     }
 }
-@media (max-width: 450px) {
+@media (max-width: 500px) {
     .canvas{
         height: 85%;
         width: 90%;

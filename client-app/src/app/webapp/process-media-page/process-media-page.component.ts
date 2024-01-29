@@ -33,8 +33,12 @@ export class ProcessMediaPageComponent implements AfterViewInit{
       this.resetCanvas();
     }else{
       const videoElement: HTMLVideoElement = this.videoElementRef.nativeElement;
-      this.isCameraActive = true;
-      this._cameraService.ShowCamera(videoElement);
+      this._cameraService.ShowCamera()
+      .then(stream => {
+        console.log(stream);
+        videoElement.srcObject = stream;
+        this.isCameraActive = true;
+      }).catch(er => {console.log("Есть проблемы с камерой: ", er)});
     }
   }
   takeFrame(){

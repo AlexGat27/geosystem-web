@@ -6,32 +6,28 @@
         [ngClass]="{canvasGrey: isDefaultState, canvasError: isFilesError}"></canvas></div>
     </div>
     <div class="myContainer buttons">
-        <div class="m-3 mt-auto">
-            <!-- <input 
-            type="file"
-            class="dn" 
-            #inputFile
-            (change)="onFileUpload($event)"> -->
-            <button 
-                [disabled]="!isDefaultState"
-                (click)="!isDefaultState ? null : toggleCamera()"
-                type="button"
-                class="btn btn-primary p-3">Сделать снимок
-            </button>
-        </div>
-        <div class="m-3 mt-auto">
-            <button 
-                (click)="resetCanvas()"
-                type="button"
-                class="btn btn-secondary p-3">Сбросить изображения
-            </button>
-        </div>
+        <button 
+            [disabled]="!isDefaultState"
+            (click)="!isDefaultState ? null : toggleCamera()"
+            type="button"
+            class="btn btn-primary p-3 m-1">Сделать снимок
+        </button>
+        <button 
+            (click)="resetCanvas()"
+            type="button"
+            class="btn btn-secondary p-3 m-1">Сбросить изображения
+        </button>
     </div>
 </div>
 <div class="video-container" [ngClass]="{dn: !isCameraActive}">
     <video #videoElement [hidden]="!isCameraActive" autoplay></video>
     <div class="overlay" *ngIf="isCameraActive">
-        <button class="btn btn-toggle p-2" #btnToggle (click)="toggleCamera()">Выйти</button>
-        <button class="btn btn-frame p-5" #btnFrame (click)="takeFrame()"></button>
+        <button #btnToggle 
+        class="btn btn-toggle p-2"  
+        (click)="toggleCamera()">Выйти</button>
+        <button #btnFrame
+        [disabled]="!isCameraActive" 
+        class="btn btn-frame p-5" 
+        (click)="takeFrame()"></button>
     </div>
 </div>

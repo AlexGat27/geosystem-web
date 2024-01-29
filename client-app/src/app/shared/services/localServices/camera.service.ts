@@ -5,13 +5,12 @@ export class CameraService {
 
   private stream: MediaStream;
 
-  async ShowCamera(videoElement: HTMLVideoElement){
-    try{
-      this.stream = await navigator.mediaDevices.getUserMedia({video: true})
-      videoElement.srcObject = this.stream;
-    }catch (er){
-      console.error("Есть проблемы с камерой: ", er);
-    }
+  ShowCamera(): Promise<MediaStream> {
+    return navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    .then(stream => {
+      this.stream = stream;
+      return stream;
+    })
   }
 
   HideCamera(){
