@@ -6,7 +6,8 @@ export class CameraService {
   private stream: MediaStream;
 
   ShowCamera(): Promise<MediaStream> {
-    return navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    const videoConstraints: MediaStreamConstraints = {video: {facingMode: 'environment'}, audio: false};
+    return navigator.mediaDevices.getUserMedia(videoConstraints)
     .then(stream => {
       this.stream = stream;
       return stream;

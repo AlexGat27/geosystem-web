@@ -17,12 +17,14 @@ export class PotholePageService{
     updateCanvas(textBefore: string | null, textAfter: string | null, isError: boolean){
         const canvasBefore = this.canvBefore.nativeElement;
         const canvasAfter = this.canvAfter.nativeElement;
+        canvasAfter.height = canvasAfter.width * 3 / 4;
         const ctxBefore = canvasBefore.getContext('2d');
         const ctxAfter = canvasAfter.getContext('2d');
         ctxAfter.clearRect(0, 0, canvasAfter.width, canvasAfter.height);
         ctxAfter.textAlign = "center"; ctxAfter.font = 'bold 17px sans-serif';
         this.wrapText(ctxAfter, textAfter, canvasAfter.width/2, canvasAfter.height/2, canvasAfter.width, 30);
         if (!isError){
+            canvasBefore.height = canvasBefore.width * 3 / 4;
             ctxBefore.clearRect(0, 0, canvasBefore.width, canvasBefore.height);
             ctxBefore.textAlign = "center"; ctxBefore.font = 'bold 17px sans-serif';
             this.wrapText(ctxBefore, textBefore, canvasBefore.width/2, canvasBefore.height/2, canvasBefore.width, 30);
@@ -34,28 +36,18 @@ export class PotholePageService{
         const ctx = canvas.getContext('2d');
         const image = new Image();
         image.src = imgBase64;
+        canvas.width = image.width;
+        canvas.height = image.height;
         image.onload= () => {
           ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         }
     }
     displayImgVideo(canv: ElementRef<HTMLCanvasElement>, frame: HTMLVideoElement){
         const canvas = canv.nativeElement;
+        canvas.width = frame.videoWidth;
+        canvas.height = frame.videoHeight;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
-    }
-
-    errorHandleCanvas(errorLog: string){
-        const canvasBefore = this.canvBefore.nativeElement;
-        const canvasAfter = this.canvAfter.nativeElement;
-        const ctxBefore = canvasBefore.getContext('2d');
-        const ctxAfter = canvasAfter.getContext('2d');
-        ctxAfter.clearRect(0, 0, canvasAfter.width, canvasAfter.height);
-        ctxBefore.fillStyle = "rgba(255, 0, 0, 0.2)";
-        ctxAfter.fillStyle = "rgba(255, 0, 0, 0.4)";
-        ctxBefore.fillRect(0, 0, canvasBefore.width, canvasBefore.height);
-        ctxAfter.fillRect(0, 0, canvasAfter.width, canvasAfter.height);
-        ctxAfter.fillStyle = "black";
-    
     }
 
     private wrapText(context, text, marginLeft, marginTop, maxWidth, lineHeight){

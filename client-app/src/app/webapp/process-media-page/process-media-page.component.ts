@@ -38,7 +38,8 @@ export class ProcessMediaPageComponent implements AfterViewInit{
         console.log(stream);
         videoElement.srcObject = stream;
         this.isCameraActive = true;
-      }).catch(er => {console.log("Есть проблемы с камерой: ", er)});
+      })
+      .catch(er => {console.log("Есть проблемы с камерой: ", er)});
     }
   }
   takeFrame(){
