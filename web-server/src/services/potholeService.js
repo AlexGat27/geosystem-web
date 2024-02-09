@@ -9,15 +9,13 @@ class PotholeService{
     async deleteAllPotholes(){
         await PotholeModel.destroy();
     }
-    async addPotholes(data, imagePath){
-        for(let i = 0; i < data.length; i++){
-            await PotholeModel.create({
-                geometry: potholeSequelize.literal(`ST_GeomFromText('POINT(${data[i].lat} ${data[i].lon})')`),
-                adress: data[i].street,
-                pothole_class: data[i].class,
-                picture_path: imagePath
-            });
-        }
+    async addPotholes(countPotholes, coords, imagePath){
+        await PotholeModel.create({
+            geometry: potholeSequelize.literal(`ST_GeomFromText('POINT(${coords.geolat} ${coords.geolon})')`),
+            countPotholes: countPotholes,
+            pothole_class: 1,
+            picture_path: imagePath
+        });
     }
 }
 

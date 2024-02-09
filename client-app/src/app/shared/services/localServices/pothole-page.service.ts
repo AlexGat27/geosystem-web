@@ -36,6 +36,7 @@ export class PotholePageService{
         const ctx = canvas.getContext('2d');
         const image = new Image();
         image.src = imgBase64;
+        console.log(image);
         canvas.width = image.width;
         canvas.height = image.height;
         image.onload= () => {

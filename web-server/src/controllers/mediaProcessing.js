@@ -19,7 +19,7 @@ class MediaProcessingController{
         }).then(fetchData => {
             const imgPath = imageService.saveImage(req.file.buffer, false);
             imageService.saveImage(Buffer.from(fetchData.imageUrl, 'base64'),true);
-            potholeService.addPotholes(fetchData.potholesData, imgPath);
+            potholeService.addPotholes(fetchData.countPotholes, req.body, imgPath);
             return res.status(200).json(fetchData.imageUrl);
         }).catch(er => {
             res.status(er.status).json(er.message)

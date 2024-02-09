@@ -42,24 +42,29 @@ export class ProcessMediaPageComponent implements AfterViewInit{
       .catch(er => {console.log("Есть проблемы с камерой: ", er)});
     }
   }
+  
   takeFrame(){
     const videoFrame: HTMLVideoElement = this.videoElementRef.nativeElement;
     this.isCameraActive = false;
     this.isDefaultState = false;
     this._potholePageService.displayImgVideo(this.canvasBefore, videoFrame);
-    this._cameraService.captureAndSendScreenshot(videoFrame)
+    this._cameraService.CaptureScreenshot(videoFrame)
     .then(imageFile => {
       this._cameraService.HideCamera();
-      this._potholeService.imageProcessing(imageFile).subscribe((response) => {
-        const imageAfter = 'data:image/jpeg;base64,' + response;
-        this._potholePageService.displayImgBase64(this.canvasAfter, imageAfter);
-      }, er => {
-        this.isFilesError = true;
-        console.log(er.error)
-        this._potholePageService.updateCanvas(null, er.error, true);
-      });
-    }).catch(er => {console.log(er);});
+      this._cameraService.GetCameraPosition()
+      .then(position =>{
+        this._potholeService.imageProcessing(imageFile, position).subscribe((response) => {
+          const imageAfter = 'data:image/jpeg;base64,' + response;
+          this._potholePageService.displayImgBase64(this.canvasAfter, imageAfter);
+        }, er => {
+          this.isFilesError = true;
+          console.log(er.error)
+          this._potholePageService.updateCanvas(null, er.error, true);
+        });
+      }).catch(er => {console.error(er);})
+    }).catch(er => {console.error(er);});
   }
+
   resetCanvas(){
     this._potholePageService.updateCanvas("Необработанное изображение", "Обработанное изображение", false);
     this.isFilesError = false;

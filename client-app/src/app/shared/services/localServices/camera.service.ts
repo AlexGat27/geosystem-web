@@ -9,8 +9,10 @@ export class CameraService {
     const videoConstraints: MediaStreamConstraints = {video: {facingMode: 'environment'}, audio: false};
     return navigator.mediaDevices.getUserMedia(videoConstraints)
     .then(stream => {
-      this.stream = stream;
-      return stream;
+      return this.GetCameraPosition().then(pos =>{
+        this.stream = stream;
+        return stream;
+      })
     })
   }
 
@@ -20,7 +22,7 @@ export class CameraService {
     }
   }
 
-  captureAndSendScreenshot(frame: HTMLVideoElement): Promise<Blob>{
+  CaptureScreenshot(frame: HTMLVideoElement): Promise<Blob>{
     return new Promise<Blob>((resolve, reject) => {
         const canvas = document.createElement('canvas');
         canvas.width = frame.videoWidth;
@@ -34,6 +36,15 @@ export class CameraService {
               reject(new Error('Unable to capture and save the file.'));
           }
         }, 'image/jpeg');
+    })
+  }
+  GetCameraPosition(): Promise<GeolocationPosition>{
+    return new Promise<GeolocationPosition>((resolve, reject) =>{
+      navigator.geolocation.getCurrentPosition(pos =>{
+        console.log(pos.coords);
+        resolve(pos);
+      },
+        er =>{reject(er)});
     })
   }
 }

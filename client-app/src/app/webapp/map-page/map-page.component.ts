@@ -15,8 +15,8 @@ export class MapPageComponent implements OnInit {
   private map: L.Map | undefined;
   private tileMaps: { [tileMapValue: string]: L.TileLayer } = {};
   private potholeSubscription: Subscription;
-  private controlLayers: L.Control.Layers | undefined;
-  private districtGroups: { [districtValue: string]: L.LayerGroup } = {};//Объект для хранения групп по районам
+  // private controlLayers: L.Control.Layers | undefined;
+  // private districtGroups: { [districtValue: string]: L.LayerGroup } = {};//Объект для хранения групп по районам
   // private markerClusterGroups: { [classValue: string]: L.MarkerClusterGroup } = {}; // Объект для хранения групп кластеризации по классам
   private markerClusterGroup: L.MarkerClusterGroup;
 
@@ -58,18 +58,19 @@ export class MapPageComponent implements OnInit {
 
     this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
       this.addPothole2Layers(potholeData);
+      this.map.addLayer(this.markerClusterGroup);
     })
 
     this.mapservice.getPotholes();
   }
 
   private addPothole2Layers(potholeData: any): void {
+    console.log(potholeData.geometry.coordinates[0], potholeData.geometry.coordinates[1]);
     // const classValue = potholeData.pothole_class;
-    const districtValue = potholeData.adress;
+    // const districtValue = potholeData.adress;
 
-    const districtGroup = this.getPotholeDistrict(districtValue);
+    // const districtGroup = this.getPotholeDistrict(districtValue);
     // const clusterGroup = this.getClusterGroup(classValue);
-
     const customIcon = new L.Icon({
       iconUrl: `../../assets/icons/pothole_1_1.png`,
       iconSize: [16, 16],
@@ -78,22 +79,23 @@ export class MapPageComponent implements OnInit {
       icon: customIcon
     })
     .bindPopup(`Пользователь: Анонимный пользователь<br>
-                  Адрес: ${potholeData.adress}<br>
+                  Количество: ${potholeData.countPotholes}<br>
                   Класс: Пока не включен в эту версию`);
 
-    this.markerClusterGroup.addLayer(marker);
-    districtGroup.addLayer(marker);
+    // this.markerClusterGroup.addLayer(marker);
+    marker.addTo(this.map);
+    // districtGroup.addLayer(marker);
   }
 
-  private getPotholeDistrict(districtValue): L.LayerGroup {
-    if (!this.districtGroups[districtValue]) {
-      this.districtGroups[districtValue] = new L.LayerGroup(); // Если группы для данного класса ещё нет, создаем новую
-      this.map.addLayer(this.districtGroups[districtValue]);
-      this.addControlLayers();
-    }
-    console.log(this.districtGroups[districtValue].getLayers());
-    return this.districtGroups[districtValue];
-  }
+  // private getPotholeDistrict(districtValue): L.LayerGroup {
+  //   if (!this.districtGroups[districtValue]) {
+  //     this.districtGroups[districtValue] = new L.LayerGroup(); // Если группы для данного класса ещё нет, создаем новую
+  //     this.map.addLayer(this.districtGroups[districtValue]);
+  //     this.addControlLayers();
+  //   }
+  //   console.log(this.districtGroups[districtValue].getLayers());
+  //   return this.districtGroups[districtValue];
+  // }
 
   // private getClusterGroup(classValue): L.MarkerClusterGroup{
   //   if (!this.markerClusterGroups[classValue]) {
@@ -120,10 +122,10 @@ export class MapPageComponent implements OnInit {
   //   return this.markerClusterGroups[classValue];
   // }
 
-  private addControlLayers(){
-    if (this.controlLayers !== undefined){this.map.removeControl(this.controlLayers);}
-    this.controlLayers = L.control.layers(this.tileMaps,this.districtGroups).addTo(this.map);
-  }
+  // private addControlLayers(){
+  //   if (this.controlLayers !== undefined){this.map.removeControl(this.controlLayers);}
+  //   this.controlLayers = L.control.layers(this.tileMaps,this.districtGroups).addTo(this.map);
+  // }
 
   ngOnDestroy(): void {
     // Отписываемся от подписки при уничтожении компонента
