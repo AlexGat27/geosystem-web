@@ -2,12 +2,12 @@
     <div class="myContainer canvas">
         <div class="canvasElem">
             <h4>Ваше фото</h4>
-            <canvas #canvAfter
-            [ngClass]="{canvasGrey: isDefaultState, canvasError: isFilesError}"></canvas>
+            <canvas #canvBefore
+            [ngClass]="{canvasGrey: isDefaultState}"></canvas>
         </div>
         <div class="canvasElem">
             <h4>Обработанное изображение</h4>
-            <canvas #canvBefore
+            <canvas #canvAfter
             [ngClass]="{canvasGrey: isDefaultState, canvasError: isFilesError}"></canvas>
         </div>
     </div>
@@ -29,11 +29,11 @@
     <video #videoElement [hidden]="!isCameraActive" autoplay></video>
     <div class="overlay" *ngIf="isCameraActive">
         <button #btnToggle 
-        class="btn btn-toggle p-2"  
-        (click)="toggleCamera()">Выйти</button>
+        class="btn-toggle"  
+        (click)="toggleCamera()"></button>
         <button #btnFrame
         [disabled]="!isCameraActive" 
-        class="btn btn-frame p-5" 
+        class="btn-frame" 
         (click)="takeFrame()"></button>
     </div>
 </div>

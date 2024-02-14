@@ -49,7 +49,6 @@ h4{
     padding-right: 5%;
     font-size: 18px;
     margin-top: 5%;
-    margin-bottom: 5%;
     border: 2px var(--white-contour) solid; 
     border-radius: 10%;
     color: var(--white-contour);
@@ -67,7 +66,7 @@ h4{
     padding: 1%;
     display: flex;
     align-items: center;
-    background-color: darkgray;
+    background-color: var(--gray-dark);
 }
 video{
     width: 100%;
@@ -77,43 +76,77 @@ video{
     top: 0;
     left: 0;
     width: 100%;
-    height: 90%;
+    height: 100%;
 }
 .btn-frame{
     position: absolute;
-    bottom: 0;
+    bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     border: 1px black solid;
     border-radius: 50%;
     margin-bottom: 3%;
-    background-color: white;
+    width: 75px;
+    height: 75px;
+    background-color: var(--white-contour);
 }
-.btn-toggle{
+.btn-toggle {
     position: absolute;
-    top: 10px;
     right: 10px;
-    background-color: white;
-    width: 20%;
-    height: 7%;
+    top: 5px;
+    color: var(--white-contour);
+    cursor: pointer;
+    font-size: 45px;
+    z-index: 2001;
+    background: none;
+    border: none;
+}
+.btn-toggle:after {
+    content: '\2715';
+    text-decoration: none;
 }
 
 .dn{
     display: none;
 }
 @media (max-width: 1024px) {
+    h4{
+        font-size: 30px;
+    }
     .canvas{
         flex-direction: column;
         justify-content: center;
         width: 90%;
         height: 80%;
     }
+    .btn-frame{
+        width: 100px;
+        height: 100px;
+    }
+    .overlay{
+        height: 90%;
+    }
+    .buttons button{
+        font-size: 25px;
+    }
+}
+@media (max-width: 768px) {
+    .overlay{
+        height: 100%;
+    }
 }
 @media (max-width: 480px) {
+    h4{
+        font-size: 22px;
+    }
     .canvasMediaProcess{
         padding: 1%;
         height: 90%;
         margin-top: 15%;
+    }
+    .btn-frame{
+        width: 75px;
+        height: 75px;
     }
     .canvas{
         height: 80%;

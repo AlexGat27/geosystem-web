@@ -59,14 +59,14 @@ export class ProcessMediaPageComponent implements AfterViewInit{
         }, er => {
           this.isFilesError = true;
           console.log(er.error)
-          this._potholePageService.updateCanvas(null, er.error, true);
+          this._potholePageService.updateCanvas(er.error);
         });
       }).catch(er => {console.error(er);})
     }).catch(er => {console.error(er);});
   }
 
   resetCanvas(){
-    this._potholePageService.updateCanvas("Необработанное изображение", "Обработанное изображение", false);
+    this._potholePageService.updateCanvas(null);
     this.isFilesError = false;
     this.isDefaultState = true;
   }
