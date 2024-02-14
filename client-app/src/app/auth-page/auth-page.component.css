@@ -46,7 +46,7 @@ span{
         padding: 0%;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .col{
         width:100%;
         margin-bottom: 3%;

@@ -17,17 +17,14 @@ export class PotholePageService{
     updateCanvas(textBefore: string | null, textAfter: string | null, isError: boolean){
         const canvasBefore = this.canvBefore.nativeElement;
         const canvasAfter = this.canvAfter.nativeElement;
-        canvasAfter.height = canvasAfter.width * 3 / 4;
+        // canvasAfter.height = canvasAfter.width * 3 / 4;
+        // canvasBefore.height = canvasBefore.width * 3 / 4;
         const ctxBefore = canvasBefore.getContext('2d');
         const ctxAfter = canvasAfter.getContext('2d');
-        ctxAfter.clearRect(0, 0, canvasAfter.width, canvasAfter.height);
-        ctxAfter.textAlign = "center"; ctxAfter.font = 'bold 17px sans-serif';
-        this.wrapText(ctxAfter, textAfter, canvasAfter.width/2, canvasAfter.height/2, canvasAfter.width, 30);
-        if (!isError){
-            canvasBefore.height = canvasBefore.width * 3 / 4;
-            ctxBefore.clearRect(0, 0, canvasBefore.width, canvasBefore.height);
-            ctxBefore.textAlign = "center"; ctxBefore.font = 'bold 17px sans-serif';
-            this.wrapText(ctxBefore, textBefore, canvasBefore.width/2, canvasBefore.height/2, canvasBefore.width, 30);
+        if (isError){
+            ctxAfter.clearRect(0, 0, canvasAfter.width, canvasAfter.height);
+            ctxAfter.textAlign = "center"; ctxAfter.font = 'bold 17px sans-serif';
+            this.wrapText(ctxAfter, textAfter, canvasAfter.width/2, canvasAfter.height/2, canvasAfter.width, 30);
         }
     }
 

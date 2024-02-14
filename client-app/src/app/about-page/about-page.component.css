@@ -28,7 +28,7 @@
     height: 50px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
     .benefits .container .row .col-5{
         width: 100%;
     }

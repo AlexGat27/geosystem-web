@@ -25,7 +25,7 @@
     font-size: 20px;
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1280px){
     .results-question .row{
         display: block;
     }
@@ -34,7 +34,7 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
     .key-features .col-5, .features .col-4{
         width: 100%;
     }
@@ -47,7 +47,7 @@
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
     .results-question img{
         width: 100%;
     }

@@ -1,58 +1,49 @@
 body{
     padding: 3%;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 8%;
+    padding-right: 8%;
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
         url(../../../../assets/pictures/map-back.jpg) no-repeat;
     background-size: cover;
 }
 .card{
+    color: var(--white-contour);
     display: flex;
     flex-direction: row;
     height: 100%;
 }
 .navigation-app{
-    width: 25%;
+    width: 15%;
+    min-width: 200px;
     height: 100%;
     box-sizing: border-box;
+    padding: 0;
+    margin:0;
+    padding-top: 2%;
+    background-color: var(--gray-light);
+    list-style: none;
 }
 .content{
     flex-grow: 1;
     box-sizing: border-box;
+    background-color: var(--gray-dark);
 }
-
-.navigation-app img{
-    display: none;
-}
-.list {
-    padding: 0;
-    padding-top: 5%;
-    height: 100%;
-    width:100%;
-    background-color: #111;
-    list-style: none;
-}
-.list li{
+.navigation-app li{
     padding: 15px;
     border-bottom: 1px, solid, #f1f1f1;
 }
-.list a {
+.navigation-app a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: var(--white-contour);
     display: block;
 }
-.list a:hover {
-    color: #f1f1f1;
-}
-.list .icon_li{
-    width: 40px;
-    height: 40px;
-    display: none;
+.navigation-app a:hover {
+    color: rgb(201, 200, 200);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
     body{
         padding-left: 5%;
         padding-right: 5%;
@@ -62,33 +53,71 @@ body{
     }
     .navigation-app{
         width: 100%;
-        height: 10%;
-        order:2;
-    }
-    .navigation-app ul{
+        height: 12%;
         padding-top: 0%;
         align-items: center;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        order:2;
     }
     .navigation-app li{
         padding: 0;
-        margin: 0%;
-    }
-    .list .icon_li{
-        display: none;
+        margin: 0;
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     body{
         padding: 0%;
     }
-    .navigation-app span{
+    .card{
+        flex-direction: row;
+    }
+    .navigation-app{
+        background-color: rgba(68, 66, 68, 0.9);
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: -800px;
+        text-align: center;
+        -webkit-transition: left 0.3s;
+        -moz-transition: left 0.3s;
+        transition: left 0.3s;
+        z-index: 2000;
+    }
+    .nav-toggle {
+        position: absolute;
+        left: 10px;
+        top: 5px;
+        color: var(--white-contour);
+        cursor: pointer;
+        font-size: 45px;
+        z-index: 2001;
+    }
+    .nav-toggle:after {
+        content: '\2630';
+        text-decoration: none;
+    }
+    /* .nav-toggle:hover {
+        color: #7f7f7f;
+    } */
+    [id='nav-toggle'] {
+        position: absolute;
         display: none;
     }
-    .list .icon_li{
-        display: inline-block;
+    [id='nav-toggle']:checked ~ .navigation-app {
+        left: 0;
+        overflow-y: auto;
+    }
+    [id='nav-toggle']:checked ~ .navigation-app > .nav-toggle:after {
+        content: '\2715';
+    }
+    .navigation-app li{
+        margin: 10%;
+        border-bottom: 1px, solid, #f1f1f1;
     }
 }

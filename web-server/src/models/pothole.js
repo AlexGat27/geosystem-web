@@ -1,7 +1,7 @@
 const {potholeSequelize} = require("./index")
 const {DataTypes} = require("sequelize")
 
-const PotholeModel = potholeSequelize.define("pothole",{
+const PotholeModel = potholeSequelize.define("usersPothole",{
   geometry: DataTypes.GEOMETRY('POINT'),
   countPotholes: DataTypes.INTEGER,
   pothole_class: DataTypes.INTEGER,
