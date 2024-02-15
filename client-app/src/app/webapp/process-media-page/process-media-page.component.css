@@ -1,13 +1,14 @@
 h4{
     margin-top: 3%;
     margin-bottom: 3%;
+    font-size: 23px;
 }
 .canvasMediaProcess{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    padding: 3%;
+    padding: 2%;
     height: 100%;
 }
 .myContainer{
@@ -15,6 +16,7 @@ h4{
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 2%;
 }
 .canvas{
     height: 70%;
@@ -33,12 +35,13 @@ h4{
 .canvasElem canvas{
     border-radius: 2px;
     border: 2px var(--gray-light) solid;
-    width: 100%;
     height: 100%;
+    width: 100%;
 }
 .myContainer .buttons{
     height: 100%;
     width: 100%;
+    padding: 2%;
     display: inherit;
     justify-content: center;
 }
@@ -48,10 +51,12 @@ h4{
     padding-left: 5%;
     padding-right: 5%;
     font-size: 18px;
-    margin-top: 5%;
     border: 2px var(--white-contour) solid; 
     border-radius: 10%;
     color: var(--white-contour);
+}
+.buttons button:hover{
+    background-color: var(--gray-light)
 }
 .canvasGrey{
     background-color: var(--gray-light);
@@ -111,13 +116,19 @@ video{
 }
 @media (max-width: 1024px) {
     h4{
-        font-size: 30px;
+        font-size: 25px;
+    }
+    .canvasElem{
+        height: 50%;
     }
     .canvas{
         flex-direction: column;
         justify-content: center;
         width: 90%;
-        height: 80%;
+        height: 90%;
+    }
+    .canvas canvas{
+        height: 100%;
     }
     .btn-frame{
         width: 100px;
@@ -127,7 +138,7 @@ video{
         height: 90%;
     }
     .buttons button{
-        font-size: 25px;
+        font-size: 20px;
     }
 }
 @media (max-width: 768px) {
@@ -141,15 +152,17 @@ video{
     }
     .canvasMediaProcess{
         padding: 1%;
-        height: 90%;
-        margin-top: 15%;
+        padding-top: 7%;
+        /* padding-bottom: 7%; */
+        height: 100%;
+        width: 100%;
     }
     .btn-frame{
         width: 75px;
         height: 75px;
     }
     .canvas{
-        height: 80%;
+        height: 100%;
         display: inherit;
         justify-content: center;
     }
@@ -166,6 +179,5 @@ video{
     }
     .buttons button{
         font-size: 18px;
-        margin-top: 5%;
     }
 }

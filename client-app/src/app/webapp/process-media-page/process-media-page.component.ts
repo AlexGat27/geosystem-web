@@ -29,6 +29,7 @@ export class ProcessMediaPageComponent implements AfterViewInit{
   toggleCamera(){
     if (this.isCameraActive){
       this.isCameraActive = false;
+      console.log(this.isCameraActive);
       this._cameraService.HideCamera();
       this.resetCanvas();
     }else{

@@ -37,19 +37,19 @@ export class PotholePageService{
         const image = new Image();
         image.src = imgBase64;
         console.log(image);
-        canvas.width = canvas.height / image.height * image.width;
         image.onload= () => {
-          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+          ctx.drawImage(image, 0, 0, canvas.height / image.height * canvas.width, canvas.height);
         }
     }
     displayImgVideo(canv: ElementRef<HTMLCanvasElement>, frame: HTMLVideoElement){
         const canvas = canv.nativeElement;
-        console.log(canvas.width, canvas.height);
-        console.log(frame.videoWidth, frame.videoHeight);
-        canvas.width = canvas.height / frame.videoHeight * frame.videoWidth;
-        console.log(canvas.width, canvas.height);
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+        console.log(canvas.height, canvas.width);
+
+        const normWidth = canvas.height / frame.videoHeight * frame.videoWidth;
+        console.log(frame.videoHeight, frame.videoWidth);
+        console.log((canvas.width - normWidth) / 2, (canvas.width + normWidth) / 2);
+        ctx.drawImage(frame, (canvas.width - normWidth) / 2, 0, normWidth, canvas.height);
     }
 
     private wrapText(context, text, marginLeft, marginTop, maxWidth, lineHeight){
