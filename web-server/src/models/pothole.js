@@ -1,21 +1,27 @@
-const {potholeSequelize} = require("./index")
+const {sequelize} = require("./index")
 const {DataTypes} = require("sequelize")
+const {UserModel} = require("./user")
 
-const PotholeModel = potholeSequelize.define("usersPothole",{
+const PotholeModel = sequelize.define("usersPothole",{
   geometry: DataTypes.GEOMETRY('POINT'),
   countPotholes: DataTypes.INTEGER,
-  pothole_class: DataTypes.INTEGER,
   picture_path: DataTypes.STRING
 },
 {
-  potholeSequelize,
+  sequelize,
   freezeTableName: true,
   timestamps: false,
   modelName: 'Pothole',
 });
 
-potholeSequelize.sync()
-.then(console.log("successful connection"))
+UserModel.hasMany(PotholeModel);
+PotholeModel.belongsTo(UserModel, {
+  foreignKey: "userId",
+  onDelete: 'CASCADE'
+});
+
+sequelize.sync()
+.then(console.log("successful connection pothole tables"))
 .catch(er => console.log(er));
 
 module.exports = {PotholeModel}

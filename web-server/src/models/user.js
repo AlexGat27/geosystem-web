@@ -1,7 +1,12 @@
-const {userSequelize} = require("./index")
+const {sequelize} = require("./index")
 const {DataTypes} = require("sequelize")
 
-const UserModel = userSequelize.define("user",{
+const UserModel = sequelize.define("user",{
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true, // Определение первичного ключа
+    autoIncrement: true // Если это автоинкрементируемое поле
+  },
   login: DataTypes.STRING,
   password: DataTypes.STRING,
   phone_number: DataTypes.STRING,
@@ -9,42 +14,32 @@ const UserModel = userSequelize.define("user",{
   isfiz: DataTypes.BOOLEAN
 },
 {
-  userSequelize,
+  sequelize,
   freezeTableName: true,
   modelName: 'User',
 });
   
-const UsualUserModel = userSequelize.define("usualuser",{
-  start_subscribe_time: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  final_subscribe_time: DataTypes.DATE,
-  count_photos: DataTypes.INTEGER,
-  bonus_balance: DataTypes.INTEGER
+const UsualUserModel = sequelize.define("usualuser",{
+  count_photos: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  }
 },
 {
-  userSequelize,
+  sequelize,
   timestamps: false,
   freezeTableName: true,
   modelName: 'UsualUser',
 });  
 
-const EnterpriseUserModel = userSequelize.define("enterpriseuser",{
+const EnterpriseUserModel = sequelize.define("enterpriseuser",{
   company: DataTypes.STRING,
-  start_subscribe_time: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  final_subscribe_time: {
-    type: DataTypes.DATE,
-  },
   count_orders: {
     type: DataTypes.INTEGER,
     defaultValue: 0
   }
 }, {
-  userSequelize,
+  sequelize,
   freezeTableName: true,
   timestamps: false,
   modelName: 'EnterpriseUser',
@@ -62,8 +57,8 @@ EnterpriseUserModel.belongsTo(UserModel, {
   onDelete: 'CASCADE'
 });
 
-userSequelize.sync()
-.then(console.log("successful connection"))
+sequelize.sync()
+.then(console.log("successful connection users tables"))
 .catch(er => console.log(er));
 
 module.exports = {UserModel, UsualUserModel, EnterpriseUserModel};

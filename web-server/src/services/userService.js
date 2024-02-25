@@ -4,6 +4,11 @@ const bcrypt = require("bcryptjs")
 
 class UserService{
 
+    getJwtData(jwtHeader){
+        const token = jwtHeader && jwtHeader.split(' ')[1];
+        const data = jwt.verify(token, keys.jwt);
+        return data;
+    }
     async getUser(login){
         return await UserModel.findOne({ where: { login: login } });
     }
@@ -39,6 +44,11 @@ class UserService{
     async deleteUser(login){
         const user = await UserModel.destroy({ where: { login: login } });
         return user;
+    }
+    async setUsualUserPothole(userId, count){
+        await UsualUserModel.increment('count_potholes', {by: count, where: { id: userId}})
+        .then(() => {console.log("Succesfuly increment count of potholes")})
+        .catch(er => {console.log(er)});
     }
 }
 

@@ -7,8 +7,7 @@ class AuthController{
     async getUser(req, res){
         try {
             const jwtHeader = req.headers["authorisation"];
-            const token = jwtHeader && jwtHeader.split(' ')[1];
-            let d = jwt.verify(token, keys.jwt);
+            const d = userService.getJwtData(jwtHeader);
             const data = await userService.getUser(d.login);
             return res.status(200).json(data);
         } catch (er) {
@@ -33,10 +32,11 @@ class AuthController{
 
     async login(req, res){
         try {
-            const d = req.body;
-            const candidate = await userService.getUser(d.login);
+            const data = req.body;
+            const candidate = await userService.getUser(data.login);
             if (!candidate){return res.status(404).json({message:"Неправильный логин или пароль"})};
             const token = jwt.sign({
+                id: candidate.id,
                 login: candidate.login,
                 isfiz: candidate.isfiz
             }, keys.jwt, {expiresIn: 60 * 60 * 24});
@@ -53,9 +53,9 @@ class AuthController{
         try {
             const jwtHeader = req.headers["authorisation"];
             const token = jwtHeader && jwtHeader.split(' ')[1];
-            let d = jwt.verify(token, config.jwt);
-            await userService.deleteUser(this.login=d.login);
-            return res.status(200).json({message: `Пользователь c ником ${d.login} успешно удален`});
+            let data = jwt.verify(token, config.jwt);
+            await userService.deleteUser(this.login=data.login);
+            return res.status(200).json({message: `Пользователь c ником ${data.login} успешно удален`});
         } catch (er) {
             res.status(400).json({
                 message: er,

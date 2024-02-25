@@ -1,5 +1,6 @@
 const potholeService = require('../services/potholeService');
 const imageService = require('../services/imageService');
+const userService = require('../services/userService')
 class MediaProcessingController{
 
     async imageProcessing(req, res){
@@ -18,12 +19,18 @@ class MediaProcessingController{
             }
         }).then(fetchData => {
             const imgPath = imageService.saveImage(req.file.buffer, false);
+            const userData = userService.getJwtData(req.headers["authorisation"]);
             imageService.saveImage(Buffer.from(fetchData.imageUrl, 'base64'),true);
-            potholeService.addPotholes(fetchData.countPotholes, req.body, imgPath);
+            potholeService.addPotholes(userData.id, fetchData.countPotholes, req.body.geolat, req.body.geolat, imgPath);
+            userService.setUsualUserPothole(userData.id, fetchData.countPotholes);
             return res.status(200).json(fetchData.imageUrl);
         }).catch(er => {
             res.status(er.status).json(er.message)
         })
+    }
+
+    _getUserID(token){
+
     }
 }
 

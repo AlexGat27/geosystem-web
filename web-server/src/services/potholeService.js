@@ -1,5 +1,7 @@
 const {PotholeModel} = require("../models/pothole")
 const {potholeSequelize} = require('../models/index')
+const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
 
 class PotholeService{
 
@@ -9,12 +11,12 @@ class PotholeService{
     async deleteAllPotholes(){
         await PotholeModel.destroy();
     }
-    async addPotholes(countPotholes, coords, imagePath){
+    async addPotholes(_userId, countPotholes, geolat, geolon, imagePath){
         await PotholeModel.create({
-            geometry: potholeSequelize.literal(`ST_GeomFromText('POINT(${coords.geolat} ${coords.geolon})')`),
+            geometry: potholeSequelize.literal(`ST_GeomFromText('POINT(${geolat} ${geolon})')`),
             countPotholes: countPotholes,
-            pothole_class: 1,
-            picture_path: imagePath
+            picture_path: imagePath,
+            userId: _userId
         });
     }
 }
