@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable, signal } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable, tap } from "rxjs";
+import { Observable, catchError, tap, throwError } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -25,13 +25,18 @@ export class AuthService {
             tap(({token}) => {
                 localStorage.setItem('auth-token', token);
                 this.setToken(token);
-                this.router.navigate([""]);
+                this.router.navigate(["/profile"]);
             })
         );
     }
 
     getUser(): Observable<any>{
-        return this.http.get<any>("/api/v1/auth/getUser");
+        return this.http.get<any>("/api/v1/auth/getUser").pipe(
+            catchError(er => {
+                this.router.navigate(["/login"]);
+                return throwError("Something went wrong while fetching user data");
+            })
+        );
     }
 
     setToken(token: string){
@@ -44,6 +49,7 @@ export class AuthService {
     }
 
     isAuthenticated(): boolean{
+        console.log(this.token);
         return !!this.token;
     }
 

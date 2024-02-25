@@ -21,6 +21,9 @@ export class ProfilePageComponent implements OnInit{
       .subscribe(data => {
         this.userdata = data;
         console.log(this.userdata);
+      }, er =>{
+        console.log(er);
+        this.logout();
       });
   }
 
