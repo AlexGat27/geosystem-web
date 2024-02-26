@@ -1,12 +1,21 @@
+const sequelize = require('sequelize')
 const {OriginalImagesPath, ProcessedImagesPath} = require("../config/dbEnv");
 const {PotholeModel} = require("../models/pothole");
 const fs = require("fs");
 
 class ImageService{
-    async getImagesByCoords(){
+    async getImagesByCoords(geolat, geolon){
         const image_paths = await PotholeModel.findAll({
-            attributes: ["picture_path"],
+            attributes: [
+                "picture_path",
+                [sequelize.literal(`ST_Distance_Sphere(point(coordinates), point(${geolon}, ${geolat}) AS difference`), 'difference'],
+            ]
+            // where: sequelize.literal(`ST_Distance_Sphere(point(coordinates), 
+            // point(${currentLongitude}, ${currentLatitude})) < ${10} `)
         }).then(res => {
+            res.forEach(obj => {
+                console.log(obf.difference);
+            })
             res = [...new Set(res.map(obj => obj.dataValues.picture_path))];
             return res
         });

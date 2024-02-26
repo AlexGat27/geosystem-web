@@ -11,20 +11,25 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class ProfilePageComponent implements OnInit{
   
   @Input()
-  public userdata;
+  public userdata = {
+    login: '',
+    email: '',
+    phone_number: ''
+  };
 
   constructor(private auth: AuthService){
   }
 
   ngOnInit(){
-    this.auth.getUser()
-      .subscribe(data => {
+    this.auth.getUser().subscribe({
+      next: data => {
         this.userdata = data;
-        console.log(this.userdata);
-      }, er =>{
+      },
+      error: er =>{
         console.log(er);
         this.logout();
-      });
+      } 
+    })
   }
 
   logout(){

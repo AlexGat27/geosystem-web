@@ -11,7 +11,7 @@ class AuthController{
             const data = await userService.getUser(d.login);
             return res.status(200).json(data);
         } catch (er) {
-            res.status(400).json({
+            return res.status(400).json({
                 message: er,
             });
         }

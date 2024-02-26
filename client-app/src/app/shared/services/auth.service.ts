@@ -31,12 +31,7 @@ export class AuthService {
     }
 
     getUser(): Observable<any>{
-        return this.http.get<any>("/api/v1/auth/getUser").pipe(
-            catchError(er => {
-                this.router.navigate(["/login"]);
-                return throwError("Something went wrong while fetching user data");
-            })
-        );
+        return this.http.get<any>("/api/v1/auth/getUser");
     }
 
     setToken(token: string){
@@ -49,7 +44,6 @@ export class AuthService {
     }
 
     isAuthenticated(): boolean{
-        console.log(this.token);
         return !!this.token;
     }
 

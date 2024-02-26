@@ -1,4 +1,6 @@
 const { Op } = require("sequelize");
+const jwt = require("jsonwebtoken");
+const keys = require("../config/keys")
 const { UserModel, UsualUserModel, EnterpriseUserModel } = require("../models/user");
 const bcrypt = require("bcryptjs")
 
@@ -10,7 +12,12 @@ class UserService{
         return data;
     }
     async getUser(login){
-        return await UserModel.findOne({ where: { login: login } });
+        return await UserModel.findOne({
+            attributes: [
+                "login", "phone_number", "email",
+            ],
+            where: { login: login }
+        });
     }
     async createUser(data){
         const candidate = await UserModel.findOne({ 
