@@ -12,6 +12,7 @@ const fizMiddleware = (req, res, next) => {
     const jwtHeader = req.headers["authorisation"];
     const token = jwtHeader && jwtHeader.split(' ')[1];
     let d = jwt.verify(token, config.jwt);
+    console.log(d)
     if (!d.isfiz){
         return res.status(400).json({message: "Пользователь является юридическим лицом"});
     } 

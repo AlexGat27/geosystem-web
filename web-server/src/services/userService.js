@@ -14,7 +14,7 @@ class UserService{
     async getUser(login){
         return await UserModel.findOne({
             attributes: [
-                "login", "phone_number", "email",
+                "id", "login", "phone_number", "email", "isfiz"
             ],
             where: { login: login }
         });

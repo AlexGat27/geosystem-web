@@ -33,7 +33,9 @@ class AuthController{
     async login(req, res){
         try {
             const data = req.body;
+            console.log(data);
             const candidate = await userService.getUser(data.login);
+            console.log(candidate);
             if (!candidate){return res.status(404).json({message:"Неправильный логин или пароль"})};
             const token = jwt.sign({
                 id: candidate.id,

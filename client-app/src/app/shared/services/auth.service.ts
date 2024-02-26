@@ -9,6 +9,7 @@ import { Observable, catchError, tap, throwError } from "rxjs";
 export class AuthService {
 
     private token = null;
+    private isFiz: boolean;
     public authenticated = signal(this.getToken() !== null);
 
     constructor(private http: HttpClient,
@@ -25,6 +26,8 @@ export class AuthService {
             tap(({token}) => {
                 localStorage.setItem('auth-token', token);
                 this.setToken(token);
+                this.isFiz = userValue.isFiz;
+                console.log(this.isFiz);
                 this.router.navigate(["/profile"]);
             })
         );
@@ -53,7 +56,7 @@ export class AuthService {
         this.router.navigate([""]);
     }
 
-    isInnCorrect = (inn: string) => {
+    isInnCorrect(inn: string): boolean{
         // Если inn не содержит строку то сразу вернуть false
         if (typeof inn !== 'string') return false
       
@@ -84,5 +87,12 @@ export class AuthService {
       
         // Во всех остальных ИНН некорректный 
         return false
-      }
+    }
+
+    isUserFiz(): boolean{
+        if (this.isAuthenticated()){
+            return this.isFiz;
+        }
+        return false;
+    }
 }
