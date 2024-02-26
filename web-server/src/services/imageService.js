@@ -5,17 +5,17 @@ const fs = require("fs");
 
 class ImageService{
     async getImagesByCoords(geolat, geolon){
+        console.log(geolat, geolon);
         const image_paths = await PotholeModel.findAll({
             attributes: [
                 "picture_path",
-                sequelize.literal(`ST_X(geometry) as x`), 
-                sequelize.literal(`ST_Y(geometry) as y`)
-            ]
-            // where: sequelize.literal(`ST_Distance_Sphere(point(coordinates), 
-            // point(${currentLongitude}, ${currentLatitude})) < ${10} `)
+                // [sequelize.fn('ST_X', sequelize.col('geometry')), 'longitude'],
+                // [sequelize.fn('ST_Y', sequelize.col('geometry')), 'latitude']
+            ],
+            where: sequelize.literal(`ABS(ST_Y("geometry") - ${geolon}) < 0.01 AND ABS(ST_X("geometry") - ${geolat}) < 0.01`)
         }).then(res => {
             res.forEach(obj => {
-                console.log(obj);
+                console.log(obj.picture_path);
             })
             res = [...new Set(res.map(obj => obj.dataValues.picture_path))];
             return res

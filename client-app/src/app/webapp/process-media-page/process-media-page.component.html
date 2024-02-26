@@ -2,13 +2,15 @@
     <div class="myContainer canvas">
         <div class="canvasElem">
             <h4>Ваше фото</h4>
-            <canvas #canvBefore
-            [ngClass]="{canvasGrey: isDefaultState}"></canvas>
+            <div #divElement [ngClass]="{canvasGrey: isDefaultState}">
+                <img #imageBeforeElement alt="">
+            </div>
         </div>
         <div class="canvasElem">
             <h4>Обработанное изображение</h4>
-            <canvas #canvAfter
-            [ngClass]="{canvasGrey: isDefaultState, canvasError: isFilesError}"></canvas>
+            <div [ngClass]="{canvasGrey: isDefaultState, canvasError: isFilesError}">
+                <img #imageAfterElement [alt]="errorText">
+            </div>
         </div>
     </div>
     <div class="myContainer">

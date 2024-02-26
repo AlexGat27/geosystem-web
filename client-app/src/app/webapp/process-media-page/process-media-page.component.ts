@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { PotholePageService } from 'src/app/shared/services/localServices/pothole-page.service';
 import { CameraService } from 'src/app/shared/services/localServices/camera.service';
 import { PotholeService } from 'src/app/shared/services/pothole.service';
 
@@ -7,22 +6,26 @@ import { PotholeService } from 'src/app/shared/services/pothole.service';
   selector: 'app-process-media-page',
   templateUrl: './process-media-page.component.html',
   styleUrls: ['./process-media-page.component.css'],
-  viewProviders: [PotholePageService, CameraService]
+  viewProviders: [CameraService]
 })
 export class ProcessMediaPageComponent implements AfterViewInit{
   @ViewChild('videoElement') videoElementRef!: ElementRef;
-  @ViewChild('canvBefore') canvasBefore: ElementRef<HTMLCanvasElement>;
-  @ViewChild('canvAfter') canvasAfter: ElementRef<HTMLCanvasElement>;
+  @ViewChild('divElement') divElementRef!: ElementRef;
+  @ViewChild('imageBeforeElement') imageBeforeElement!: ElementRef;
+  @ViewChild('imageAfterElement') imageAfterElement!: ElementRef;
+  imageAfter: HTMLImageElement;
+  imageBefore: HTMLImageElement;
+  errorText: string = "";
   isDefaultState = true;
   isFilesError = false;
   isCameraActive = false;
 
   constructor(private _cameraService: CameraService,
-    private _potholePageService: PotholePageService,
     private _potholeService: PotholeService){}
 
   ngAfterViewInit() {
-    this._potholePageService.initializeCanvas(this.canvasBefore, this.canvasAfter);
+    this.imageAfter = this.imageAfterElement.nativeElement;
+    this.imageBefore = this.imageBeforeElement.nativeElement;
     this.resetCanvas();
   }
 
@@ -48,27 +51,48 @@ export class ProcessMediaPageComponent implements AfterViewInit{
     const videoFrame: HTMLVideoElement = this.videoElementRef.nativeElement;
     this.isCameraActive = false;
     this.isDefaultState = false;
-    this._potholePageService.displayImgVideo(this.canvasBefore, videoFrame);
+    this.setImgVideoURL(videoFrame);
     this._cameraService.CaptureScreenshot(videoFrame)
     .then(imageFile => {
       this._cameraService.HideCamera();
       this._cameraService.GetCameraPosition()
       .then(position =>{
         this._potholeService.imageProcessing(imageFile, position).subscribe((response) => {
-          const imageAfter = 'data:image/jpeg;base64,' + response;
-          this._potholePageService.displayImgBase64(this.canvasAfter, imageAfter);
+          const imageAfterURL = 'data:image/jpeg;base64,' + response;
+          this.setImgBase64URL(imageAfterURL);
         }, er => {
           this.isFilesError = true;
-          console.log(er.error)
-          this._potholePageService.updateCanvas(er.error);
+          this.errorText = er.error;
+          console.log(er.error);
         });
       }).catch(er => {console.error(er);})
     }).catch(er => {console.error(er);});
   }
 
   resetCanvas(){
-    this._potholePageService.updateCanvas(null);
+    this.imageBefore.width = 0; this.imageBefore.height = 0; this.imageAfter.width = 0; this.imageAfter.height = 0;
+    this.imageBefore.src = ""; this.imageAfter.src = "";
+    this.errorText = "";
     this.isFilesError = false;
     this.isDefaultState = true;
+  }
+
+  private setImgVideoURL(video: HTMLVideoElement){
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const divElement: HTMLDivElement = this.divElementRef.nativeElement;
+    setTimeout(()=>{
+      this.imageBefore.height = canvas.height = divElement.offsetHeight;
+      this.imageBefore.width = canvas.width = divElement.offsetHeight * video.videoWidth / video.videoHeight;
+      console.log(canvas.height, canvas.width)
+      console.log(divElement.offsetHeight, divElement.offsetWidth)
+    })
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    this.imageBefore.src = canvas.toDataURL('image/png');
+  }
+  private setImgBase64URL(url: string){
+    this.imageAfter.height = this.imageBefore.height;
+    this.imageAfter.width = this.imageBefore.width;
+    this.imageAfter.src = url;
   }
 }

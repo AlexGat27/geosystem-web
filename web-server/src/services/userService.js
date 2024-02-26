@@ -53,7 +53,7 @@ class UserService{
         return user;
     }
     async setUsualUserPothole(userId, count){
-        await UsualUserModel.increment('count_potholes', {by: count, where: { id: userId}})
+        await UsualUserModel.increment('count_photos', {by: count, where: { id: userId}})
         .then(() => {console.log("Succesfuly increment count of potholes")})
         .catch(er => {console.log(er)});
     }

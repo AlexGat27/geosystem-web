@@ -33,7 +33,7 @@ const appRoutes: Routes = [
     {path: 'register', component: RegisterPageComponent},
     {path: 'profile', canActivate: [AuthGuard], component: ProfilePageComponent},
   ]},
-  {path: 'webapp', component: WebappLayoutComponent, canActivate: [AuthGuard, AuthFizGuard], children:[
+  {path: 'webapp', component: WebappLayoutComponent, canActivate: [AuthGuard], children:[
     {path: 'home-app', component: HomeappComponent},
     {path: 'map-page', component: MapPageComponent},
     {path: 'process-media-page', component: ProcessMediaPageComponent},
