@@ -5,7 +5,7 @@ const fs = require("fs");
 
 class ImageService{
     async getImagesByCoords(geolat, geolon){
-        console.log(geolat, geolon);
+        console.log(geolat, geolon)
         const image_paths = await PotholeModel.findAll({
             attributes: [
                 "picture_path",
