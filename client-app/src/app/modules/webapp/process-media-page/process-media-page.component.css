@@ -65,6 +65,7 @@ h4{
     background-color: var(--gray-light);
 }
 .canvasError{
+    font-size: 30px;
     background-color: rgba(255, 0, 0, 0.4);
 }
 
@@ -147,6 +148,9 @@ video{
 @media (max-width: 768px) {
     .overlay{
         height: 100%;
+    }
+    .canvasError{
+        font-size: 20px;
     }
 }
 @media (max-width: 480px) {

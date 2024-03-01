@@ -3,11 +3,16 @@ import { Injectable, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, catchError, tap, throwError } from "rxjs";
 
+interface LoginResponse {
+    token: string;
+    isFiz: boolean;
+}
+
 @Injectable()
 export class AuthService {
 
     private token = null;
-    private isFiz: boolean;
+    private isFiz: boolean = null;
     public authenticated = signal(this.getToken() !== null);
 
     constructor(private http: HttpClient,
@@ -19,12 +24,13 @@ export class AuthService {
     }
 
     login(userValue): Observable<{token: string}> {
-        return this.http.post<{token: string}>("/api/v1/auth/login", userValue)
+        return this.http.post<LoginResponse>("/api/v1/auth/login", userValue)
         .pipe(
-            tap(({token}) => {
-                localStorage.setItem('auth-token', token);
-                this.setToken(token);
-                this.isFiz = userValue.isFiz;
+            tap((loginResponse: LoginResponse) => {
+                localStorage.setItem('auth-token', loginResponse.token);
+                localStorage.setItem('isFiz', String(loginResponse.isFiz))
+                this.setToken(loginResponse.token);
+                this.setFiz(loginResponse.isFiz);
                 console.log(this.isFiz);
                 this.router.navigate(["/profile"]);
             })
@@ -39,6 +45,9 @@ export class AuthService {
         this.token = token;
         this.authenticated.set(this.getToken() !== null);
     }
+    setFiz(isFiz: boolean){
+        this.isFiz = isFiz;
+    }
 
     getToken(): string {
         return this.token;
@@ -50,6 +59,7 @@ export class AuthService {
 
     logout() {
         this.setToken(null);
+        this.setFiz(null);
         localStorage.clear();
         this.router.navigate([""]);
     }
@@ -89,6 +99,7 @@ export class AuthService {
 
     isUserFiz(): boolean{
         if (this.isAuthenticated()){
+            console.log(this.isFiz);
             return this.isFiz;
         }
         return false;

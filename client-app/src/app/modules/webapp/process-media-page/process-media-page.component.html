@@ -9,7 +9,8 @@
         <div class="canvasElem">
             <h4>Обработанное изображение</h4>
             <div [ngClass]="{canvasGrey: isDefaultState, canvasError: isFilesError}">
-                <img #imageAfterElement [alt]="errorText">
+                <img #imageAfterElement>
+                <p class="errorInfo">{{errorText}}</p>
             </div>
         </div>
     </div>
