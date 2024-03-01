@@ -10,11 +10,11 @@ const routes: Routes = [
     {  
         path: 'webapp', 
         component: WebappLayoutComponent,
+        canActivate: [AuthGuard, AuthFizGuard],
         loadChildren: () => import("../modules/webapp/webapp.module").then(m => m.WebAppModule)
     },
     {
-        path: 'website', 
-        canActivate: [AuthGuard, AuthFizGuard],
+        path: '', 
         component: AuthLayoutComponent,
         loadChildren: () => import("../modules/website/website.module").then(m => m.WebSiteModule)
     }

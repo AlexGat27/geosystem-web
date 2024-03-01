@@ -21,8 +21,8 @@ const routes: Routes = [
     ],
     imports: [
         CommonModule,
+        HttpClientModule,
         RouterModule.forChild(routes),
-        HttpClientModule
     ],
     providers: [
         CameraService
