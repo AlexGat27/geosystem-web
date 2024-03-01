@@ -8,14 +8,14 @@ import { AuthFizGuard } from "../core/guards/authFizGuard";
 
 const routes: Routes = [
     {  
-        path: 'website', 
-        component: AuthLayoutComponent,
+        path: 'webapp', 
+        component: WebappLayoutComponent,
         loadChildren: () => import("../modules/webapp/webapp.module").then(m => m.WebAppModule)
     },
     {
-        path: 'webapp', 
+        path: 'website', 
         canActivate: [AuthGuard, AuthFizGuard],
-        component: WebappLayoutComponent,
+        component: AuthLayoutComponent,
         loadChildren: () => import("../modules/website/website.module").then(m => m.WebSiteModule)
     }
 ]
