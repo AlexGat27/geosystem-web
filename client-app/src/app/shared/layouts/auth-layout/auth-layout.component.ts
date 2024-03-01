@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, computed, signal } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-auth-layout',

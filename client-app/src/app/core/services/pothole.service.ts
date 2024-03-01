@@ -2,9 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable, signal } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class PotholeService {
 
     constructor(private http: HttpClient){

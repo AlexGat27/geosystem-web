@@ -3,9 +3,7 @@ import { Injectable, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, catchError, tap, throwError } from "rxjs";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
 
     private token = null;

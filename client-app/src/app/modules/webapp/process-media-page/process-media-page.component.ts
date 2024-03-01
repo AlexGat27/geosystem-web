@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { CameraService } from 'src/app/shared/services/localServices/camera.service';
-import { PotholeService } from 'src/app/shared/services/pothole.service';
+import { CameraService } from 'src/app/modules/webapp/services/camera.service';
+import { PotholeService } from 'src/app/core/services/pothole.service';
 
 @Component({
   selector: 'app-process-media-page',

@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { Subscription, finalize, tap } from 'rxjs';
 
-import { MapService } from 'src/app/shared/services/map.service';
+import { MapService } from 'src/app/core/services/map.service';
 
 @Component({
   selector: 'app-map',
