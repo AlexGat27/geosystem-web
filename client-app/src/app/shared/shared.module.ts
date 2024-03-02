@@ -5,6 +5,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { AuthGuard } from "../core/guards/authGuard";
 import { AuthFizGuard } from "../core/guards/authFizGuard";
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 const routes: Routes = [
     {  
@@ -23,7 +24,8 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AuthLayoutComponent,
-        WebappLayoutComponent
+        WebappLayoutComponent,
+        AdminLayoutComponent
     ],
     imports: [ 
         CommonModule,
