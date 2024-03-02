@@ -22,7 +22,6 @@ export class AuthService {
     register(userValue): Observable<{token: string}> {
         return this.http.post<any>("/api/v1/auth/register", userValue);
     }
-
     login(userValue): Observable<{token: string}> {
         return this.http.post<LoginResponse>("/api/v1/auth/login", userValue)
         .pipe(
@@ -36,6 +35,12 @@ export class AuthService {
             })
         );
     }
+    logout() {
+        this.setToken(null);
+        this.setFiz(null);
+        localStorage.clear();
+        this.router.navigate([""]);
+    }
 
     getUser(): Observable<any>{
         return this.http.get<any>("/api/v1/auth/getUser");
@@ -48,22 +53,19 @@ export class AuthService {
     setFiz(isFiz: boolean){
         this.isFiz = isFiz;
     }
-
     getToken(): string {
         return this.token;
     }
-
+    isUserFiz(): boolean{
+        if (this.isAuthenticated()){
+            console.log(this.isFiz);
+            return this.isFiz;
+        }
+        return false;
+    }
     isAuthenticated(): boolean{
         return !!this.token;
     }
-
-    logout() {
-        this.setToken(null);
-        this.setFiz(null);
-        localStorage.clear();
-        this.router.navigate([""]);
-    }
-
     isInnCorrect(inn: string): boolean{
         // Если inn не содержит строку то сразу вернуть false
         if (typeof inn !== 'string') return false
@@ -95,13 +97,5 @@ export class AuthService {
       
         // Во всех остальных ИНН некорректный 
         return false
-    }
-
-    isUserFiz(): boolean{
-        if (this.isAuthenticated()){
-            console.log(this.isFiz);
-            return this.isFiz;
-        }
-        return false;
     }
 }

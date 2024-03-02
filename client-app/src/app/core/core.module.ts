@@ -5,6 +5,7 @@ import { AuthService } from "./services/auth.service";
 import { MapService } from "./services/map.service";
 import { PotholeService } from "./services/pothole.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AdminLoginService } from "./services/adminLogin.service";
 
 @NgModule({
     declarations: [],
@@ -15,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
             multi: true,
             useClass: TokenInterceptor
         },
+        AdminLoginService,
         AuthService,
         MapService,
         PotholeService

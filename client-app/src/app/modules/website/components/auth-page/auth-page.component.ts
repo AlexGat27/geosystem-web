@@ -14,10 +14,7 @@ export class AuthPageComponent implements OnInit, OnDestroy{
   aSub: Subscription;
   authError: boolean = false;
 
-  constructor(private auth: AuthService,
-    private router: Router,
-    private route: ActivatedRoute){
-  }
+  constructor(private auth: AuthService,private route: ActivatedRoute){}
 
   ngOnInit(): void {
     this.form = new FormGroup({

@@ -1,0 +1,15 @@
+.authAdmin{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.authAdmin form{
+    width: 40%;
+}
+form mat-form-field, form button{
+    width: 100%;
+}
+.error-text{
+    color: red;
+}
