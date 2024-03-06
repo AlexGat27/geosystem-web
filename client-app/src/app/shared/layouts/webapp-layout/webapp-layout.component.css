@@ -24,6 +24,7 @@ body{
     margin:0;
     padding-top: 2%;
     background-color: var(--gray-light);
+    border-right: 2px var(--white-contour) solid;
     list-style: none;
 }
 .content{

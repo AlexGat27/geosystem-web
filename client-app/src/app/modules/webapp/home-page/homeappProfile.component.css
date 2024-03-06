@@ -1,0 +1,119 @@
+.profilepage{
+    width: 100%;
+    height: 100%;
+    padding-top: 2%;
+}
+.profilepage .title{
+    width: 100%;
+    padding: 0%;
+}
+.profilepage button{
+    padding: 0;
+    margin: 0;
+    color: var(--white-contour);
+    font-size: 80px;
+    border: none;
+    background-color: transparent;
+}
+.description{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+}
+.description h1{
+    font-size: 30px;
+    text-align: start;
+}
+.userinfo{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#swipeMobile{
+    display: none;
+}
+#swipeMobile::after{
+    content: '\2716';
+    font-size: 40px;
+    position: absolute;
+    top: 2%;
+    right: 3%;
+}
+#swipeDesktop::after{
+    content: '\2190';
+    font-size: 80px;
+    position: absolute;
+    top: 0;
+    left: 25%;
+}
+.profilepage button:hover{
+    color: rgb(170, 170, 170);
+}
+.profilepage h1{
+    width: 100%;
+    text-align: center;
+}
+.avatar{
+    display: inherit;
+    align-items: start;
+    justify-content: center;
+    width:40%;
+    height: 80%;
+}
+.userinfo ul{
+    list-style-type: none;
+}
+.userinfo p{
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 1024px){
+    #swipeDesktop::after{
+        left: 5%;
+    }
+}
+
+@media (max-width: 768px){
+    .avatar img{
+        width: 70%;
+    }
+    .title h1{
+        font-size: 50px;
+    }
+    .description h1{
+        font-size: 25px;
+    }
+    .description p{
+        font-size: 15px;
+    }
+    #swipeDesktop{
+        display: none;
+    }
+    #swipeMobile{
+        display: block;
+    }
+}
+@media (max-width: 420px){
+    .profilepage .title{
+        font-size: 35px;
+        padding-top: 5%;
+    }
+    .userinfo{
+        width: 100%;
+        padding: 0% 10% 0% 10%;
+    }
+    .avatar{
+        display: none;
+    }
+    #username{
+        width: 100%;
+        text-align: center;
+    }
+    #swipeMobile::after{
+        font-size: 30px;
+    }
+}

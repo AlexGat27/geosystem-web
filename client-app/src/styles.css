@@ -12,3 +12,18 @@ html, body{
     --gray-dark: rgb(48, 46, 48);
     --white-contour: rgb(250, 250, 250);
 }
+
+@font-face {
+	font-family: 'Rostov';
+	src: url('./assets/fonts/Rostov/Rostov.eot');
+	src: local('./assets/fonts/Rostov'),
+		url('./assets/fonts/Rostov/Rostov.eot?#iefix') format('embedded-opentype'),
+		url('./assets/fonts/Rostov/Rostov.woff') format('woff'),
+		url('./assets/fonts/Rostov/Rostov.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+    font-family: 'Railway'; /* Имя шрифта, которое вы будете использовать */
+    src: url('./assets/fonts/Railway/Railway.otf') format('opentype'); /* Путь к файлу шрифта */
+}

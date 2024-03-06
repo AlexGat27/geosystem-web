@@ -1,0 +1,37 @@
+<div *ngIf="!showProfile" class="hellopage">
+    <div class="helloblock">
+        <h1>Привет!<br><br>
+            Я - <span class="orange">Geo</span>system
+        </h1>
+        <p>И я нужен для анализа дефектов<br>дорожного полотна</p>
+    </div>
+    <button (click)="onSwipe()"></button>
+</div>
+
+<div *ngIf="showProfile" class="profilepage">
+    <h1 class="title">Профиль</h1>
+    <button id="swipeDesktop" (click)="onSwipe()"></button>
+    <button id="swipeMobile" (click)="onSwipe()"></button>
+    <div class="description">
+        <div class="avatar"><img src="../../../../assets/icons/webapp/hellopage/Smile Desktop.png"></div>
+        <div class="userinfo">
+            <h1 id="username">Имя пользователя: <p>{{username}}</p></h1>
+            <div>
+                <h1>Статистика:</h1>
+                <ul>
+                    <li><p>Верифицированные изображения: </p></li>
+                    <li><p>Добавленные ямы: </p></li>
+                    <li><p>Бонусы: </p></li>
+                </ul>
+            </div>
+            <div>
+                <h1>Текущая подписка:</h1>
+                <ul>
+                    <li><p>Geosystem Free</p></li>
+                    <li><p>Geosystem VIP</p></li>
+                    <li><p>Geosystem Premium</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

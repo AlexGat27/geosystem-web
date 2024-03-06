@@ -1,0 +1,65 @@
+.hellopage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.helloblock{
+    text-align: start;
+}
+h1{
+    font-family: 'Rostov';
+    font-size: 60px;
+}
+p{
+    font-family: 'Railway';
+    font-size: 20px;
+}
+.hellopage p{
+    text-align: end;
+}
+.orange{
+    color: orange;
+}
+
+.hellopage button{
+    position: absolute;
+    top: 0;
+    right: 5%;
+    padding: 0;
+    color: var(--white-contour);
+    font-size: 80px;
+    border: none;
+    background-color: transparent;
+}
+.hellopage button::after{
+    content: '\2192';
+    text-decoration: none;
+}
+.hellopage button:hover{
+    color: rgb(170, 170, 170);
+}
+
+@media (max-width: 1024px){
+    .hellopage h1{
+        text-align: center;
+    }
+}
+@media (max-width: 420px){
+    .hellopage h1{
+        font-size: 45px;
+    }
+    .hellopage p{
+        font-size: 20px;
+    }
+}
+@media (max-width: 300px){
+    .hellopage h1{
+        font-size: 35px;
+    }
+    .hellopage p{
+        font-size: 15px;
+    }
+}
