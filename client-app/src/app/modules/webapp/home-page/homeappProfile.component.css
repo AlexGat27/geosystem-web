@@ -28,9 +28,17 @@
 .userinfo{
     width: 60%;
     height: 100%;
+    padding: 0% 5% 0% 5%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+.profilepage h1{
+    width: 100%;
+    text-align: center;
+}
+.userinfo h1{
+    text-align: start;
 }
 #swipeMobile{
     display: none;
@@ -52,10 +60,6 @@
 .profilepage button:hover{
     color: rgb(170, 170, 170);
 }
-.profilepage h1{
-    width: 100%;
-    text-align: center;
-}
 .avatar{
     display: inherit;
     align-items: start;
@@ -65,10 +69,15 @@
 }
 .userinfo ul{
     list-style-type: none;
+    padding-left: 0;
 }
 .userinfo p{
     margin: 0;
     padding: 0;
+    padding-left: 5%;
+}
+#username{
+    font-size: 35px;
 }
 
 @media (max-width: 1024px){
@@ -81,14 +90,14 @@
     .avatar img{
         width: 70%;
     }
-    .title h1{
+    .profilepage .title{
         font-size: 50px;
     }
     .description h1{
         font-size: 25px;
     }
     .description p{
-        font-size: 15px;
+        font-size: 20px;
     }
     #swipeDesktop{
         display: none;
@@ -109,11 +118,10 @@
     .avatar{
         display: none;
     }
-    #username{
-        width: 100%;
-        text-align: center;
-    }
     #swipeMobile::after{
+        font-size: 30px;
+    }
+    #username{
         font-size: 30px;
     }
 }
