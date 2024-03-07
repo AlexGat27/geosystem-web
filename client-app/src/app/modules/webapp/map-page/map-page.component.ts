@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { Subscription, finalize, tap } from 'rxjs';
@@ -10,7 +10,7 @@ import { MapService } from 'src/app/core/services/map.service';
   templateUrl: './map-page.component.html',
   styleUrls: ['./map-page.component.css']
 })
-export class MapPageComponent implements OnInit {
+export class MapPageComponent implements OnInit, AfterViewInit {
 
   private map: L.Map | undefined;
   private tileMaps: { [tileMapValue: string]: L.TileLayer } = {};
@@ -41,6 +41,29 @@ export class MapPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // let center: L.LatLngExpression = [59.940224, 30.316028]; //Санкт-Петербург
+    // let zoom = 12;
+    // let minzoom = 7;
+    // var southWest = L.latLng(55, 30),
+    // northEast = L.latLng(64, 31),
+    // bounds = L.latLngBounds(southWest, northEast);
+
+    // this.map = new L.Map('leafletMap',{
+    //   crs: L.CRS.EPSG3857
+    // }).setView(center, zoom);
+    // this.tileMaps["OSM"] = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    //   minZoom: minzoom,
+    //   bounds: bounds
+    // }).addTo(this.map);
+
+    // this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
+    //   this.addPothole2Layers(potholeData);
+    //   this.map.addLayer(this.markerClusterGroup);
+    // })
+
+    // this.mapservice.getPotholes();
+  }
+  ngAfterViewInit(): void {
     let center: L.LatLngExpression = [59.940224, 30.316028]; //Санкт-Петербург
     let zoom = 12;
     let minzoom = 7;
@@ -51,7 +74,8 @@ export class MapPageComponent implements OnInit {
     this.map = new L.Map('leafletMap',{
       crs: L.CRS.EPSG3857
     }).setView(center, zoom);
-    this.tileMaps["OSM"] = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    this.tileMaps["OSM"] = L.tileLayer('https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=XJet6sPq12R5nqxXbV6N',{
+      attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
       minZoom: minzoom,
       bounds: bounds
     }).addTo(this.map);
