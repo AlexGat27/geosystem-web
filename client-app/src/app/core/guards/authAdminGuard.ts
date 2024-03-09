@@ -2,17 +2,17 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { AdminLoginService } from "src/app/core/services/adminLogin.service";
+import { AdminService } from "src/app/core/services/admin.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthAdminGuard implements CanActivate, CanActivateChild{
-    constructor(private auth: AdminLoginService,
+    constructor(private adminService: AdminService,
                 private router: Router){}
     
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean>{
-        if (this.auth.isAuthenticated){
+        if (this.adminService.isAuthenticated){
             return of(true);
         }else{
             this.router.navigate(['/admin/login'], {

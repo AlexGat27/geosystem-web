@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './core/services/auth.service';
-import { AdminLoginService } from './core/services/adminLogin.service';
+import { AdminService } from './core/services/admin.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { AdminLoginService } from './core/services/adminLogin.service';
 export class AppComponent implements OnInit{
   title = 'client-app';
 
-  constructor(private auth: AuthService, private authAdmin: AdminLoginService){}
+  constructor(private auth: AuthService, private adminService: AdminService){}
 
   ngOnInit(): void {
     const potentialToken = localStorage.getItem('auth-token');
@@ -19,10 +19,10 @@ export class AppComponent implements OnInit{
       this.auth.setToken(potentialToken);
     }
     if (potentialIsFiz !== "undefined" && potentialIsFiz !== null){
-      this.auth.setFiz(JSON.parse(potentialIsFiz).toLowerCase());
+      this.auth.setFiz(JSON.parse(potentialIsFiz.toLowerCase()));
     }
     if (potentialAdmin !== "undefined" && potentialAdmin !== null){
-      this.authAdmin.isAuthenticated = true;
+      this.adminService.isAuthenticated = JSON.parse(potentialAdmin.toLowerCase());
     }
   }
 }

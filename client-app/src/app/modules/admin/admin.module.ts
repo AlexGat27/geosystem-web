@@ -8,10 +8,12 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AdminHomePageComponent } from "./components/admin-home-page/admin-home-page.component";
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { AuthAdminGuard } from "src/app/core/guards/authAdminGuard";
 
 const routes: Routes = [
     {path: 'login', component: LoginPageComponent},
-    {path: 'home', component:  AdminHomePageComponent}
+    {path: 'home', canActivate:[AuthAdminGuard],component: AdminHomePageComponent}
 ]
 
 @NgModule({
@@ -30,7 +32,8 @@ const routes: Routes = [
         RouterModule.forChild(routes)
     ],
     providers: [
-        {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+        {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
+        provideAnimations()
     ]
 })
 export class AdminModule {}

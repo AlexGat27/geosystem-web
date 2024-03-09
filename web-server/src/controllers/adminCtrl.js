@@ -1,6 +1,6 @@
 const userService = require("../services/userService");
 const keys = require("../config/keys");
-const {ADMIN_LOGIN, ADMIN_PASSWORD} = require("../config/dbEnv");
+const {ADMIN_LOGIN, ADMIN_PASSWORD} = require("../config/keys");
 
 class AdminController{
 

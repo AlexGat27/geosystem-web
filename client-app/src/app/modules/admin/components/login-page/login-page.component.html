@@ -20,9 +20,8 @@
                 </mat-hint>
             </mat-form-field>
         </p>
-        <button mat-raised-button color="primary" 
-        [disabled]="form.get('password').invalid || form.get('login').invalid"
-        type="submit">
+        <button type="submit" mat-raised-button color="primary" 
+        [disabled]="form.get('password').invalid || form.get('login').invalid">
         Войти в панель админа</button>
         <span class="error-text" *ngIf="authError">Неправильно введен логин или пароль</span>
     </form>

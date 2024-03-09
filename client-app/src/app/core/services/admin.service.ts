@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Observable, catchError, tap, throwError } from "rxjs";
 
 @Injectable()
-export class AdminLoginService {
+export class AdminService {
     isAuthenticated: boolean = false;
 
     constructor(private http: HttpClient,
@@ -16,11 +16,9 @@ export class AdminLoginService {
         return this.http.post<any>("/api/v1/admin/login", userValue)
         .pipe(
             tap(() => {
-                console.log("succesful")
-                localStorage.clear();
                 this.isAuthenticated = true;
                 localStorage.setItem("isAdmin", String(this.isAuthenticated));
-                this.router.navigate(["admin/home"]);
+                this.router.navigate(["admin", "home"]);
             }),//
             catchError(er => {
                 console.log(er);
@@ -31,7 +29,6 @@ export class AdminLoginService {
     logout() {
         this.isAuthenticated = false;
         localStorage.clear();
-        this.router.navigate(["/login"]);
     }
 
     getUser(): Observable<any>{

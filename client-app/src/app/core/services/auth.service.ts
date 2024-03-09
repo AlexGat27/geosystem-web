@@ -30,7 +30,6 @@ export class AuthService {
                 localStorage.setItem('isFiz', String(loginResponse.isFiz))
                 this.setToken(loginResponse.token);
                 this.setFiz(loginResponse.isFiz);
-                console.log(this.isFiz);
                 this.router.navigate(["/profile"]);
             })
         );

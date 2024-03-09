@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { AuthGuard } from "../core/guards/authGuard";
 import { AuthFizGuard } from "../core/guards/authFizGuard";
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const routes: Routes = [
     {  

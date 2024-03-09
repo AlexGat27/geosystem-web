@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AdminLoginService } from 'src/app/core/services/adminLogin.service';
+import { AdminService } from 'src/app/core/services/admin.service';
 
 @Component({
   selector: 'app-login-page',
@@ -11,16 +11,20 @@ import { AdminLoginService } from 'src/app/core/services/adminLogin.service';
 export class LoginPageComponent implements OnInit, OnDestroy{
   form: FormGroup;
   aSub: Subscription;
-  @Input() authError: boolean = false;
-  constructor(private adminLogService: AdminLoginService){}
+  @Input() authError: boolean;
+  constructor(private adminService: AdminService){}
 
   ngOnInit(): void {
     this.form = new FormGroup({
       login: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
     })
+    this.adminService.isAuthenticated = false;
+    localStorage.clear();
+    this.authError = false;
   }
   ngOnDestroy(): void {
+    console.log(this.adminService.isAuthenticated)
     if (this.aSub){
       this.aSub.unsubscribe();
     }
@@ -28,10 +32,8 @@ export class LoginPageComponent implements OnInit, OnDestroy{
 
   OnSubmit(){
     this.form.disable();
-    this.aSub = this.adminLogService.login(this.form.value).subscribe(
-      () => {
-        this.authError = false;
-      },
+    this.aSub = this.adminService.login(this.form.value).subscribe(
+      () => {console.log("Успешная авторизация");},
       error => {
         this.authError = true;
         this.form.enable();

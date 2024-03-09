@@ -6,9 +6,12 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './auth-layout.component.html',
   styleUrls: ['./auth-layout.component.css']
 })
-export class AuthLayoutComponent{
+export class AuthLayoutComponent implements OnInit{
   constructor(private auth: AuthService) {};
-
   @Input()
   public authenticated = computed(() => {return this.auth.authenticated()});
+
+  ngOnInit(): void {
+    if(localStorage.getItem("isAdmin")){localStorage.removeItem("isAdmin")};
+  }
 };
