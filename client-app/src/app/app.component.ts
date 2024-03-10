@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
       this.auth.setFiz(JSON.parse(potentialIsFiz.toLowerCase()));
     }
     if (potentialAdmin !== "undefined" && potentialAdmin !== null){
-      this.adminService.isAuthenticated = JSON.parse(potentialAdmin.toLowerCase());
+      this.adminService.setAuthenticated(JSON.parse(potentialAdmin.toLowerCase()));
     }
   }
 }

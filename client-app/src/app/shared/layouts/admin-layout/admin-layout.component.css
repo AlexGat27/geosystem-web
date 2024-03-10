@@ -1,0 +1,45 @@
+mat-sidenav{
+    width: 20%;
+    background: #002b5c;
+    color: white;
+    padding: 16px;
+}
+mat-sidenav .navigation{
+    height: 100%;
+    width: 100%;
+    padding: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+mat-sidenav a{
+    color: white;
+    text-decoration: none;
+    font-family: 'Railway';
+    font-size: 25px;
+}
+mat-sidenav a:hover{
+    color: gray;
+}
+mat-sidenav-content{
+    height: 100%;
+}
+.content {
+    height: 96%;
+    width: 98%;
+    border-radius: 10px;
+    margin: 1%;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    font-size: 2rem;
+    color: lightgray;
+}
+mat-sidenav-container {
+    height: 100%;
+  }
+.adminPanel{
+    width: 100%;
+}

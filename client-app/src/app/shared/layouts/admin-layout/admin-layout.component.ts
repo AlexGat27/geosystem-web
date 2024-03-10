@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AdminService } from 'src/app/core/services/admin.service';
 
 @Component({
@@ -6,9 +7,14 @@ import { AdminService } from 'src/app/core/services/admin.service';
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.css']
 })
-export class AdminLayoutComponent{
+export class AdminLayoutComponent implements OnInit, OnDestroy{
   isAdminAuth: boolean;
-  constructor(private adminService: AdminService){
-    this.isAdminAuth = adminService.isAuthenticated;
+  isAdminSubscribtion: Subscription;
+  constructor(private adminService: AdminService){}
+  ngOnInit(): void {
+    this.isAdminSubscribtion = this.adminService.isAuthenticated$.subscribe(isAuth => { this.isAdminAuth = isAuth });
+  }
+  ngOnDestroy(): void {
+    this.isAdminSubscribtion.unsubscribe();
   }
 }

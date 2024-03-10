@@ -1,11 +1,13 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable, signal } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable, catchError, tap, throwError } from "rxjs";
+import { BehaviorSubject, Observable, catchError, tap, throwError } from "rxjs";
 
 @Injectable()
 export class AdminService {
-    isAuthenticated: boolean = false;
+    private isAuth: boolean = false;
+    private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+    isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
     constructor(private http: HttpClient,
                 private router: Router){
@@ -16,8 +18,7 @@ export class AdminService {
         return this.http.post<any>("/api/v1/admin/login", userValue)
         .pipe(
             tap(() => {
-                this.isAuthenticated = true;
-                localStorage.setItem("isAdmin", String(this.isAuthenticated));
+                this.setAuthenticated(true);
                 this.router.navigate(["admin", "home"]);
             }),//
             catchError(er => {
@@ -27,12 +28,19 @@ export class AdminService {
         );
     }
     logout() {
-        this.isAuthenticated = false;
+        this.setAuthenticated(false);
         localStorage.clear();
     }
 
     getUser(): Observable<any>{
         return this.http.get<any>("/api/v1/auth/getUser");
     }
-    
+    setAuthenticated(isAuth: boolean){
+        this.isAuth = isAuth;
+        this.isAuthenticatedSubject.next(this.isAuth);
+        localStorage.setItem("isAdmin", String(this.isAuth));
+    }
+    isAuthenticated(): boolean {
+        return this.isAuth;
+    }
 }

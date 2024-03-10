@@ -7,6 +7,7 @@ import { AuthGuard } from "../core/guards/authGuard";
 import { AuthFizGuard } from "../core/guards/authFizGuard";
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 const routes: Routes = [
     {  
@@ -35,6 +36,8 @@ const routes: Routes = [
     ],
     imports: [ 
         CommonModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
         RouterModule.forChild(routes)
     ],
     providers: []

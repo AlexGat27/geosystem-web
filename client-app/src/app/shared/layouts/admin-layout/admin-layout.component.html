@@ -1,3 +1,18 @@
-<div *ngIf="isAdminAuth" class="adminPage">
-
-</div>
+<mat-sidenav-container>
+    <mat-sidenav *ngIf="isAdminAuth" mode="side" opened class="mat-elevation-z8">
+        <div class="navigation">
+            <p><a routerLink="home">Home</a></p>
+            <p><a routerLink="database">Database</a></p>
+            <p><a routerLink="mediaProcessing">MediaProcessing</a></p>
+            <p><a routerLink="generateTables">Generate Tables</a></p>
+            <p><a routerLink="statistics">Statistics</a></p>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8">
+            <div class="adminPanel">
+                <router-outlet></router-outlet>
+            </div>
+        </div>   
+    </mat-sidenav-content>
+</mat-sidenav-container>

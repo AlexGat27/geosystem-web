@@ -19,12 +19,11 @@ export class LoginPageComponent implements OnInit, OnDestroy{
       login: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
     })
-    this.adminService.isAuthenticated = false;
+    this.adminService.setAuthenticated(false);
     localStorage.clear();
     this.authError = false;
   }
   ngOnDestroy(): void {
-    console.log(this.adminService.isAuthenticated)
     if (this.aSub){
       this.aSub.unsubscribe();
     }
