@@ -110,14 +110,25 @@ body{
     }
     .nav-toggle {
         position: absolute;
-        left: 10px;
+        left: 5px;
         top: 5px;
         color: var(--white-contour);
-        cursor: pointer;
+        background-color: var(--gray-dark);
+        width:60px;
+        height: 60px;
+        border-radius: 10px;
         font-size: 45px;
         z-index: 2001;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 5px;
     }
     .nav-toggle:after {
+        display: inherit;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width:100%;
         content: '\2630';
         text-decoration: none;
     }

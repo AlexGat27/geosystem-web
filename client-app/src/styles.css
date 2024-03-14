@@ -27,3 +27,21 @@ html, body{
     font-family: 'Railway'; /* Имя шрифта, которое вы будете использовать */
     src: url('./assets/fonts/Railway/Railway.otf') format('opentype'); /* Путь к файлу шрифта */
 }
+
+.leaflet-popup-content-wrapper{
+	background-color: var(--gray-dark);
+	padding: 10px;
+}
+.leaflet-popup-content{
+	font-family: "Railway";
+	font-size: 15px;
+	color: var(--white-contour);
+	margin:0;
+}
+.leaflet-popup-content p{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.leaflet-control-zoom, .leaflet-control-attribution{
+	display: none;
+}
