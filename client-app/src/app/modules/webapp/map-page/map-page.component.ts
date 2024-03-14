@@ -89,22 +89,23 @@ export class MapPageComponent implements OnInit, AfterViewInit {
   }
 
   private addPothole2Layers(potholeData: any): void {
-    console.log(potholeData.geometry.coordinates[0], potholeData.geometry.coordinates[1]);
     // const classValue = potholeData.pothole_class;
     // const districtValue = potholeData.adress;
 
     // const districtGroup = this.getPotholeDistrict(districtValue);
     // const clusterGroup = this.getClusterGroup(classValue);
+    const stylePopup = `background-color: var(--gray-light); border-radius: 10px; 
+    padding: 10px; margin: 0; color: var(--white-contour); width:100%; height: 100%;`
     const customIcon = new L.Icon({
       iconUrl: `../../assets/icons/pothole_1_1.png`,
       iconSize: [16, 16],
     });
     const marker = L.marker([potholeData.geometry.coordinates[0], potholeData.geometry.coordinates[1]], {
       icon: customIcon
-    })
-    .bindPopup(`Пользователь: Анонимный пользователь<br>
-                  Количество: ${potholeData.countPotholes}<br>
-                  Класс: Пока не включен в эту версию`);
+    }).bindPopup(`
+      <p>Владелец: ${potholeData.user.login}</p>
+      <p>Ям на фотографии: ${potholeData.countPotholes}</p>
+      <p>Ссылка: Не включена в эту версию</p>`);
 
     // this.markerClusterGroup.addLayer(marker);
     marker.addTo(this.map);

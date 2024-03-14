@@ -1,4 +1,5 @@
 const {PotholeModel} = require("../models/pothole")
+const {UserModel} = require("../models/user")
 const {sequelize} = require('../models/index')
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
@@ -6,7 +7,13 @@ const keys = require("../config/keys");
 class PotholeService{
 
     async getAllPotholes(){
-        return await PotholeModel.findAll();
+        return await PotholeModel.findAll({
+            include: [{
+                model: UserModel,
+                attributes: ['login']
+            }],
+            attributes: ['countPotholes', 'picture_path', 'geometry']
+        });
     }
     async deleteAllPotholes(){
         await PotholeModel.destroy();

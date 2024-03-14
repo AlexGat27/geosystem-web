@@ -23,7 +23,11 @@ const UsualUserModel = sequelize.define("usualuser",{
   count_photos: {
     type: DataTypes.INTEGER,
     defaultValue: 0
-  }
+  },
+  count_potholes: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  },
 },
 {
   sequelize,

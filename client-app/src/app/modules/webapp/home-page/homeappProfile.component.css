@@ -44,8 +44,11 @@
     display: none;
 }
 #swipeMobile::after{
-    content: '\2716';
-    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    content: '\2715';
+    font-size: 50px;
     position: absolute;
     top: 2%;
     right: 3%;
@@ -119,7 +122,7 @@
         display: none;
     }
     #swipeMobile::after{
-        font-size: 30px;
+        font-size: 40px;
     }
     #username{
         font-size: 30px;
