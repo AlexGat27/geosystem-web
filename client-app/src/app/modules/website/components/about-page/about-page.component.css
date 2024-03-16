@@ -27,7 +27,13 @@
     width: 50px;
     height: 50px;
 }
-
+.documentLink{
+    text-decoration: none;
+    color: var(--color1);
+}
+.documentLink:hover{
+    color: #4F709C;
+}
 @media (max-width: 1024px) {
     .benefits .container .row .col-5{
         width: 100%;

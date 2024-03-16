@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     const potentialToken = localStorage.getItem('auth-token');
-    const potentialIsFiz = JSON.parse(localStorage.getItem('isFiz').toLowerCase());
+    const potentialIsFiz = !!localStorage.getItem('isFiz') ? JSON.parse(localStorage.getItem('isFiz').toLowerCase()) : null;
     if (potentialToken !== "undefined" || potentialToken !== null){
       this.auth.setToken(potentialToken);
     }
