@@ -7,9 +7,11 @@ class AuthController{
     async getUser(req, res){
         try {
             const jwtHeader = req.headers["authorisation"];
-            const d = userService.getJwtData(jwtHeader);
-            const data = await userService.getUser(d.login);
-            return res.status(200).json(data);
+            const dataJwt = userService.getJwtData(jwtHeader);
+            let userData;
+            if (dataJwt.isFiz) {userData = await userService.getUsualUser(d.login);}
+            else {userData = await userService.getEnterpriseUser(d.login);}
+            return res.status(200).json(userData);
         } catch (er) {
             return res.status(400).json({
                 message: er,
@@ -33,8 +35,8 @@ class AuthController{
     async login(req, res){
         try {
             const data = req.body;
-            const candidate = await userService.getUser(data.login);
-            if (!candidate){return res.status(404).json({message:"Неправильный логин или пароль"})};
+            const isCorrectUser = await userService.checkCredentials(data.login, data.password);
+            if (!isCorrectUser){return res.status(404).json({message:"Неправильный логин или пароль"})};
             const token = jwt.sign({
                 id: candidate.id,
                 login: candidate.login,

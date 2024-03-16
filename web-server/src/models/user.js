@@ -8,7 +8,8 @@ const UserModel = sequelize.define("user",{
     autoIncrement: true // Если это автоинкрементируемое поле
   },
   login: DataTypes.STRING,
-  password: DataTypes.STRING,
+  passwordHash: DataTypes.STRING,
+  passwordSalt: DataTypes.STRING,
   phone_number: DataTypes.STRING,
   email: DataTypes.STRING,
   isfiz: DataTypes.BOOLEAN

@@ -11,7 +11,7 @@ class UserService{
         const data = jwt.verify(token, keys.jwt);
         return data;
     }
-    async getUser(login){
+    async getUsualUser(login){
         return await UserModel.findOne({
             include: [{
                 model: UsualUserModel,
@@ -23,32 +23,57 @@ class UserService{
             where: { login: login }
         });
     }
+    async getEnterpriseUser(login){
+        return await UserModel.findOne({
+            include: [{
+                model: EnterpriseUserModel,
+                attributes: ["count_orders"],
+            }],
+            attributes: [
+                "id", "login", "phone_number", "email", "isfiz"
+            ],
+            where: { login: login }
+        });
+    }
+    async checkCredentials(login, password){
+        const candidate = await UserModel.findOne({where: { login: login }});
+        const hashPassword = bcrypt.hashSync(password, candidate.passwordSalt);
+        console.log(candidate.password);
+        console.log(hashPassword);
+        if (candidate.passwordHash !== hashPassword){ return false; }
+        else{ return true; }
+    }
     async createUser(data){
         const candidate = await UserModel.findOne({ 
-            where: { email:{[Op.or]: [data.email, data.login]}} 
+            where: { [Op.or]:{
+                email: data.email,
+                login: data.login 
+            }} 
         });
         if (candidate){return false};
 
-        const hashPassword = bcrypt.hashSync(data.password, 10);
+        const passwordSalt = bcrypt.genSalt(10);
+        const hashPassword = bcrypt.hashSync(data.password, passwordSalt);
 
         let new_user = await UserModel.create({
             login: data.login,
-            password: hashPassword,
+            passwordHash: hashPassword,
+            passwordSalt: passwordSalt,
             email: data.email,
             phone_number: data.phone,
             isfiz: (data.isFiz === true)
-        })
+        }).then(console.log("Успешно добавлен пользователь"))
 
         if (data.isFiz === true){
             await UsualUserModel.create({
                 userId: new_user.id,
-            });
+            }).then(console.log("Успешно добавлен физик"));
         }
         else{
             await EnterpriseUserModel.create({
                 userId: new_user.id,
                 company: data.company
-            });
+            }).then(console.log("Успешно добавлен юрик"));
         }
         return true;
     }
