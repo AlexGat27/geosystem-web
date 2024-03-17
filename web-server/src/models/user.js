@@ -9,7 +9,6 @@ const UserModel = sequelize.define("user",{
   },
   login: DataTypes.STRING,
   passwordHash: DataTypes.STRING,
-  passwordSalt: DataTypes.STRING,
   phone_number: DataTypes.STRING,
   email: DataTypes.STRING,
   isfiz: DataTypes.BOOLEAN

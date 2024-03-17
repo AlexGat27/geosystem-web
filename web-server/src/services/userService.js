@@ -36,12 +36,12 @@ class UserService{
         });
     }
     async checkCredentials(login, password){
-        const candidate = await UserModel.findOne({where: { login: login }});
-        const hashPassword = bcrypt.hashSync(password, candidate.passwordSalt);
-        console.log(candidate.password);
-        console.log(hashPassword);
-        if (candidate.passwordHash !== hashPassword){ return false; }
-        else{ return true; }
+        const candidate = await UserModel.findOne({
+            attributes: ["id", "login", "passwordHash", "isfiz"],
+            where: { login: login }
+        });
+        if (bcrypt.compareSync(password, candidate.passwordHash)){return candidate;}
+        else { return false; };
     }
     async createUser(data){
         const candidate = await UserModel.findOne({ 
@@ -52,13 +52,11 @@ class UserService{
         });
         if (candidate){return false};
 
-        const passwordSalt = bcrypt.genSalt(10);
-        const hashPassword = bcrypt.hashSync(data.password, passwordSalt);
+        const hashPassword = bcrypt.hashSync(data.password, 10);
 
         let new_user = await UserModel.create({
             login: data.login,
             passwordHash: hashPassword,
-            passwordSalt: passwordSalt,
             email: data.email,
             phone_number: data.phone,
             isfiz: (data.isFiz === true)
