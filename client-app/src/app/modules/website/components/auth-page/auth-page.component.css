@@ -1,4 +1,6 @@
-body{
+.formArea{
+    width: 100%;
+    height: 100%;
     background-color: #497492;
     padding: 2%;
     margin: 0%;

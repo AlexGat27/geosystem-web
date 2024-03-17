@@ -1,4 +1,4 @@
-<body>
+<div class="formArea">
     <form class="container" [formGroup]="form" (ngSubmit)="OnSubmit()">
         <div class="row text-center"><span class="fs-3">Вход</span></div> 
         <div class="row">
@@ -31,4 +31,6 @@
         Войти</button>
         <span class="error-text" *ngIf="authError">Неправильно введен логин или пароль</span>
     </form>
-</body>
+</div>
+
+<app-footer></app-footer>

@@ -11,6 +11,8 @@ import { AuthGuard } from "src/app/core/guards/authGuard";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { PrivacyPageComponent } from './components/privacy-page/privacy-page.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const routes: Routes = [
     {path: '', component: HomePageComponent},
@@ -20,6 +22,7 @@ const routes: Routes = [
     {path: 'login', component: AuthPageComponent},
     {path: 'register', component: RegisterPageComponent},
     {path: 'profile', canActivate: [AuthGuard], component: ProfilePageComponent},
+    {path: 'privacy', component: PrivacyPageComponent}
 ]
 
 @NgModule({
@@ -30,7 +33,9 @@ const routes: Routes = [
         AuthPageComponent,
         ComplexPageComponent,
         WebappDescriptionPageComponent,
-        AboutPageComponent
+        AboutPageComponent,
+        PrivacyPageComponent,
+        FooterComponent
     ],
     imports: [
         CommonModule,

@@ -11,11 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class ProfilePageComponent implements OnInit{
   
   @Input()
-  public userdata = {
-    login: '',
-    email: '',
-    phone_number: ''
-  };
+  public userdata: any;
 
   constructor(private auth: AuthService){
   }

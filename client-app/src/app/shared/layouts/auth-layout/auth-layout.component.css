@@ -1,3 +1,8 @@
+
+.content{
+    height: 100%;
+    width: 100%;
+}
 .navbar{
     border-bottom: 1px solid ;
 }
@@ -48,8 +53,9 @@ a:hover{
     }
 }
 
-#footer{
+/* #footer{
     border-top: 1px solid;
     background-color: rgb(220, 220, 220);
-}
+    width: 100%;
+} */
 

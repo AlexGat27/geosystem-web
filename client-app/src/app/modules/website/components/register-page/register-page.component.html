@@ -1,4 +1,4 @@
-<body>
+<div class="formArea">
     <div class="container">
         <div class="row mb-3 fs-3 text-center"><span>Регистрация</span></div> 
         <div class="row text-center justify-content-around">
@@ -64,7 +64,7 @@
                 <div class="row  ">
                     <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
                     <input  
-                    type="text" 
+                    type="text" readonly
                     class="form-control" 
                     id="InputPhone" 
                     formControlName="phone"
@@ -93,11 +93,10 @@
                     </span>
                 </div>
                 <div class="my-3 form-check w-100">
-                <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
-                <label class="form-check-label" for="privacyPolicy">Согласен с политикой конфиденциальности</label>
-                <span 
-                    class="error-text"
-                    *ngIf="fizform.get('privacyPolicy').invalid && fizform.get('privacyPolicy').touched">
+                    <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
+                    <label class="form-check-label" for="privacyPolicy">
+                        Согласен с <a routerLink="/privacy">политикой конфиденциальности</a></label>
+                    <span class="error-text" *ngIf="fizform.get('privacyPolicy').invalid && fizform.get('privacyPolicy').touched">
                         <span *ngIf="fizform.get('privacyPolicy').errors['requiredTrue']">Обязательно надо отметить</span>
                     </span>
                 </div>
@@ -209,4 +208,6 @@
             </form>
         </ng-template>
     </div>
-</body>
+</div>
+
+<app-footer></app-footer>
