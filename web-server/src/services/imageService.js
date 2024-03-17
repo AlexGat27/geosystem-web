@@ -9,8 +9,6 @@ class ImageService{
         const image_paths = await PotholeModel.findAll({
             attributes: [
                 "picture_path",
-                // [sequelize.fn('ST_X', sequelize.col('geometry')), 'longitude'],
-                // [sequelize.fn('ST_Y', sequelize.col('geometry')), 'latitude']
             ],
             where: sequelize.literal(`ABS(ST_Y("geometry") - ${geolon}) < 0.01 AND ABS(ST_X("geometry") - ${geolat}) < 0.01`)
         }).then(res => {
@@ -19,6 +17,9 @@ class ImageService{
             })
             res = [...new Set(res.map(obj => obj.dataValues.picture_path))];
             return res
+        }).catch(er => {
+            console.log(er);
+            return false;
         });
         return image_paths
     }

@@ -50,9 +50,9 @@ body{
 .navigation-app a:hover {
     color: rgb(201, 200, 200);
 }
-[id="photoPageBtn"]{
+/* [id="photoPageBtn"]{
     pointer-events: none;
-}
+} */
 
 @media (max-width: 1024px) {
     body{

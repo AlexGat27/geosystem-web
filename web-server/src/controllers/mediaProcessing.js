@@ -25,7 +25,7 @@ class MediaProcessingController{
             userService.setUsualUserPothole(userData.id, fetchData.countPotholes);
             return res.status(200).json(fetchData.imageUrl);
         }).catch(er => {
-            res.status(er.status).json(er.message)
+            return res.status(er.status).json(er.message);
         })
     }
 
