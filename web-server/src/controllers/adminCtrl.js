@@ -14,6 +14,10 @@ class AdminController{
             return res.status(404).json({message:"Неправильный логин или пароль"})
         }
     }
+    async mediaProcessing(req, res){
+        console.log(req.file);
+        return res.status(200).json({message: "Успешная обработка фото"})
+    }
 }
 
 module.exports = new AdminController()

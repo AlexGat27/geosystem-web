@@ -1,5 +1,5 @@
 mat-sidenav{
-    width: 20%;
+    width: 15%;
     background: #002b5c;
     color: white;
     padding: 16px;
@@ -8,6 +8,7 @@ mat-sidenav .navigation{
     height: 100%;
     width: 100%;
     padding: 15%;
+    padding-left: 5%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -30,10 +31,6 @@ mat-sidenav-content{
     border-radius: 10px;
     margin: 1%;
   
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
     font-size: 2rem;
     color: lightgray;
 }
@@ -42,4 +39,5 @@ mat-sidenav-container {
   }
 .adminPanel{
     width: 100%;
+    height: 100%;
 }

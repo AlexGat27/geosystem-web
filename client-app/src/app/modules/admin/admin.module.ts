@@ -14,6 +14,7 @@ import { AdminDatabasePageComponent } from './components/admin-database-page/adm
 import { AdminStatisticsPageComponent } from './components/admin-statistics-page/admin-statistics-page.component';
 import { AdminTablesPageComponent } from './components/admin-tables-page/admin-tables-page.component';
 import { AdminMediaprocessPageComponent } from './components/admin-mediaprocess-page/admin-mediaprocess-page.component';
+import { MediaProcessingService } from "./services/mediaProcessing.service";
 
 const routes: Routes = [
     {path: 'login', component: LoginPageComponent},
@@ -45,6 +46,7 @@ const routes: Routes = [
     ],
     providers: [
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
+        MediaProcessingService,
     ]
 })
 export class AdminModule {}

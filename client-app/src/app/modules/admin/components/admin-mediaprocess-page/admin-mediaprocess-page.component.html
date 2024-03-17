@@ -1,1 +1,12 @@
-<p>admin-mediaprocess-page works!</p>
+<div class="mediapage">
+  <div class="file-upload" (drop)="onFileDropped($event)" (dragover)="false">
+    <input type="file" title=" " (change)="onFileDropped($event)" multiple>
+    <button  mat-raised-button color="primary" *ngIf="!uploading" (click)="startUpload()">Начать обработку</button>
+    <button  mat-raised-button color="warn" *ngIf="uploading" (click)="stopUpload()">Остановить обработку</button>
+    <div *ngIf="uploading" class="progress">
+      <div class="progress-bar" [style.width.%]="progress">
+        {{ progress }}%
+      </div>
+    </div>
+  </div>
+</div>
