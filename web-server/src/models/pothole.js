@@ -1,7 +1,8 @@
-const {sequelize} = require("./index")
-const {DataTypes} = require("sequelize")
-const {UserModel} = require("./user")
+const {sequelize} = require("./index") //Подключение к БД
+const {DataTypes} = require("sequelize") //Класс типов данных sequelize
+const {UserModel} = require("./user") //Модель пользователя
 
+//Модель ям
 const PotholeModel = sequelize.define("usersPothole",{
   geometry: DataTypes.GEOMETRY('POINT'),
   countPotholes: DataTypes.INTEGER,

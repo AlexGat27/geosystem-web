@@ -1,6 +1,7 @@
-const {sequelize} = require("./index")
-const {DataTypes} = require("sequelize")
+const {sequelize} = require("./index") //Подключение к БД
+const {DataTypes} = require("sequelize") //Класс типов данных sequelize
 
+//Модель абстрактного пользователя
 const UserModel = sequelize.define("user",{
   id: {
     type: DataTypes.INTEGER,
@@ -19,6 +20,7 @@ const UserModel = sequelize.define("user",{
   modelName: 'User',
 });
   
+//Модель физического лица
 const UsualUserModel = sequelize.define("usualuser",{
   count_photos: {
     type: DataTypes.INTEGER,
@@ -36,6 +38,7 @@ const UsualUserModel = sequelize.define("usualuser",{
   modelName: 'UsualUser',
 });  
 
+//Модель юридического лица
 const EnterpriseUserModel = sequelize.define("enterpriseuser",{
   company: DataTypes.STRING,
   count_orders: {
@@ -49,18 +52,20 @@ const EnterpriseUserModel = sequelize.define("enterpriseuser",{
   modelName: 'EnterpriseUser',
 })
 
+//Построение отношения 1 к 1 между физлицом и абтрактным пользователем
 UserModel.hasOne(UsualUserModel);
 UsualUserModel.belongsTo(UserModel, {
   foreignKey: "userId",
   onDelete: 'CASCADE'
 });
-
+//Построение отношения 1 к 1 между юрлицом и абтрактным пользователем
 UserModel.hasOne(EnterpriseUserModel);
 EnterpriseUserModel.belongsTo(UserModel, {
   foreignKey: "userId",
   onDelete: 'CASCADE'
 });
 
+//Синхронизация с базой данных
 sequelize.sync()
 .then(console.log("successful connection users tables"))
 .catch(er => console.log(er));

@@ -1,16 +1,19 @@
-const { Op } = require("sequelize");
-const jwt = require("jsonwebtoken");
-const keys = require("../config/keys")
-const { UserModel, UsualUserModel, EnterpriseUserModel } = require("../models/user");
-const bcrypt = require("bcryptjs")
+const { Op } = require("sequelize"); //Объект для моделирования операций в SQL ORM
+const jwt = require("jsonwebtoken"); //Модуль создания jwt-токенов
+const keys = require("../config/keys") //Ключи
+const { UserModel, UsualUserModel, EnterpriseUserModel } = require("../models/user"); //Импорт моделей пользователей
+const bcrypt = require("bcryptjs") //Модуль для создания хеша для паролей
 
+//Класс-сервис для выполнения бизнесс логики с моделями пользователей
 class UserService{
 
+    //Получение данных из jwt-токена
     getJwtData(jwtHeader){
         const token = jwtHeader && jwtHeader.split(' ')[1];
         const data = jwt.verify(token, keys.jwt);
         return data;
     }
+    //Получение данных физического лица
     async getUsualUser(login){
         return await UserModel.findOne({
             include: [{
@@ -23,6 +26,7 @@ class UserService{
             where: { login: login }
         });
     }
+    //Получение данных юридического лица
     async getEnterpriseUser(login){
         return await UserModel.findOne({
             include: [{
@@ -35,6 +39,7 @@ class UserService{
             where: { login: login }
         });
     }
+    //Проверка логина и пароля
     async checkCredentials(login, password){
         const candidate = await UserModel.findOne({
             attributes: ["id", "login", "passwordHash", "isfiz"],
@@ -43,6 +48,7 @@ class UserService{
         if (bcrypt.compareSync(password, candidate.passwordHash)){return candidate;}
         else { return false; };
     }
+    //Создание пользователя
     async createUser(data){
         const candidate = await UserModel.findOne({ 
             where: { [Op.or]:{
@@ -75,10 +81,12 @@ class UserService{
         }
         return true;
     }
+    //Удаление пользователя
     async deleteUser(login){
         const user = await UserModel.destroy({ where: { login: login } });
         return user;
     }
+    //Обновление у физического лица количества фото и обнаруженных ям
     async setUsualUserPothole(userId, count){
         await UsualUserModel.increment({
             count_photos: 1,

@@ -1,18 +1,18 @@
-const express = require('express')
-const controller = require('../controllers/auth')
-const { authMiddleware } = require('../middleware/middleware')
-const router = express.Router()
+const express = require('express') //Модуль express
+const controller = require('../controllers/auth') //Контроллер авторизации
+const { authMiddleware } = require('../middleware/middleware') //Дополнительные middlewares
+const router = express.Router() //Модуль роутера
 
-//http://localhost:5000/api/auth/getUsualUsers
+//Отслеживание запросов по пути http://localhost:5000/api/auth/getUser
 router.get('/getUser', authMiddleware, controller.getUser)
 
-//http://localhost:5000/api/auth/deleteUser
+//Отслеживание запросов по пути http://localhost:5000/api/auth/deleteUser
 router.get('/deleteUser', authMiddleware, controller.deleteUser)
 
-// //http://localhost:5000/api/auth/register
+//Отслеживание запросов по пути http://localhost:5000/api/auth/register
 router.post('/register', controller.registerUser)
 
-// //http://localhost:5000/api/auth/login
+//Отслеживание запросов по пути http://localhost:5000/api/auth/login
 router.post('/login', controller.login)
 
 module.exports = router
