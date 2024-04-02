@@ -6,11 +6,12 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeappComponent } from "./home-page/homeapp.component";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
+import { MobileGuard } from "src/app/core/guards/mobileGuard";
 
 const routes: Routes = [
     {path: 'home-app', component: HomeappComponent},
     {path: 'map-page', component: MapPageComponent},
-    {path: 'process-media-page', component: ProcessMediaPageComponent}
+    {path: 'process-media-page', canActivate:[MobileGuard],component: ProcessMediaPageComponent}
 ]
 
 @NgModule({
