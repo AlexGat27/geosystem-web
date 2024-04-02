@@ -5,14 +5,14 @@ import { Observable, catchError, tap, throwError } from "rxjs";
 
 interface LoginResponse {
     token: string;
-    isFiz: boolean;
+    isfiz: boolean;
 }
 
 @Injectable()
 export class AuthService {
 
     private token = null;
-    private isFiz: boolean = null;
+    private isfiz: boolean;
     public authenticated = signal(this.getToken() !== null);
 
     constructor(private http: HttpClient,
@@ -28,10 +28,10 @@ export class AuthService {
         .pipe(
             tap((loginResponse: LoginResponse) => {
                 localStorage.setItem('auth-token', loginResponse.token);
-                localStorage.setItem('isFiz', String(loginResponse.isFiz))
+                localStorage.setItem('isFiz', String(loginResponse.isfiz))
                 this.setToken(loginResponse.token);
-                this.setFiz(loginResponse.isFiz);
-                console.log(this.isFiz);
+                console.log(loginResponse.isfiz)
+                this.isfiz = loginResponse.isfiz;
                 this.router.navigate(["/profile"]);
             })
         );
@@ -45,8 +45,8 @@ export class AuthService {
         this.token = token;
         this.authenticated.set(this.getToken() !== null);
     }
-    setFiz(isFiz: boolean){
-        this.isFiz = isFiz;
+    setFiz(isfiz: boolean){
+        this.isfiz = isfiz;
     }
 
     getToken(): string {
@@ -99,8 +99,7 @@ export class AuthService {
 
     isUserFiz(): boolean{
         if (this.isAuthenticated()){
-            console.log(this.isFiz);
-            return this.isFiz;
+            return this.isfiz;
         }
         return false;
     }

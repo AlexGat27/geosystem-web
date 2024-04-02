@@ -61,7 +61,7 @@
                         <span *ngIf="fizform.get('email').errors['required']">Поле не может быть пустым</span>
                     </span>
                 </div>
-                <div class="row  ">
+                <!-- <div class="row  ">
                     <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
                     <input  
                     type="text" readonly
@@ -76,7 +76,7 @@
                         <span *ngIf="fizform.get('phone').errors['minlength'] || fizform.get('phone').errors['maxlength']">
                             Неправильно введен номер телефона</span>
                     </span>
-                </div>
+                </div> -->
                 <div class="row  ">
                     <label for="Input1Password" class="form-label">Введите пароль</label>
                     <input  
@@ -159,7 +159,7 @@
                         <span *ngIf="enterpriseform.get('email').errors['required']">Поле не может быть пустым</span>
                     </span>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
                     <input  
                     type="text"
@@ -174,7 +174,7 @@
                         <span *ngIf="fizform.get('phone').errors['minlength'] || fizform.get('phone').errors['maxlength']">
                             Неправильно введен номер телефона</span>
                     </span>
-                </div>
+                </div> -->
                 <div class="row  ">
                     <label for="InputPassword" class="form-label">Введите пароль</label>
                     <input  
@@ -192,7 +192,7 @@
                 </div>
                 <div class="my-3 form-check w-100">
                 <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
-                <label class="form-check-label text-start" for="privacyPolicy">Согласен с политикой конфиденциальности</label>
+                <label class="form-check-label text-start" for="privacyPolicy">Согласен с <a routerLink="/privacy">политикой конфиденциальности</a></label>
                 <span 
                     class="error-text"
                     *ngIf="enterpriseform.get('privacyPolicy').invalid && enterpriseform.get('privacyPolicy').touched">

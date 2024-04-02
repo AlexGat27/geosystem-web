@@ -3,6 +3,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 
+interface UserData{
+  name: string;
+  email: string,
+  login: string,
+  isfiz: boolean
+}
+
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -11,7 +18,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class ProfilePageComponent implements OnInit{
   
   @Input()
-  public userdata: any;
+  public userdata: UserData;
 
   constructor(private auth: AuthService){
   }
@@ -31,5 +38,12 @@ export class ProfilePageComponent implements OnInit{
   logout(){
     this.auth.logout();
   }
-
+  isUserFiz(): boolean{
+    if (!this.userdata) {return true}
+    return this.userdata.isfiz;
+  }
+  isUserGet(): boolean{
+    if (this.userdata) {return true}
+    else { return false }
+  }
 }

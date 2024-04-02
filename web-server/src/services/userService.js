@@ -21,10 +21,10 @@ class UserService{
                 attributes: ["count_potholes", "count_photos"],
             }],
             attributes: [
-                "id", "login", "phone_number", "email", "isfiz"
+                "id", "login", "email", "isfiz"
             ],
             where: { login: login }
-        });
+        }).catch(er => console.log(er));
     }
     //Получение данных юридического лица
     async getEnterpriseUser(login){
@@ -34,7 +34,7 @@ class UserService{
                 attributes: ["count_orders"],
             }],
             attributes: [
-                "id", "login", "phone_number", "email", "isfiz"
+                "id", "login", "email", "isfiz"
             ],
             where: { login: login }
         });
@@ -42,7 +42,7 @@ class UserService{
     //Проверка логина и пароля
     async checkCredentials(login, password){
         const candidate = await UserModel.findOne({
-            attributes: ["id", "login", "passwordHash", "isfiz"],
+            attributes: ["id", "login", "passwordHash", "isfiz", "email"],
             where: { login: login }
         });
         if (bcrypt.compareSync(password, candidate.passwordHash)){return candidate;}
@@ -51,11 +51,10 @@ class UserService{
     //Создание пользователя
     async createUser(data){
         const candidate = await UserModel.findOne({ 
-            where: { [Op.or]:{
-                email: data.email,
-                login: data.login 
-            }} 
-        });
+            where: { [Op.or]:[
+                { email: data.email },
+                { login: data.login }
+            ]}});
         if (candidate){return false};
 
         const hashPassword = bcrypt.hashSync(data.password, 10);

@@ -24,7 +24,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
     this.fizform = new FormGroup({
       login: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
+      // phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
       privacyPolicy: new FormControl(false, [Validators.requiredTrue]),
       isFiz: new FormControl(true)
@@ -33,7 +33,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
       login: new FormControl(null, [Validators.required]),
       company: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
+      // phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
       privacyPolicy: new FormControl(null, [Validators.requiredTrue]),
       isFiz: new FormControl(false)

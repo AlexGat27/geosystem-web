@@ -9,6 +9,7 @@ class AuthController{
             const jwtHeader = req.headers["authorisation"];
             const dataJwt = userService.getJwtData(jwtHeader);
             let userData;
+            console.log(dataJwt.login)
             if (dataJwt.isfiz) {
                 userData = await userService.getUsualUser(dataJwt.login);
             }
@@ -24,10 +25,9 @@ class AuthController{
     async registerUser(req, res){
         try {
             const d = req.body;
-            const answer = userService.createUser(d);
+            const answer = await userService.createUser(d);
             if (answer===false){return res.status(400).json({message: "Ошибка регистрации, введите другой email или логин"});}
             res.status(200).json({message: "Пользователь успешно зарегистрирован"});
-
         } catch (er) {
             console.log(er);
             res.status(400).json({message: "Неизвестная ошибка регистрации"});
@@ -46,7 +46,9 @@ class AuthController{
             }, keys.jwt, {expiresIn: 60 * 60 * 24});
             return res.status(200).json({
                 token: `Bearer ${token}`,
-                isFiz: candidate.isfiz
+                isfiz: candidate.isfiz,
+                login: candidate.login,
+                email: candidate.email
             });
         } catch (er) {
             console.log(er);

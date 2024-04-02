@@ -6,16 +6,17 @@
                 width="25%"
                 height="25%">
             </li>
-            <li *ngIf="!userdata.isfiz" class="list-group-item">ИНН: <strong>{{userdata.login}}</strong></li>
-            <li *ngIf="userdata.isfiz" class="list-group-item">Логин: <strong>{{userdata.login}}</strong></li>
-            <li class="list-group-item">Электронная почта: <strong>{{userdata.email}}</strong></li>
-            <li class="list-group-item">Номер телефона: <strong>{{userdata.phone_number}}</strong></li>
+            <li *ngIf="!isUserFiz() && isUserGet()" class="list-group-item">ИНН: <strong>{{userdata.login}}</strong></li>
+            <li *ngIf="isUserFiz() && isUserGet()" class="list-group-item">Логин: <strong>{{userdata.login}}</strong></li>
+            <li *ngIf="isUserGet()" class="list-group-item">Электронная почта: <strong>{{userdata.email}}</strong></li>
+            <!-- <li class="list-group-item">Номер телефона: <strong>{{userdata.phone_number}}</strong></li> -->
         </ul>
         <button
         disabled
         class="btn btn-outline-primary w-100 my-2">
         Редактировать профиль</button>
         <button
+        [disabled]="!isUserFiz()"
         routerLink="/webapp/home-app"
         class="btn btn-outline-success w-100 my-2">
         Перейти в приложение</button>
