@@ -9,7 +9,6 @@ class AuthController{
             const jwtHeader = req.headers["authorisation"];
             const dataJwt = userService.getJwtData(jwtHeader);
             let userData;
-            console.log(dataJwt.login)
             if (dataJwt.isfiz) {
                 userData = await userService.getUsualUser(dataJwt.login);
             }

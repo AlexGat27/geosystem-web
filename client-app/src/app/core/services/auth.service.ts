@@ -38,7 +38,12 @@ export class AuthService {
     }
 
     getUser(): Observable<any>{
-        return this.http.get<any>("/api/v1/auth/getUser");
+        return this.http.get<any>("/api/v1/auth/getUser").pipe(
+            catchError(er => {
+                console.log(er);
+                return this.router.navigate(["/login"]);
+            })
+        );
     }
 
     setToken(token: string){

@@ -1,2 +1,9 @@
 <div class="nav-back"></div>
+<div class="moveCoords">
+    <div class="row my-2">
+        <div class="col"><input class="form-control" type="text" id="latitude" placeholder="Широта"></div>
+        <div class="col"><input class="form-control" type="text" id="longitude" placeholder="Долгота"></div>
+    </div>
+    <button class="btn btn-secondary w-100 my-2" (click)="moveToCoordinates()">Переместить</button>
+</div>
 <div id="leafletMap"></div>

@@ -10,7 +10,7 @@ import { MapService } from 'src/app/core/services/map.service';
   templateUrl: './map-page.component.html',
   styleUrls: ['./map-page.component.css']
 })
-export class MapPageComponent implements OnInit, AfterViewInit {
+export class MapPageComponent implements AfterViewInit {
 
   private map: L.Map | undefined;
   private tileMaps: { [tileMapValue: string]: L.TileLayer } = {};
@@ -39,37 +39,10 @@ export class MapPageComponent implements OnInit, AfterViewInit {
       spiderfyOnMaxZoom: false, showCoverageOnHover: true, zoomToBoundsOnClick: false
     });
   }
-
-  ngOnInit(): void {
-    // let center: L.LatLngExpression = [59.940224, 30.316028]; //Санкт-Петербург
-    // let zoom = 12;
-    // let minzoom = 7;
-    // var southWest = L.latLng(55, 30),
-    // northEast = L.latLng(64, 31),
-    // bounds = L.latLngBounds(southWest, northEast);
-
-    // this.map = new L.Map('leafletMap',{
-    //   crs: L.CRS.EPSG3857
-    // }).setView(center, zoom);
-    // this.tileMaps["OSM"] = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    //   minZoom: minzoom,
-    //   bounds: bounds
-    // }).addTo(this.map);
-
-    // this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
-    //   this.addPothole2Layers(potholeData);
-    //   this.map.addLayer(this.markerClusterGroup);
-    // })
-
-    // this.mapservice.getPotholes();
-  }
   ngAfterViewInit(): void {
     let center: L.LatLngExpression = [59.940224, 30.316028]; //Санкт-Петербург
     let zoom = 12;
-    let minzoom = 7;
-    var southWest = L.latLng(55, 30),
-    northEast = L.latLng(64, 31),
-    bounds = L.latLngBounds(southWest, northEast);
+    let minzoom = 5;
 
     this.map = new L.Map('leafletMap',{
       crs: L.CRS.EPSG3857
@@ -77,12 +50,12 @@ export class MapPageComponent implements OnInit, AfterViewInit {
     this.tileMaps["OSM"] = L.tileLayer('https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=XJet6sPq12R5nqxXbV6N',{
       attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
       minZoom: minzoom,
-      bounds: bounds
     }).addTo(this.map);
 
     this.potholeSubscription = this.mapservice.markers$.subscribe(potholeData => {
       this.addPothole2Layers(potholeData);
       this.map.addLayer(this.markerClusterGroup);
+      console.log("Яма добавлена")
     })
 
     this.mapservice.getPotholes();
@@ -90,9 +63,6 @@ export class MapPageComponent implements OnInit, AfterViewInit {
 
   private addPothole2Layers(potholeData: any): void {
     // const classValue = potholeData.pothole_class;
-    // const districtValue = potholeData.adress;
-
-    // const districtGroup = this.getPotholeDistrict(districtValue);
     // const clusterGroup = this.getClusterGroup(classValue);
     const stylePopup = `background-color: var(--gray-light); border-radius: 10px; 
     padding: 10px; margin: 0; color: var(--white-contour); width:100%; height: 100%;`
@@ -109,18 +79,7 @@ export class MapPageComponent implements OnInit, AfterViewInit {
 
     // this.markerClusterGroup.addLayer(marker);
     marker.addTo(this.map);
-    // districtGroup.addLayer(marker);
   }
-
-  // private getPotholeDistrict(districtValue): L.LayerGroup {
-  //   if (!this.districtGroups[districtValue]) {
-  //     this.districtGroups[districtValue] = new L.LayerGroup(); // Если группы для данного класса ещё нет, создаем новую
-  //     this.map.addLayer(this.districtGroups[districtValue]);
-  //     this.addControlLayers();
-  //   }
-  //   console.log(this.districtGroups[districtValue].getLayers());
-  //   return this.districtGroups[districtValue];
-  // }
 
   // private getClusterGroup(classValue): L.MarkerClusterGroup{
   //   if (!this.markerClusterGroups[classValue]) {
@@ -151,6 +110,17 @@ export class MapPageComponent implements OnInit, AfterViewInit {
   //   if (this.controlLayers !== undefined){this.map.removeControl(this.controlLayers);}
   //   this.controlLayers = L.control.layers(this.tileMaps,this.districtGroups).addTo(this.map);
   // }
+
+  moveToCoordinates() {
+    const latitudeInput: HTMLInputElement | null = document.getElementById('latitude') as HTMLInputElement;
+    const longitudeInput: HTMLInputElement | null = document.getElementById('longitude') as HTMLInputElement;
+  
+    if (latitudeInput && longitudeInput && latitudeInput.value && longitudeInput.value) {
+      this.map.setView([parseFloat(latitudeInput.value), parseFloat(longitudeInput.value)], 13);
+    } else {
+      alert('Пожалуйста, введите значения для широты и долготы.');
+    }
+  }
 
   ngOnDestroy(): void {
     // Отписываемся от подписки при уничтожении компонента
