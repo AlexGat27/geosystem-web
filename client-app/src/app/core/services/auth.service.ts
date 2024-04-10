@@ -41,6 +41,7 @@ export class AuthService {
         return this.http.get<any>("/api/v1/auth/getUser").pipe(
             catchError(er => {
                 console.log(er);
+                this.logout();
                 return this.router.navigate(["/login"]);
             })
         );

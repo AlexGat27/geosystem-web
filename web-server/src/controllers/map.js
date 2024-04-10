@@ -1,4 +1,5 @@
 const potholeService = require("../services/potholeService")
+const fs = require('fs')
 
 class GraphicalMapController{
 
@@ -16,6 +17,17 @@ class GraphicalMapController{
         try {
             await potholeService.deleteAllPotholes();
             return res.status(200).json(data);
+        }catch(er){
+            res.status(400).json({
+                message: er,
+            })
+        }
+    }
+
+    async createExportFile(req, res){
+        try {
+            const exportData = await potholeService.createExportData();
+            return res.status(200).json(exportData);
         }catch(er){
             res.status(400).json({
                 message: er,

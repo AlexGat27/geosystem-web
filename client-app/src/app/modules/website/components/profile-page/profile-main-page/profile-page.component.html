@@ -16,10 +16,15 @@
         class="btn btn-outline-primary w-100 my-2">
         Редактировать профиль</button>
         <button
-        [disabled]="!isUserFiz()"
+        *ngIf="isUserFiz()"
         routerLink="/webapp/home-app"
         class="btn btn-outline-success w-100 my-2">
         Перейти в приложение</button>
+        <button
+        *ngIf="!isUserFiz()"
+        (click)="exportMapData()"
+        class="btn btn-outline-success w-100 my-2">
+        Экспорт карты в формате CSV</button>
         <button
         (click)="logout()"
         class="btn btn-outline-danger w-100 my-2">

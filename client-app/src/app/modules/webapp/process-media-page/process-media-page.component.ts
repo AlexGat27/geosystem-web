@@ -32,7 +32,6 @@ export class ProcessMediaPageComponent implements AfterViewInit{
   toggleCamera(){
     if (this.isCameraActive){
       this.isCameraActive = false;
-      console.log(this.isCameraActive);
       this._cameraService.HideCamera();
       this.resetCanvas();
     }else{
@@ -84,8 +83,6 @@ export class ProcessMediaPageComponent implements AfterViewInit{
     setTimeout(()=>{
       this.imageBefore.height = canvas.height = divElement.offsetHeight;
       this.imageBefore.width = canvas.width = divElement.offsetHeight * video.videoWidth / video.videoHeight;
-      console.log(canvas.height, canvas.width)
-      console.log(divElement.offsetHeight, divElement.offsetWidth)
     })
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     this.imageBefore.src = canvas.toDataURL('image/png');

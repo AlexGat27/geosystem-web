@@ -8,8 +8,10 @@ const {
 } = require('../middleware/middleware') //Дополнительные middlewares
 
 //Отслеживание запросов по пути http://localhost:5000/api/auth/getPotholes
-router.get('/getPotholes', authMiddleware, fizMiddleware, controller.getPotholes)
+router.get('/getPotholes', authMiddleware, controller.getPotholes)
 //Отслеживание запросов по пути http://localhost:5000/api/auth/deleteAllPotholes
 router.delete('/deleteAllPotholes', authMiddleware, fizMiddleware, controller.deleteAllPotholes)
+
+router.get('/createExportFile', authMiddleware, enterpriseMiddleware, controller.createExportFile)
 
 module.exports = router

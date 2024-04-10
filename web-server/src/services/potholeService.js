@@ -30,6 +30,22 @@ class PotholeService{
             userId: _userId
         });
     }
+
+    async createExportData(){
+        const dataPotholes = await PotholeModel.findAll({
+            attributes: ['countPotholes', 'picture_path', 'geometry']
+        });
+        let csvContent = 'Pothole ID,Pothole Count,Longitude EPSG4326,Latitude EPSG4326,Picture Path\n';
+        dataPotholes.forEach((item, index) => {
+            let id = index;
+            let countPotholes = item.countPotholes;
+            let coordX = item.geometry.coordinates[0];
+            let coordY = item.geometry.coordinates[1];
+            let picturePath = item.picture_path;
+            csvContent += `${id},${countPotholes},${coordX},${coordY},${picturePath}\n`;
+        });
+        return csvContent
+    }
 }
 
 module.exports = new PotholeService();

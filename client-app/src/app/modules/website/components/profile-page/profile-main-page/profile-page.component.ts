@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MapService } from 'src/app/core/services/map.service';
 
 interface UserData{
   name: string;
@@ -20,7 +21,7 @@ export class ProfilePageComponent implements OnInit{
   @Input()
   public userdata: UserData;
 
-  constructor(private auth: AuthService){
+  constructor(private auth: AuthService, private mapService: MapService){
   }
 
   ngOnInit(){
@@ -45,5 +46,8 @@ export class ProfilePageComponent implements OnInit{
   isUserGet(): boolean{
     if (this.userdata) {return true}
     else { return false }
+  }
+  exportMapData(){
+    this.mapService.exportMapCSV();
   }
 }
