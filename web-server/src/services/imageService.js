@@ -30,12 +30,8 @@ class ImageService{
     saveImage(fileBuffer, isProcessed){
         const finalImagePath = isProcessed ? ProcessedImagesPath : OriginalImagesPath;
         const countImages = fs.readdirSync(finalImagePath).length;
-        // const ext = fileOptions.mimetype.split('/')[1];
         const imageSavePath = `${finalImagePath}/${countImages}_imagePothole.jpg`;
-        fs.writeFile(imageSavePath, fileBuffer, er => {
-            if(er) {console.log(er);}
-            else {console.log("Файл сохранился успешно!")};
-        })
+        fs.writeFile(imageSavePath, fileBuffer, er => {console.log(er);})
         return imageSavePath;
     }
 }

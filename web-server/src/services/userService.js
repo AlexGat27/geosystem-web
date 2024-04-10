@@ -86,11 +86,11 @@ class UserService{
         return user;
     }
     //Обновление у физического лица количества фото и обнаруженных ям
-    async setUsualUserPothole(userId, count){
+    async setUsualUserPothole(_userId, count){
         await UsualUserModel.increment({
             count_photos: 1,
             count_potholes: count,
-        }, {where: { id: userId}})
+        }, {where: { userId: _userId}})
         .then(() => {console.log("Succesfuly increment count of potholes")})
         .catch(er => {console.log(er)});
     }

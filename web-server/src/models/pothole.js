@@ -6,12 +6,12 @@ const {UserModel} = require("./user") //Модель пользователя
 const PotholeModel = sequelize.define("usersPothole",{
   geometry: DataTypes.GEOMETRY('POINT'),
   countPotholes: DataTypes.INTEGER,
-  picture_path: DataTypes.STRING
+  picture_path: DataTypes.STRING,
+  processed_picture_path: DataTypes.STRING
 },
 {
   sequelize,
   freezeTableName: true,
-  timestamps: false,
   modelName: 'Pothole',
 });
 

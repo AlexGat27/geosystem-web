@@ -39,6 +39,10 @@ export class AuthService {
 
     getUser(): Observable<any>{
         return this.http.get<any>("/api/v1/auth/getUser").pipe(
+            tap(userdata => {
+                if (userdata === undefined || userdata === null)
+                    this.logout();
+            }),
             catchError(er => {
                 console.log(er);
                 this.logout();

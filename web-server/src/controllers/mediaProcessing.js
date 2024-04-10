@@ -18,10 +18,10 @@ class MediaProcessingController{
                 return response.text().then(errorText => {throw { status: response.status, message: errorText }})
             }
         }).then(fetchData => {
-            const imgPath = imageService.saveImage(req.file.buffer, false);
+            const imgPathOrigin = imageService.saveImage(req.file.buffer, false);
             const userData = userService.getJwtData(req.headers["authorisation"]);
-            imageService.saveImage(Buffer.from(fetchData.imageUrl, 'base64'),true);
-            potholeService.addPotholes(userData.id, fetchData.countPotholes, req.body.geolat, req.body.geolon, imgPath);
+            const imgPathProcessed = imageService.saveImage(Buffer.from(fetchData.imageUrl, 'base64'),true);
+            potholeService.addPotholes(userData.id, fetchData.countPotholes, req.body.geolat, req.body.geolon, imgPathOrigin, imgPathProcessed);
             userService.setUsualUserPothole(userData.id, fetchData.countPotholes);
             return res.status(200).json(fetchData.imageUrl);
         }).catch(er => {

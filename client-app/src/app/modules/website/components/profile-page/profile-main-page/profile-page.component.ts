@@ -27,7 +27,9 @@ export class ProfilePageComponent implements OnInit{
   ngOnInit(){
     this.auth.getUser().subscribe({
       next: data => {
-        this.userdata = data;
+        console.log(data)
+        if (data !== undefined && data !== null) this.userdata = data;
+        else this.auth.logout();
       },
       error: er =>{
         console.log(er);
