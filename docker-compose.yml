@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  client-app:
+    build:
+      context: ./client-app
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"  # Открываем порт 80 контейнера для доступа к фронтенду
+    restart: always
+
+  web-server:
+    build:
+      context: ./web-server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000" 
+    restart: always
+    volumes:
+      - "D:/Develop/Javascript/image-thresh:/app/web-server/image-thresh"
+    network_mode: "host"
