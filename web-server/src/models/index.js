@@ -1,9 +1,9 @@
 const {Sequelize} = require('sequelize');
-const {PotholeDB} = require('../config/dbEnv');
+require('dotenv').config();
 
-const sequelize = new Sequelize(PotholeDB.database, PotholeDB.username, PotholeDB.password, {
-  host: PotholeDB.host,
-  dialect: PotholeDB.dialect
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  dialect: 'postgres'
 });
 
 module.exports = {sequelize}
