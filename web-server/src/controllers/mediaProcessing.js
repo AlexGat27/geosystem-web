@@ -10,7 +10,7 @@ class MediaProcessingController{
         const file = new File([req.file.buffer], 'image.jpg', { type: 'image/jpeg' });
         formData.append('image', file);
         formData.append('old_image_paths', old_image_paths);
-        fetch('http://127.0.0.1:6001/imageProcessing', {
+        fetch(`http://${process.env.PROCESS_IMAGE_URL}/imageProcessing`, {
             method:'POST', body:formData
         }).then(response => {
             if (response.ok){return response.json()}

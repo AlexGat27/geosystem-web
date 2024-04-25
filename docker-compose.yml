@@ -18,4 +18,12 @@ services:
     restart: always
     volumes:
       - "D:/Develop/Javascript/image-thresh:/app/web-server/image-thresh"
-    network_mode: "host"
+    environment:
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=Shurikgat2704
+      - PROCESS_IMAGE_URL=host.docker.internal:6001
+      - ORIG_IMAGE_PATH=image-fresh/OriginalImages
+      - PROCESS_IMAGE_PATH=image-fresh/ProcessedImages

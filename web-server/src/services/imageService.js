@@ -1,5 +1,5 @@
 const sequelize = require('sequelize') //Объект подключения базы данных
-const {OriginalImagesPath, ProcessedImagesPath} = require("../config/dbEnv"); //Пути сохраненных фотографий
+require('dotenv').config();
 const {PotholeModel} = require("../models/pothole"); //Модель ям
 const fs = require("fs"); //Модуль работы с файлами
 
@@ -28,7 +28,7 @@ class ImageService{
     }
     //Сохранение изображений
     saveImage(fileBuffer, isProcessed){
-        const finalImagePath = isProcessed ? ProcessedImagesPath : OriginalImagesPath;
+        const finalImagePath = isProcessed ? process.env.PROCESS_IMAGE_PATH : process.env.ORIG_IMAGE_PATH;
         const countImages = fs.readdirSync(finalImagePath).length;
         const imageSavePath = `${finalImagePath}/${countImages}_imagePothole.jpg`;
         fs.writeFile(imageSavePath, fileBuffer, er => {console.log(er);})

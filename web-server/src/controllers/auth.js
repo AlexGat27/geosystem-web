@@ -1,6 +1,6 @@
 const userService = require("../services/userService");
 const jwt = require("jsonwebtoken");
-const keys = require("../config/keys");
+const keys = require("../config/keys")
 
 class AuthController{
 
@@ -23,6 +23,7 @@ class AuthController{
 
     async registerUser(req, res){
         try {
+            console.log(req)
             const d = req.body;
             const answer = await userService.createUser(d);
             if (answer===false){return res.status(400).json({message: "Ошибка регистрации, введите другой email или логин"});}
