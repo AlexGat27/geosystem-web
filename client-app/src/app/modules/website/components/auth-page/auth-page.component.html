@@ -1,35 +1,38 @@
 <div class="formArea">
     <form class="container" [formGroup]="form" (ngSubmit)="OnSubmit()">
-        <div class="row text-center"><span class="fs-3">Вход</span></div> 
+
+        <div class="row text-center"><span class="fs-3">Вход</span></div>
+
         <div class="row">
             <label for="InputLogin" class="form-label">Логин или ИНН организации</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            id="InputLogin" 
+            <input
+            type="text"
+            class="form-control"
+            id="InputLogin"
             formControlName="login">
         </div>
+
         <div class="row  ">
-            <label for="InputPassword" class="form-label">Введите пароль</label>
-            <input  
-            type="password" 
-            class="form-control" 
-            id="InputPassword" 
-            formControlName="password"
-            [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched}">
-            <span 
-            class="error-text"
-            *ngIf="form.get('password').invalid && form.get('password').touched">
-                <span *ngIf="form.get('password').errors['minlength']">Пароль должен быть больше 8 символов</span>
-                <span *ngIf="form.get('password').errors['required']">Поле не может быть пустым</span>
-            </span>
-        </div>
-        <button 
-        type="submit" 
-        class="btn btn-primary w-100 my-3" 
-        [ngClass]="{'disabledBtn': form.invalid || form.disabled}">
-        Войти</button>
-        <span class="error-text" *ngIf="authError">Неправильно введен логин или пароль</span>
+          <label for="InputPassword" class="form-label">Введите пароль</label>
+          <div class="input-group">
+            <input [type]="passwordFieldType" class="form-control" id="InputPassword" formControlName="password"
+                 [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched}">
+            <button type="button" (click)="togglePasswordVisibility()">
+              <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          <span class="error-text"
+              *ngIf="form.get('password').invalid && form.get('password').touched">
+            <span *ngIf="form.get('password').errors['minlength']; else pattern">Пароль должен быть от 8 символов</span>
+            <ng-template #pattern><span *ngIf="form.get('password').errors['pattern']">
+              Пароль должен содержать символы латинского алфавита и цифры</span></ng-template>
+            <span *ngIf="form.get('password').errors['required']">Поле не может быть пустым</span>
+          </span>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 my-3" [ngClass]="{'disabledBtn': form.invalid || form.disabled}">Войти</button>
+      <span class="error-text" *ngIf="authError">Неправильно введен логин или пароль</span>
+
     </form>
 </div>
 

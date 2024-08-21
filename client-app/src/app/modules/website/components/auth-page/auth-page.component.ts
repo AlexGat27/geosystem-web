@@ -10,6 +10,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   styleUrls: ['./auth-page.component.css']
 })
 export class AuthPageComponent implements OnInit, OnDestroy{
+
+  passwordFieldType: string = 'password';
   form: FormGroup;
   aSub: Subscription;
   authError: boolean = false;
@@ -23,16 +25,12 @@ export class AuthPageComponent implements OnInit, OnDestroy{
     this.form = new FormGroup({
       login: new FormControl(null),
       INN: new FormControl(null, [Validators.minLength(12), Validators.maxLength(12)]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]+$/)
+      ]),
       isFiz: new FormControl(true, [Validators.required]),
-    })
-
-    this.route.queryParams.subscribe((params: Params) => {
-      if (params['registered']){
-
-      } else if (params['accessDenied']){
-
-      }
     })
   };
 
@@ -53,5 +51,9 @@ export class AuthPageComponent implements OnInit, OnDestroy{
         this.form.enable();
       }
     );
+  }
+
+  togglePasswordVisibility(){
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 }
