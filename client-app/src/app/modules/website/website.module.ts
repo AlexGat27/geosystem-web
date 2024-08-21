@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { PrivacyPageComponent } from './components/privacy-page/privacy-page.component';
 import { FooterComponent } from './components/footer/footer.component';
+import {FizikFormComponent} from "./components/register-page/fizik-form/fizik-form.component";
+import {EnterpriseFormComponent} from "./components/register-page/enterprise-form/enterprise-form.component";
 
 const routes: Routes = [
     {path: '', component: HomePageComponent},
@@ -35,7 +37,8 @@ const routes: Routes = [
         WebappDescriptionPageComponent,
         AboutPageComponent,
         PrivacyPageComponent,
-        FooterComponent
+        FooterComponent,
+        FizikFormComponent, EnterpriseFormComponent
     ],
     imports: [
         CommonModule,

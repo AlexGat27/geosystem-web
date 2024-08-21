@@ -54,8 +54,4 @@ export class AuthPageComponent implements OnInit, OnDestroy{
       }
     );
   }
-
-  isInnCorrect = (inn: string) => {
-    return this.auth.isInnCorrect(inn);
-  }
 }

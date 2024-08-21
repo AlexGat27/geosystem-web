@@ -9,36 +9,14 @@ import { Router } from '@angular/router';
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.css']
 })
-export class RegisterPageComponent implements OnInit, OnDestroy{
+export class RegisterPageComponent implements OnDestroy{
 
   isFiz: boolean = true;
   errorMsg: string;
   aSub: Subscription;
-  fizform: FormGroup;
-  enterpriseform: FormGroup;
 
   constructor(private auth: AuthService,
-    private router: Router){};
-
-  ngOnInit(): void {
-    this.fizform = new FormGroup({
-      login: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      // phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-      privacyPolicy: new FormControl(false, [Validators.requiredTrue]),
-      isFiz: new FormControl(true)
-    })
-    this.enterpriseform = new FormGroup({
-      login: new FormControl(null, [Validators.required]),
-      company: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      // phone: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-      privacyPolicy: new FormControl(null, [Validators.requiredTrue]),
-      isFiz: new FormControl(false)
-    })
-  };
+              private router: Router){};
 
   ngOnDestroy(): void {
     if(this.aSub){
@@ -47,42 +25,15 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
     this.errorMsg = undefined;
   }
 
-  OnSubmit(){
-    this.fizform.disable();
-    this.enterpriseform.disable();
-    if(this.isFiz){
-      this.aSub = this.auth.register(this.fizform.value).subscribe(
-        () => {
-          this.router.navigate(["/login"], {
-            queryParams: {
-              registered: true
-            }
-          })
-        },
-        ({error}) => {
-          this.errorMsg = error.message;
-          console.warn(error);
-          this.fizform.enable();
-        }
-      );
-    } else{
-      this.aSub = this.auth.register(this.enterpriseform.value).subscribe(
-        () => this.router.navigate(["/login"], {
-          queryParams: {
-            registered: true
-          }
-        }),
-        ({error}) => {
-          this.errorMsg = error.message;
-          console.warn(this.errorMsg);
-          this.enterpriseform.enable();
-        }
-      );
-    }
-  }
-
-  isInnCorrect = (inn: string) => {
-    return this.auth.isInnCorrect(inn);
+  OnSubmit(form: FormGroup){
+    form.disable();
+    this.aSub = this.auth.register(form.value).subscribe(() => {
+      this.router.navigate(["/login"], {queryParams: {registered: true}})
+    }, ({error}) => {
+      this.errorMsg = error.message;
+      console.warn(error);
+      form.enable();
+    });
   }
 
 }

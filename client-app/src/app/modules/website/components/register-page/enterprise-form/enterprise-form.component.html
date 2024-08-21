@@ -1,0 +1,77 @@
+<form class="px-0 mx-auto" *ngIf="enterpriseform" [formGroup]="enterpriseform" (ngSubmit)="OnSubmit()">
+
+  <div class="row">
+    <label for="InputINN" class="form-label">ИНН организации</label>
+    <input class="form-control" id="InputINN" formControlName="login"
+      [ngClass]="{'invalid': enterpriseform.get('login').invalid && enterpriseform.get('login').touched}">
+    <span class="error-text"
+          *ngIf="enterpriseform.get('login').invalid && enterpriseform.get('login').touched; else isCorrect">
+      <span *ngIf="enterpriseform.get('login').errors['required']">Поле не может быть пустым</span>
+    </span>
+    <ng-template #isCorrect>
+      <span class="error-text"
+            *ngIf="!isInnCorrect(enterpriseform.get('login').value) && enterpriseform.get('login').touched">
+        Некорректный ИНН </span>
+    </ng-template>
+  </div>
+
+  <div class="row  ">
+    <label for="InputOrg" class="form-label">Название организации</label>
+    <input class="form-control" id="InputOrg" formControlName="company"
+           [ngClass]="{'invalid': enterpriseform.get('company').invalid && enterpriseform.get('company').touched}">
+    <span class="error-text"
+      *ngIf="enterpriseform.get('company').invalid && enterpriseform.get('company').touched">
+      <span *ngIf="enterpriseform.get('company').errors['required']">Поле не может быть пустым</span>
+    </span>
+  </div>
+
+  <div class="row">
+    <label for="InputEmailEnterprise" class="form-label">Электронная почта</label>
+    <input class="form-control" id="InputEmailEnterprise" formControlName="email"
+           [ngClass]="{'invalid': enterpriseform.get('email').invalid && enterpriseform.get('email').touched}">
+    <span class="error-text" *ngIf="enterpriseform.get('email').invalid && enterpriseform.get('email').touched">
+      <span *ngIf="enterpriseform.get('email').errors['email']">Неправильно введена элетронная почта</span>
+      <span *ngIf="enterpriseform.get('email').errors['required']">Поле не может быть пустым</span>
+    </span>
+  </div>
+
+  <div class="row">
+    <label for="InputPhoneEnterprise" class="form-label">Номер телефона (по желанию)</label>
+    <input class="form-control" id="InputPhoneEnterprise" formControlName="phone"
+           [ngClass]="{'invalid': enterpriseform.get('phone').invalid && enterpriseform.get('phone').touched}">
+    <span class="error-text" *ngIf="enterpriseform.get('phone').invalid && enterpriseform.get('phone').touched">
+      <span *ngIf="enterpriseform.get('phone').errors['pattern']">Неверный формат номера телефона</span>
+    </span>
+  </div>
+
+  <div class="row  ">
+    <label for="InputPassword" class="form-label">Введите пароль</label>
+    <div class="input-group">
+      <input [type]="passwordFieldType" class="form-control" id="InputPassword" formControlName="password"
+             [ngClass]="{'invalid': enterpriseform.get('password').invalid && enterpriseform.get('password').touched}">
+      <button type="button" (click)="togglePasswordVisibility()">
+        <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+      </button>
+    </div>
+    <span class="error-text" *ngIf="enterpriseform.get('password').invalid && enterpriseform.get('password').touched">
+      <span *ngIf="enterpriseform.get('password').errors['minlength']; else pattern">Пароль должен быть от 8 символов</span>
+      <ng-template #pattern><span *ngIf="enterpriseform.get('password').errors['pattern']">
+        Пароль должен содержать символы латинского алфавита и цифры</span></ng-template>
+      <span *ngIf="enterpriseform.get('password').errors['required']">Поле не может быть пустым</span>
+    </span>
+  </div>
+
+  <div class="my-3 form-check w-100">
+    <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
+    <label class="form-check-label text-start" for="privacyPolicy">Согласен с <a routerLink="/privacy">политикой конфиденциальности</a></label>
+    <span class="error-text"
+      *ngIf="enterpriseform.get('privacyPolicy').invalid && enterpriseform.get('privacyPolicy').touched">
+      <span *ngIf="enterpriseform.get('privacyPolicy').errors['requiredTrue']">Обязательно надо отметить</span>
+    </span>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100"
+          [ngClass]="{'disabledBtn': enterpriseform.invalid || !isInnCorrect(enterpriseform.get('login').value)}">
+    Зарегистрироваться</button>
+
+</form>

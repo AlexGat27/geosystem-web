@@ -22,10 +22,6 @@ span{
     background-color: aliceblue;
 }
 
-.invisible{
-    display: none;
-}
-
 .invalid{
     border-color: red;
 }

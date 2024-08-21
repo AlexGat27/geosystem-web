@@ -1,213 +1,27 @@
 <div class="formArea">
+
     <div class="container">
-        <div class="row mb-3 fs-3 text-center"><span>Регистрация</span></div> 
+        <div class="row mb-3 fs-3 text-center"><span>Регистрация</span></div>
         <div class="row text-center justify-content-around">
             <div class="col">
-                <input 
-                class="form-check-input me-2"
-                name="isFiz" 
-                type="radio" 
-                id="isFiz"
+                <input class="form-check-input me-2" name="isFiz" type="radio" id="isFiz"
                 [value]="true"
                 [(ngModel)]="isFiz">
                 <label class="form-check-label" for="isFiz">Физическое лицо</label>
             </div>
             <div class="col">
-                <input
-                class="form-check-input me-2"
-                type="radio" 
-                name="isFiz" 
-                id="isEnterprise"
+                <input class="form-check-input me-2" type="radio" name="isFiz" id="isEnterprise"
                 [value]="false"
                 [(ngModel)]="isFiz">
                 <label for="isFiz" class="form-check-label">Юридическое лицо</label>
             </div>
         </div>
-    <div *ngIf="isFiz; then a else b" class="form-label"></div>
-        <ng-template #a>
-            <form class="px-0 mx-auto" [formGroup]="fizform" (ngSubmit)="OnSubmit()">
-                <div class="row">
-                    <label for="InputLogin" class="form-label">Логин</label>
-                    <input 
-                    type="text" 
-                    class="form-control" 
-                    id="InputLogin" 
-                    formControlName="login"
-                    [ngClass]="{'invalid': fizform.get('login').invalid && fizform.get('login').touched}">
-                    <span 
-                    class="error-text"
-                    *ngIf="fizform.get('login').invalid && fizform.get('login').touched; else isCorrect">
-                        <span *ngIf="fizform.get('login').errors['required']">Поле не может быть пустым</span>
-                    </span>
-                    <ng-template #isCorrect>
-                        <span 
-                        class="error-text"
-                        *ngIf="!isInnCorrect(enterpriseform.get('login').value) && enterpriseform.get('login').touched"> 
-                        Некорректный ИНН </span>
-                    </ng-template>
-                </div>
-                <div class="row  ">
-                    <label for="InputEmail" class="form-label">Электронная почта</label>
-                    <input 
-                    type="text" 
-                    class="form-control" 
-                    id="InputEmail" 
-                    formControlName="email"
-                    [ngClass]="{'invalid': fizform.get('email').invalid && fizform.get('email').touched}">
-                    <span 
-                    class="error-text"
-                    *ngIf="fizform.get('email').invalid && fizform.get('email').touched">
-                        <span *ngIf="fizform.get('email').errors['email']">Неправильно введена элетронная почта</span>
-                        <span *ngIf="fizform.get('email').errors['required']">Поле не может быть пустым</span>
-                    </span>
-                </div>
-                <!-- <div class="row  ">
-                    <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
-                    <input  
-                    type="text" readonly
-                    class="form-control" 
-                    id="InputPhone" 
-                    formControlName="phone"
-                    [ngClass]="{'invalid': fizform.get('phone').invalid && fizform.get('phone').touched}"
-                    pattern="[0-9]+" title="Введите корректный номер">
-                    <span 
-                    class="error-text"
-                    *ngIf="fizform.get('phone').invalid && fizform.get('phone').touched">
-                        <span *ngIf="fizform.get('phone').errors['minlength'] || fizform.get('phone').errors['maxlength']">
-                            Неправильно введен номер телефона</span>
-                    </span>
-                </div> -->
-                <div class="row  ">
-                    <label for="Input1Password" class="form-label">Введите пароль</label>
-                    <input  
-                    type="password" 
-                    class="form-control" 
-                    id="Input1Password" 
-                    formControlName="password"
-                    [ngClass]="{'invalid': fizform.get('password').invalid && fizform.get('password').touched}">
-                    <span 
-                    class="error-text"
-                    *ngIf="fizform.get('password').invalid && fizform.get('password').touched">
-                        <span *ngIf="fizform.get('password').errors['minlength']">Пароль должен быть больше 8 символов</span>
-                        <span *ngIf="fizform.get('password').errors['required']">Поле не может быть пустым</span>
-                    </span>
-                </div>
-                <div class="my-3 form-check w-100">
-                    <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
-                    <label class="form-check-label" for="privacyPolicy">
-                        Согласен с <a routerLink="/privacy">политикой конфиденциальности</a></label>
-                    <span class="error-text" *ngIf="fizform.get('privacyPolicy').invalid && fizform.get('privacyPolicy').touched">
-                        <span *ngIf="fizform.get('privacyPolicy').errors['requiredTrue']">Обязательно надо отметить</span>
-                    </span>
-                </div>
-                <button 
-                type="submit" 
-                class="btn btn-primary w-100" 
-                [ngClass]="{'disabledBtn': fizform.invalid}">
-                Зарегистрироваться</button>
-                <span class="error-text">{{errorMsg}}</span>
-            </form>
-        </ng-template>
-        <ng-template #b>
-            <form class="px-0 mx-auto" [formGroup]="enterpriseform" (ngSubmit)="OnSubmit()">
-                <div class="row  ">
-                    <label for="InputINN" class="form-label">ИНН организации</label>
-                    <input 
-                    type="text" 
-                    class="form-control" 
-                    id="InputINN" 
-                    formControlName="login"
-                    [ngClass]="{'invalid': enterpriseform.get('login').invalid && enterpriseform.get('login').touched}">
-                    <span 
-                    class="error-text"
-                    *ngIf="enterpriseform.get('login').invalid && enterpriseform.get('login').touched; else isCorrect">
-                        <span *ngIf="enterpriseform.get('login').errors['required']">Поле не может быть пустым</span>
-                    </span>
-                    <ng-template #isCorrect>
-                        <span 
-                        class="error-text"
-                        *ngIf="!isInnCorrect(enterpriseform.get('login').value) && enterpriseform.get('login').touched"> 
-                        Некорректный ИНН </span>
-                    </ng-template>
-                </div>
-                <div class="row  ">
-                    <label for="InputOrg" class="form-label">Название организации</label>
-                    <input 
-                    type="text" 
-                    class="form-control" 
-                    id="InputOrg" 
-                    formControlName="company"
-                    [ngClass]="{'invalid': enterpriseform.get('company').invalid && enterpriseform.get('company').touched}">
-                    <span 
-                    class="error-text"
-                    *ngIf="enterpriseform.get('company').invalid && enterpriseform.get('company').touched">
-                        <span *ngIf="enterpriseform.get('company').errors['required']">Поле не может быть пустым</span>
-                    </span>
-                </div>
-                <div class="row">
-                    <label for="InputEmail" class="form-label">Электронная почта</label>
-                    <input 
-                    type="text" 
-                    class="form-control" 
-                    id="InputEmail" 
-                    formControlName="email"
-                    [ngClass]="{'invalid': enterpriseform.get('email').invalid && enterpriseform.get('email').touched}">
-                    <span 
-                    class="error-text"
-                    *ngIf="enterpriseform.get('email').invalid && enterpriseform.get('email').touched">
-                        <span *ngIf="enterpriseform.get('email').errors['email']">Неправильно введена элетронная почта</span>
-                        <span *ngIf="enterpriseform.get('email').errors['required']">Поле не может быть пустым</span>
-                    </span>
-                </div>
-                <!-- <div class="row">
-                    <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
-                    <input  
-                    type="text"
-                    class="form-control" 
-                    id="InputPhone" 
-                    formControlName="phone"
-                    [ngClass]="{'invalid': fizform.get('phone').invalid && fizform.get('phone').touched}"
-                    pattern="[0-9]+" title="Введите корректный номер">
-                    <span 
-                    class="error-text"
-                    *ngIf="fizform.get('phone').invalid && fizform.get('phone').touched">
-                        <span *ngIf="fizform.get('phone').errors['minlength'] || fizform.get('phone').errors['maxlength']">
-                            Неправильно введен номер телефона</span>
-                    </span>
-                </div> -->
-                <div class="row  ">
-                    <label for="InputPassword" class="form-label">Введите пароль</label>
-                    <input  
-                    type="password" 
-                    class="form-control" 
-                    id="InputPassword" 
-                    formControlName="password"
-                    [ngClass]="{'invalid': enterpriseform.get('password').invalid && enterpriseform.get('password').touched}">
-                    <span 
-                    class="error-text"
-                    *ngIf="enterpriseform.get('password').invalid && enterpriseform.get('password').touched">
-                        <span *ngIf="enterpriseform.get('password').errors['minlength']">Пароль должен быть от 8 символов</span>
-                        <span *ngIf="enterpriseform.get('password').errors['required']">Поле не может быть пустым</span>
-                    </span>
-                </div>
-                <div class="my-3 form-check w-100">
-                <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
-                <label class="form-check-label text-start" for="privacyPolicy">Согласен с <a routerLink="/privacy">политикой конфиденциальности</a></label>
-                <span 
-                    class="error-text"
-                    *ngIf="enterpriseform.get('privacyPolicy').invalid && enterpriseform.get('privacyPolicy').touched">
-                        <span *ngIf="enterpriseform.get('privacyPolicy').errors['requiredTrue']">Обязательно надо отметить</span>
-                    </span>
-                </div>
-                <button 
-                type="submit" 
-                class="btn btn-primary w-100" 
-                [ngClass]="{'disabledBtn': enterpriseform.invalid || !isInnCorrect(enterpriseform.get('login').value)}">
-                Зарегистрироваться</button>
-                <span class="error-text">{{errorMsg}}</span>
-            </form>
-        </ng-template>
+
+      <app-fizik-form *ngIf="isFiz" (submitForm)="OnSubmit($event)"></app-fizik-form>
+      <app-enterprise-form *ngIf="!isFiz" (submitForm)="OnSubmit($event)"></app-enterprise-form>
+      <span class="error-text">{{errorMsg}}</span>
     </div>
+
 </div>
 
 <app-footer></app-footer>

@@ -1,0 +1,64 @@
+<form class="px-0 mx-auto" *ngIf="fizform" [formGroup]="fizform" (ngSubmit)="OnSubmit()">
+
+  <div class="row">
+    <label for="InputLogin" class="form-label">Логин</label>
+    <input class="form-control" id="InputLogin" formControlName="login"
+      [ngClass]="{'invalid': fizform.get('login').invalid && fizform.get('login').touched}">
+    <span class="error-text"
+      *ngIf="fizform.get('login').invalid && fizform.get('login').touched;">
+      <span *ngIf="fizform.get('login').errors['required']">Поле не может быть пустым</span>
+    </span>
+  </div>
+
+  <div class="row  ">
+    <label for="InputEmail" class="form-label">Электронная почта</label>
+    <input class="form-control" id="InputEmail" formControlName="email"
+      [ngClass]="{'invalid': fizform.get('email').invalid && fizform.get('email').touched}">
+    <span class="error-text"
+      *ngIf="fizform.get('email').invalid && fizform.get('email').touched">
+      <span *ngIf="fizform.get('email').errors['email']">Неправильно введена элетронная почта</span>
+      <span *ngIf="fizform.get('email').errors['required']">Поле не может быть пустым</span>
+    </span>
+  </div>
+
+  <div class="row">
+    <label for="InputPhone" class="form-label">Номер телефона (по желанию)</label>
+    <input type="text" class="form-control" id="InputPhone" formControlName="phone"
+           [ngClass]="{'invalid': fizform.get('phone').invalid && fizform.get('phone').touched}">
+    <span class="error-text" *ngIf="fizform.get('phone').invalid && fizform.get('phone').touched">
+      <span *ngIf="fizform.get('phone').errors['pattern']">Неверный формат номера телефона</span>
+    </span>
+  </div>
+
+  <div class="row  ">
+    <label for="InputPassword" class="form-label">Введите пароль</label>
+    <div class="input-group">
+      <input [type]="passwordFieldType" class="form-control" id="InputPassword" formControlName="password"
+             [ngClass]="{'invalid': fizform.get('password').invalid && fizform.get('password').touched}">
+      <button type="button" (click)="togglePasswordVisibility()">
+        <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+      </button>
+    </div>
+    <span class="error-text"
+      *ngIf="fizform.get('password').invalid && fizform.get('password').touched">
+      <span *ngIf="fizform.get('password').errors['minlength']; else pattern">Пароль должен быть от 8 символов</span>
+      <ng-template #pattern><span *ngIf="fizform.get('password').errors['pattern']">
+        Пароль должен содержать символы латинского алфавита и цифры</span></ng-template>
+      <span *ngIf="fizform.get('password').errors['required']">Поле не может быть пустым</span>
+    </span>
+  </div>
+
+  <div class="my-3 form-check w-100">
+    <input type="checkbox" class="form-check-input" id="privacyPolicy" formControlName="privacyPolicy">
+    <label class="form-check-label" for="privacyPolicy">
+      Согласен с <a routerLink="/privacy">политикой конфиденциальности</a></label>
+    <span class="error-text" *ngIf="fizform.get('privacyPolicy').invalid && fizform.get('privacyPolicy').touched">
+      <span *ngIf="fizform.get('privacyPolicy').errors['requiredTrue']">Обязательно надо отметить</span>
+    </span>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100"
+          [ngClass]="{'disabledBtn': fizform.invalid}">
+    Зарегистрироваться</button>
+
+</form>

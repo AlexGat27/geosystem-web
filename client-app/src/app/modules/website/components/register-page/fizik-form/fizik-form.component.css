@@ -1,0 +1,17 @@
+.input-group {
+  position: relative;
+  padding: 0;
+  width: 100%;
+}
+
+.input-group button {
+  position: absolute;
+  padding-right: 10px;
+  top: 0;
+  right: 0;
+  height: 100%;
+  z-index: 2;
+  border: none;
+  background: none;
+  font-size: 18px;
+}
