@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/keys");
+const keys = require("../config/keys");
 
 const authMiddleware = (req, res, next) => {
     const jwtHeader = req.headers["authorisation"];
@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
 const fizMiddleware = (req, res, next) => {
     const jwtHeader = req.headers["authorisation"];
     const token = jwtHeader && jwtHeader.split(' ')[1];
-    let d = jwt.verify(token, config.jwt);
+    let d = jwt.verify(token, keys.jwt);
     console.log(d)
     if (!d.isfiz){
         return res.status(400).json({message: "Пользователь является юридическим лицом"});
@@ -22,7 +22,7 @@ const fizMiddleware = (req, res, next) => {
 const enterpriseMiddleware = (req, res, next) => {
     const jwtHeader = req.headers["authorisation"];
     const token = jwtHeader && jwtHeader.split(' ')[1];
-    let d = jwt.verify(token, config.jwt);
+    let d = jwt.verify(token, keys.jwt);
     if (d.isFiz){
         return res.status(400).json({message: "Пользователь является физическим лицом"});
     } 
